@@ -1,6 +1,7 @@
 package com.example.quizzor
 
 import android.os.Bundle
+import android.text.style.TabStopSpan.Standard
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -34,6 +35,8 @@ class PlayFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_play, container, false)
         val quizCategoryDropDown = view.findViewById<Spinner>(R.id.spnQuizDropDown)
         val adapter = ArrayAdapter.createFromResource(requireContext(), R.array.quizCategories, android.R.layout.simple_spinner_item)
+        val btnStartGame = view.findViewById<Button>(R.id.btnStartGame)
+
         // create adapter for Quiz Category drop down
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         quizCategoryDropDown.adapter = adapter
@@ -50,7 +53,23 @@ class PlayFragment : Fragment() {
                 // Handle the case where nothing is selected, if needed
             }
         }
+
+        btnStartGame.setOnClickListener{
+            goToScreen("startGame")
+        }
+
         return view
+    }
+
+    private fun goToScreen(fragment: String) {
+        when (fragment) {
+            "startGame" -> {
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.container, StandardQuizFragment.newInstance())
+                    .addToBackStack(null)
+                    .commit()
+            }
+        }
     }
 
     companion object {
