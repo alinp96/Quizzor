@@ -2,7 +2,7 @@ package com.example.quizzor
 
 import kotlin.random.Random
 
-class RandomQuestionIndexes: Random() {
+class RandomIndexes: Random() {
     override fun nextBits(bitCount: Int): Int {
         // Not needed
         return 0

@@ -4,11 +4,29 @@ import android.content.Context
 import android.util.Log
 
 class CSVReader {
-    fun readCSVData(context: Context): List<TFQuestion> {
+
+    private fun selectedCSV(category: String, language: String): String{
+        var filename: String = ""
+        when(category){
+            "generalCulture"-> filename = "generalCultureData_${selectedLanguage(language)}.csv"
+            "foodAndDrink"-> filename = "foodAndDrinkData_${selectedLanguage(language)}.csv"
+        }
+        return filename
+    }
+
+    private fun selectedLanguage(language: String): String{
+        when(language){
+            "english"-> return "en"
+            "romana"-> return "ro"
+        }
+        return "default"
+    }
+
+    fun readCSVData(context: Context, category: String, language: String): List<TFQuestion> {
         val questionList = mutableListOf<TFQuestion>()
 
         try {
-            context.assets.open("generalCultureData.csv").bufferedReader().useLines { lines ->
+            context.assets.open(selectedCSV(category, language)).bufferedReader().useLines { lines ->
                 // Skip the first line since it contains headers
                 val dataLines = lines.drop(1)
                 for (line in dataLines) {

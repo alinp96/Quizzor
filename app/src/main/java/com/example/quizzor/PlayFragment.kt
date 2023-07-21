@@ -47,7 +47,7 @@ class PlayFragment : Fragment() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val selectedItem = quizCategoryDropDown.selectedItem as String
                 // Use the selected item as needed
-                Log.d("TAG", selectedItem)
+
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 // Handle the case where nothing is selected, if needed

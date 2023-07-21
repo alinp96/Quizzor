@@ -1,11 +1,15 @@
 package com.example.quizzor
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.Fragment
+import org.w3c.dom.Text
 
 /**
  * A simple [Fragment] subclass.
@@ -13,7 +17,7 @@ import androidx.fragment.app.Fragment
  * create an instance of this fragment.
  */
 class MainFragment : Fragment() {
-
+    private lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -27,6 +31,11 @@ class MainFragment : Fragment() {
         val btnLeaderboard = view.findViewById<Button>(R.id.btnLeaderboard)
         val btnProfile = view.findViewById<Button>(R.id.btnProfile)
         val btnSettings = view.findViewById<Button>(R.id.btnSettings)
+        val test = view.findViewById<TextView>(R.id.textViewWelcomeText)
+
+        sharedPreferences = requireActivity().getSharedPreferences("userPreferences", Context.MODE_PRIVATE)
+        //use this if you need the 
+        //test.text = getDataFromSharedPreferences("language")
 
         btnPlay.setOnClickListener{
             goToScreen("play")
@@ -86,5 +95,9 @@ class MainFragment : Fragment() {
 
                 }
             }
+    }
+
+    private fun getDataFromSharedPreferences(key: String): String {
+        return sharedPreferences.getString(key, "") ?: ""
     }
 }

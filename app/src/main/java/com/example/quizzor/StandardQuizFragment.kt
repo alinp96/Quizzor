@@ -1,5 +1,6 @@
 package com.example.quizzor
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import org.w3c.dom.Text
 
 class StandardQuizFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,7 +55,7 @@ class StandardQuizFragment : Fragment() {
                 if(currentAnswer){
                     score++
                 }
-                showScore.text = "Score: ${score}"
+                showScore.text = "Score: $score"
             }
         }
 
@@ -73,7 +73,7 @@ class StandardQuizFragment : Fragment() {
                 if(currentAnswer){
                     score++
                 }
-                showScore.text = "Score: ${score}"
+                showScore.text = "Score: $score"
             }
         }
 
@@ -95,7 +95,7 @@ class StandardQuizFragment : Fragment() {
     }
     private fun checkAnswer(selectedAnswer: Boolean, questionList: List<TFQuestion>, questionIndex: Int): Boolean{
         val correctAnswer = questionList[questionIndex].correctAnswer
-        Log.d("TAG", "${correctAnswer} == ${selectedAnswer}")
+        Log.d("TAG", "$correctAnswer == $selectedAnswer")
         return if (selectedAnswer == correctAnswer) {
             // Perform action for correct answer
             Toast.makeText(requireContext(), "Correct!", Toast.LENGTH_SHORT).show()
@@ -108,7 +108,7 @@ class StandardQuizFragment : Fragment() {
     }
 
     private fun getRandomQuestionIndexes(maxNumber: Int, nrOfQuestions: Int): List<Int> {
-        val random = RandomQuestionIndexes()
+        val random = RandomIndexes()
         val randomNumbers = mutableListOf<Int>()
         var i = 0
 
@@ -135,7 +135,7 @@ class StandardQuizFragment : Fragment() {
 
     private fun getQuestionList(numberOfQuestions: Int): List<TFQuestion>{
         val csvReader = CSVReader()
-        val wholeQuestionList = csvReader.readCSVData(requireContext())
+        val wholeQuestionList = csvReader.readCSVData(requireContext(),"", "")
         val sessionQuestionList = mutableListOf<TFQuestion>()
 
         val indexes = getRandomQuestionIndexes(wholeQuestionList.size, numberOfQuestions)
