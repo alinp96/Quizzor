@@ -36,10 +36,13 @@ class StandardQuizFragment : Fragment() {
 
         val btnTrue = view.findViewById<Button>(R.id.btnTrue)
         val btnFalse = view.findViewById<Button>(R.id.btnFalse)
+        val btnGoBack = view.findViewById<Button>(R.id.btnGoBack)
         var score: Int = 0
         var questionNr: Int = 0
         var numberOfQuestions: Int = 10
         var currentAnswer: Boolean = false
+
+        setLanguagePreferencesToView(language, view)
 
         val questionList: List<TFQuestion> = getQuestionList(numberOfQuestions, category, language)
 
@@ -47,6 +50,8 @@ class StandardQuizFragment : Fragment() {
             questionTextView.text =  showNextQuestion(questionNr, questionList)
             showQuestionNrTextView.text = "Question ${questionNr + 1}/${numberOfQuestions}"
             showScore.text = "Score: ${score}"
+            btnTrue.visibility = View.VISIBLE
+            btnFalse.visibility = View.VISIBLE
         }
 
         btnTrue.setOnClickListener{
@@ -59,6 +64,9 @@ class StandardQuizFragment : Fragment() {
                     showQuestionNrTextView.text = "Question ${questionNr + 1}/${numberOfQuestions}"
                 }else{
                     questionTextView.text ="Completed!"
+                    btnTrue.visibility = View.GONE
+                    btnFalse.visibility = View.GONE
+                    btnGoBack.visibility = View.VISIBLE
                 }
                 if(currentAnswer){
                     score++
@@ -77,12 +85,22 @@ class StandardQuizFragment : Fragment() {
                     showQuestionNrTextView.text = "Question ${questionNr + 1}/${numberOfQuestions}"
                 }else{
                     questionTextView.text ="Completed!"
+                    btnTrue.visibility = View.GONE
+                    btnFalse.visibility = View.GONE
+                    btnGoBack.visibility = View.VISIBLE
                 }
                 if(currentAnswer){
                     score++
                 }
                 showScore.text = "Score: $score"
             }
+        }
+
+        btnGoBack.setOnClickListener{
+            goToMainFragment()
+            btnGoBack.visibility = View.GONE
+            btnTrue.visibility = View.VISIBLE
+            btnFalse.visibility = View.VISIBLE
         }
 
         return view
@@ -159,4 +177,29 @@ class StandardQuizFragment : Fragment() {
         return sharedPreferences.getString(key, "") ?: ""
     }
 
+    private fun setLanguagePreferencesToView(language: String, view: View){
+        val btnTrue = view.findViewById<Button>(R.id.btnTrue)
+        val btnFalse = view.findViewById<Button>(R.id.btnFalse)
+        val btnGoBack = view.findViewById<Button>(R.id.btnGoBack)
+
+        when(language){
+            "en"->{
+                btnTrue.text = "True"
+                btnFalse.text = "False"
+                btnGoBack.text = "Go Back"
+            }
+            "ro"->{
+                btnTrue.text = "Adevarat"
+                btnFalse.text = "Fals"
+                btnGoBack.text = "Inapoi"
+            }
+        }
+    }
+
+    private fun goToMainFragment(){
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.container, MainFragment.newInstance())
+            .addToBackStack(null)
+            .commit()
+    }
 }

@@ -83,5 +83,14 @@
             android:layout_margin="2dp"
             android:layout_weight="1"
             android:text="False" />
+
+        <Button
+            android:visibility="gone"
+            android:id="@+id/btnGoBack"
+            android:layout_width="fill_parent"
+            android:layout_height="200dp"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:text="Go Back" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

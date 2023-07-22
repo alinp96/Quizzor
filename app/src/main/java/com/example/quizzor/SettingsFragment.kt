@@ -42,13 +42,18 @@ class SettingsFragment : Fragment() {
         sharedPreferences = requireActivity().getSharedPreferences("userPreferences", Context.MODE_PRIVATE)
 
         // Retrieve data from shared preferences
-        val dataFromSharedPreferences = getDataFromSharedPreferences("language")
+        val language = getDataFromSharedPreferences("language")
 
+        val isInitDone = sharedPreferences.getBoolean("isSettingsInitDone", false)
 
-        // Now you can use the 'dataFromSharedPreferences' variable in your fragment as needed.
+        if (!isInitDone) {
+            // Set English as default language
+            checkOnlyOneLanguage(language, view)
+            val editor = sharedPreferences.edit()
+            editor.putBoolean("isSettingsInitDone", true)
+            editor.apply()
+        }
 
-        // Set English as default language
-        checkOnlyOneLanguage("English", view)
 
 
 
@@ -66,42 +71,42 @@ class SettingsFragment : Fragment() {
         cbEnglishLanguage.setOnCheckedChangeListener{
                 _, isChecked ->
             if (isChecked) {
-                checkOnlyOneLanguage("English", view)
+                checkOnlyOneLanguage("en", view)
             }
         }
 
         cbRomanaLanguage.setOnCheckedChangeListener{
                 _, isChecked ->
             if (isChecked) {
-                checkOnlyOneLanguage("Romana", view)
+                checkOnlyOneLanguage("ro", view)
             }
         }
 
         cbGermanLanguage.setOnCheckedChangeListener{
                 _, isChecked ->
             if (isChecked) {
-                checkOnlyOneLanguage("German", view)
+                checkOnlyOneLanguage("de", view)
             }
         }
 
         cbFrancaisLanguage.setOnCheckedChangeListener{
                 _, isChecked ->
             if (isChecked) {
-                checkOnlyOneLanguage("Francais", view)
+                checkOnlyOneLanguage("fr", view)
             }
         }
 
         cbHungarianLanguage.setOnCheckedChangeListener{
                 _, isChecked ->
             if (isChecked) {
-                checkOnlyOneLanguage("Hungarian", view)
+                checkOnlyOneLanguage("hu", view)
             }
         }
 
         cbJapanLanguage.setOnCheckedChangeListener{
                 _, isChecked ->
             if (isChecked) {
-                checkOnlyOneLanguage("Japan", view)
+                checkOnlyOneLanguage("jp", view)
             }
         }
 
@@ -134,10 +139,9 @@ class SettingsFragment : Fragment() {
         val cbFrancaisLanguage = view.findViewById<CheckBox>(R.id.cbFrancais)
         val cbHungarianLanguage = view.findViewById<CheckBox>(R.id.cbHungarian)
         val cbJapanLanguage = view.findViewById<CheckBox>(R.id.cbJapan)
-        val lang: String = ""
 
         when(checkedLanguage){
-            "English"->{
+            "en"->{
                 updateLanguageInSharedPreferencesFromFragment("language", "en")
                 cbEnglishLanguage.isChecked = true
                 cbEnglishLanguage.isClickable = false
@@ -151,7 +155,7 @@ class SettingsFragment : Fragment() {
                 cbHungarianLanguage.isClickable = true
                 cbJapanLanguage.isChecked = false
                 cbJapanLanguage.isClickable = true
-            }"Romana"->{
+            }"ro"->{
                 updateLanguageInSharedPreferencesFromFragment("language", "ro")
                 cbEnglishLanguage.isChecked = false
                 cbEnglishLanguage.isClickable = true
@@ -165,7 +169,7 @@ class SettingsFragment : Fragment() {
                 cbHungarianLanguage.isClickable = true
                 cbJapanLanguage.isChecked = false
                 cbJapanLanguage.isClickable = true
-            }"German"->{
+            }"de"->{
                 updateLanguageInSharedPreferencesFromFragment("language", "de")
                 cbEnglishLanguage.isChecked = false
                 cbEnglishLanguage.isClickable = true
@@ -179,7 +183,7 @@ class SettingsFragment : Fragment() {
                 cbHungarianLanguage.isClickable = true
                 cbJapanLanguage.isChecked = false
                 cbJapanLanguage.isClickable = true
-            }"Francais"->{
+            }"fr"->{
                 updateLanguageInSharedPreferencesFromFragment("language", "fr")
                 cbEnglishLanguage.isChecked = false
                 cbEnglishLanguage.isClickable = true
@@ -193,7 +197,7 @@ class SettingsFragment : Fragment() {
                 cbHungarianLanguage.isClickable = true
                 cbJapanLanguage.isChecked = false
                 cbJapanLanguage.isClickable = true
-            }"Hungarian"->{
+            }"hu"->{
                 updateLanguageInSharedPreferencesFromFragment("language", "hu")
                 cbEnglishLanguage.isChecked = false
                 cbEnglishLanguage.isClickable = true
@@ -207,7 +211,7 @@ class SettingsFragment : Fragment() {
                 cbHungarianLanguage.isClickable = false
                 cbJapanLanguage.isChecked = false
                 cbJapanLanguage.isClickable = true
-            }"Japan"->{
+            }"jp"->{
                 updateLanguageInSharedPreferencesFromFragment("language", "jp")
                 cbEnglishLanguage.isChecked = false
                 cbEnglishLanguage.isClickable = true
