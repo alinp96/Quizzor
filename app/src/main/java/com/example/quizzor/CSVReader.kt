@@ -12,12 +12,14 @@ class CSVReader {
                 when(category){
                     "General Culture"-> filename = "generalCultureData_en.csv"
                     "Food and Drink"-> filename = "foodAndDrinkData_en.csv"
+                    "Video Games"-> filename = "gamingData_en.csv"
                 }
             }
             "ro"->{
                 when(category){
                     "Cultura Generala"-> filename = "generalCultureData_ro.csv"
                     "Mancare si Bauturi"-> filename = "foodAndDrinkData_ro.csv"
+                    "Jocuri Video"-> filename = "gamingData_ro.csv"
                 }
             }
         }

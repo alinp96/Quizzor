@@ -3,10 +3,13 @@
     <string-array name="quizCategoriesEn">
         <item>General Culture</item>
         <item>Food and Drink</item>
+        <item>Video Games</item>
+
     </string-array>
 
     <string-array name="quizCategoriesRo">
         <item>Cultura Generala</item>
         <item>Mancare si Bauturi</item>
+        <item>Jocuri Video</item>
     </string-array>
 </resources>
