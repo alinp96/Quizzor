@@ -1,5 +1,7 @@
 package com.example.quizzor
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.style.TabStopSpan.Standard
 import android.util.Log
@@ -23,6 +25,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class PlayFragment : Fragment() {
+    private lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -31,11 +34,18 @@ class PlayFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        sharedPreferences = requireActivity().getSharedPreferences("userPreferences", Context.MODE_PRIVATE)
+
+        val language = getDataFromSharedPreferences("language")
+
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_play, container, false)
         val quizCategoryDropDown = view.findViewById<Spinner>(R.id.spnQuizDropDown)
-        val adapter = ArrayAdapter.createFromResource(requireContext(), R.array.quizCategories, android.R.layout.simple_spinner_item)
         val btnStartGame = view.findViewById<Button>(R.id.btnStartGame)
+
+        val adapter = setLanguagePreferencesToView(language, view)
+
 
         // create adapter for Quiz Category drop down
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -46,7 +56,7 @@ class PlayFragment : Fragment() {
         quizCategoryDropDown.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val selectedItem = quizCategoryDropDown.selectedItem as String
-                // Use the selected item as needed
+                saveDataToSharedPreferences("category", selectedItem)
 
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -89,5 +99,31 @@ class PlayFragment : Fragment() {
 
                 }
             }
+    }
+
+    private fun getDataFromSharedPreferences(key: String): String {
+        return sharedPreferences.getString(key, "") ?: ""
+    }
+    private fun saveDataToSharedPreferences(key: String, value: String) {
+        val editor = sharedPreferences.edit()
+        editor.putString(key, value)
+        editor.apply()
+    }
+
+
+    private fun setLanguagePreferencesToView(language: String, view: View):  ArrayAdapter<CharSequence>{
+        val btnStartGame = view.findViewById<Button>(R.id.btnStartGame)
+        var adapter:  ArrayAdapter<CharSequence> = ArrayAdapter.createFromResource(requireContext(), R.array.quizCategoriesEn, android.R.layout.simple_spinner_item)
+        when(language){
+            "en"->{
+                adapter = ArrayAdapter.createFromResource(requireContext(), R.array.quizCategoriesEn, android.R.layout.simple_spinner_item)
+                btnStartGame.text = "Start Game"
+            }
+            "ro"->{
+                adapter = ArrayAdapter.createFromResource(requireContext(), R.array.quizCategoriesRo, android.R.layout.simple_spinner_item)
+                btnStartGame.text = "Incepe Jocul"
+            }
+        }
+        return adapter
     }
 }

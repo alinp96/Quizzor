@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="quizCategories">
-        <item>First Category</item>
-        <item>Second Category</item>
-        <item>Third Category</item>
+    <string-array name="quizCategoriesEn">
+        <item>General Culture</item>
+        <item>Food and Drink</item>
+    </string-array>
+
+    <string-array name="quizCategoriesRo">
+        <item>Cultura Generala</item>
+        <item>Mancare si Bauturi</item>
     </string-array>
 </resources>

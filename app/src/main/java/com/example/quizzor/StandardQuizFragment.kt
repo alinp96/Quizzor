@@ -1,6 +1,8 @@
 package com.example.quizzor
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,6 +14,7 @@ import android.widget.TextView
 import android.widget.Toast
 
 class StandardQuizFragment : Fragment() {
+    private lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -20,6 +23,11 @@ class StandardQuizFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        sharedPreferences = requireActivity().getSharedPreferences("userPreferences", Context.MODE_PRIVATE)
+
+        val language = getDataFromSharedPreferences("language")
+        val category = getDataFromSharedPreferences("category")
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_standard_quiz, container, false)
         val questionTextView = view.findViewById<TextView>(R.id.textViewQuestion)
@@ -33,7 +41,7 @@ class StandardQuizFragment : Fragment() {
         var numberOfQuestions: Int = 10
         var currentAnswer: Boolean = false
 
-        val questionList: List<TFQuestion> = getQuestionList(numberOfQuestions)
+        val questionList: List<TFQuestion> = getQuestionList(numberOfQuestions, category, language)
 
         if(ifGameInProgress(questionNr, numberOfQuestions)){
             questionTextView.text =  showNextQuestion(questionNr, questionList)
@@ -133,9 +141,9 @@ class StandardQuizFragment : Fragment() {
         return false
     }
 
-    private fun getQuestionList(numberOfQuestions: Int): List<TFQuestion>{
+    private fun getQuestionList(numberOfQuestions: Int, category: String, language: String): List<TFQuestion>{
         val csvReader = CSVReader()
-        val wholeQuestionList = csvReader.readCSVData(requireContext(),"", "")
+        val wholeQuestionList = csvReader.readCSVData(requireContext(), category, language)
         val sessionQuestionList = mutableListOf<TFQuestion>()
 
         val indexes = getRandomQuestionIndexes(wholeQuestionList.size, numberOfQuestions)
@@ -147,4 +155,8 @@ class StandardQuizFragment : Fragment() {
 
         return sessionQuestionList
     }
+    private fun getDataFromSharedPreferences(key: String): String {
+        return sharedPreferences.getString(key, "") ?: ""
+    }
+
 }

@@ -7,19 +7,21 @@ class CSVReader {
 
     private fun selectedCSV(category: String, language: String): String{
         var filename: String = ""
-        when(category){
-            "generalCulture"-> filename = "generalCultureData_${selectedLanguage(language)}.csv"
-            "foodAndDrink"-> filename = "foodAndDrinkData_${selectedLanguage(language)}.csv"
+        when(language){
+            "en"->{
+                when(category){
+                    "General Culture"-> filename = "generalCultureData_en.csv"
+                    "Food and Drink"-> filename = "foodAndDrinkData_en.csv"
+                }
+            }
+            "ro"->{
+                when(category){
+                    "Cultura Generala"-> filename = "generalCultureData_ro.csv"
+                    "Mancare si Bauturi"-> filename = "foodAndDrinkData_ro.csv"
+                }
+            }
         }
         return filename
-    }
-
-    private fun selectedLanguage(language: String): String{
-        when(language){
-            "english"-> return "en"
-            "romana"-> return "ro"
-        }
-        return "default"
     }
 
     fun readCSVData(context: Context, category: String, language: String): List<TFQuestion> {
@@ -40,7 +42,6 @@ class CSVReader {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        Log.d("TAG", questionList.toString())
         return questionList
     }
 }

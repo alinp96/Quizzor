@@ -32,10 +32,12 @@ class MainFragment : Fragment() {
         val btnProfile = view.findViewById<Button>(R.id.btnProfile)
         val btnSettings = view.findViewById<Button>(R.id.btnSettings)
         val test = view.findViewById<TextView>(R.id.textViewWelcomeText)
+        var language: String = ""
 
         sharedPreferences = requireActivity().getSharedPreferences("userPreferences", Context.MODE_PRIVATE)
-        //use this if you need the 
-        //test.text = getDataFromSharedPreferences("language")
+
+        language = getDataFromSharedPreferences("language")
+        setLanguagePreferencesToView(language, view)
 
         btnPlay.setOnClickListener{
             goToScreen("play")
@@ -99,5 +101,27 @@ class MainFragment : Fragment() {
 
     private fun getDataFromSharedPreferences(key: String): String {
         return sharedPreferences.getString(key, "") ?: ""
+    }
+
+    private fun setLanguagePreferencesToView(language: String, view: View){
+        val btnPlay = view.findViewById<Button>(R.id.btnPlay)
+        val btnLeaderboard = view.findViewById<Button>(R.id.btnLeaderboard)
+        val btnProfile = view.findViewById<Button>(R.id.btnProfile)
+        val btnSettings = view.findViewById<Button>(R.id.btnSettings)
+
+        when(language){
+            "en"->{
+                btnPlay.text = "Play"
+                btnLeaderboard.text = "Leaderboard"
+                btnProfile.text = "Profile"
+                btnSettings.text = "Settings"
+            }
+            "ro"->{
+                btnPlay.text = "Joaca"
+                btnLeaderboard.text = "Clasament"
+                btnProfile.text = "Profil"
+                btnSettings.text = "Setari"
+            }
+        }
     }
 }
