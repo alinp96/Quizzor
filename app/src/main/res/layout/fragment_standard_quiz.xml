@@ -41,7 +41,17 @@
             android:layout_marginTop="3dp"
             android:layout_marginEnd="10dp"/>
     </LinearLayout>
-
+    <ProgressBar
+        android:id="@+id/progressBarTimer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:max="7000"
+        android:progress="1000"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        />
     <TextView
         android:id="@+id/textViewQuestion"
         android:layout_width="fill_parent"

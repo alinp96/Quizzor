@@ -1,7 +1,6 @@
 package com.example.quizzor
 
 import android.content.Context
-import android.util.Log
 
 class CSVReader {
 
@@ -10,7 +9,7 @@ class CSVReader {
         when(language){
             "en"->{
                 when(category){
-                    "General Culture"-> filename = "generalCultureData_en.csv"
+                    "Trivia"-> filename = "trivia_en.csv"
                     "Food and Drink"-> filename = "foodAndDrinkData_en.csv"
                     "Video Games"-> filename = "gamingData_en.csv"
                 }

@@ -4,17 +4,34 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 
 class StandardQuizFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var countDownTimer: CountDownTimer
+    private lateinit var progressBarTimer: ProgressBar
+    private lateinit var questionList: List<TFQuestion>
+    private lateinit var view: View
+    private lateinit var questionTextView: TextView
+    private lateinit var showQuestionNrTextView: TextView
+    private lateinit var showScore: TextView
+    private lateinit var btnTrue: Button
+    private lateinit var btnFalse: Button
+    private lateinit var btnGoBack: Button
+    private var currentAnswer: Boolean = false
+    private var score: Int = 0
+    private var questionNr: Int = 0
+    private var numberOfQuestions: Int = 10
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -25,74 +42,41 @@ class StandardQuizFragment : Fragment() {
     ): View? {
 
         sharedPreferences = requireActivity().getSharedPreferences("userPreferences", Context.MODE_PRIVATE)
-
         val language = getDataFromSharedPreferences("language")
         val category = getDataFromSharedPreferences("category")
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_standard_quiz, container, false)
-        val questionTextView = view.findViewById<TextView>(R.id.textViewQuestion)
-        val showQuestionNrTextView = view.findViewById<TextView>(R.id.textViewShowQuestion)
-        val showScore = view.findViewById<TextView>(R.id.textViewShowScore)
 
-        val btnTrue = view.findViewById<Button>(R.id.btnTrue)
-        val btnFalse = view.findViewById<Button>(R.id.btnFalse)
-        val btnGoBack = view.findViewById<Button>(R.id.btnGoBack)
-        var score: Int = 0
-        var questionNr: Int = 0
-        var numberOfQuestions: Int = 10
-        var currentAnswer: Boolean = false
+        // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.fragment_standard_quiz, container, false)
+        questionTextView = view.findViewById<TextView>(R.id.textViewQuestion)
+        showQuestionNrTextView = view.findViewById<TextView>(R.id.textViewShowQuestion)
+        showScore = view.findViewById<TextView>(R.id.textViewShowScore)
+        btnTrue = view.findViewById<Button>(R.id.btnTrue)
+        btnFalse = view.findViewById<Button>(R.id.btnFalse)
+        btnGoBack = view.findViewById<Button>(R.id.btnGoBack)
+        progressBarTimer = view.findViewById<ProgressBar>(R.id.progressBarTimer)
+
+        // Reset
+        score = 0
+        questionNr = 0
+        numberOfQuestions = 10
 
         setLanguagePreferencesToView(language, view)
 
-        val questionList: List<TFQuestion> = getQuestionList(numberOfQuestions, category, language)
+        // Load 10 random questions from the selected category and language
+        questionList = getQuestionList(numberOfQuestions, category, language)
 
-        if(ifGameInProgress(questionNr, numberOfQuestions)){
-            questionTextView.text =  showNextQuestion(questionNr, questionList)
-            showQuestionNrTextView.text = "Question ${questionNr + 1}/${numberOfQuestions}"
-            showScore.text = "Score: ${score}"
-            btnTrue.visibility = View.VISIBLE
-            btnFalse.visibility = View.VISIBLE
-        }
+        // Start the quiz
+        proceedToNextQuestion(questionTextView, questionNr, numberOfQuestions, score)
 
         btnTrue.setOnClickListener{
             if(ifGameInProgress(questionNr, numberOfQuestions)) {
-                Log.d("TAG", questionList[questionNr].toString())
-                currentAnswer = checkAnswer(true, questionList, questionNr)
-                questionNr++
-                if (questionNr < numberOfQuestions){
-                    questionTextView.text = showNextQuestion(questionNr, questionList)
-                    showQuestionNrTextView.text = "Question ${questionNr + 1}/${numberOfQuestions}"
-                }else{
-                    questionTextView.text ="Completed!"
-                    btnTrue.visibility = View.GONE
-                    btnFalse.visibility = View.GONE
-                    btnGoBack.visibility = View.VISIBLE
-                }
-                if(currentAnswer){
-                    score++
-                }
-                showScore.text = "Score: $score"
+                answerLogic(selectedAnswer = true, timeLimitExceeded = false)
             }
         }
 
         btnFalse.setOnClickListener{
             if(ifGameInProgress(questionNr, numberOfQuestions)) {
-                Log.d("TAG", questionList.toString())
-                currentAnswer = checkAnswer(false, questionList, questionNr)
-                questionNr++
-                if (questionNr < numberOfQuestions){
-                    questionTextView.text = showNextQuestion(questionNr, questionList)
-                    showQuestionNrTextView.text = "Question ${questionNr + 1}/${numberOfQuestions}"
-                }else{
-                    questionTextView.text ="Completed!"
-                    btnTrue.visibility = View.GONE
-                    btnFalse.visibility = View.GONE
-                    btnGoBack.visibility = View.VISIBLE
-                }
-                if(currentAnswer){
-                    score++
-                }
-                showScore.text = "Score: $score"
+                answerLogic(selectedAnswer = false, timeLimitExceeded = false)
             }
         }
 
@@ -102,7 +86,6 @@ class StandardQuizFragment : Fragment() {
             btnTrue.visibility = View.VISIBLE
             btnFalse.visibility = View.VISIBLE
         }
-
         return view
     }
 
@@ -116,13 +99,36 @@ class StandardQuizFragment : Fragment() {
             }
     }
 
-    private fun proceedToNextQuestion(view: TextView){
-
+    private fun proceedToNextQuestion(view: TextView, questionNr: Int, numberOfQuestions: Int, score: Int){
+        questionTextView.text =  showNextQuestion(questionNr, questionList)
+        showQuestionNrTextView.text = "Question ${questionNr + 1}/${numberOfQuestions}"
+        showScore.text = "Score: ${score}"
+        btnTrue.visibility = View.VISIBLE
+        btnFalse.visibility = View.VISIBLE
+        progressBarTimer.visibility = View.VISIBLE
+        startTimer()
     }
-    private fun checkAnswer(selectedAnswer: Boolean, questionList: List<TFQuestion>, questionIndex: Int): Boolean{
+
+    private fun proceedToEndGame(){
+        questionTextView.text ="Completed!"
+        btnTrue.visibility = View.GONE
+        btnFalse.visibility = View.GONE
+        progressBarTimer.visibility = View.GONE
+        btnGoBack.visibility = View.VISIBLE
+        stopTimer()
+    }
+
+    private fun updateScoreIfNeeded(score: Int){
+        showScore.text = "Score: ${score}"
+    }
+    private fun checkAnswer(selectedAnswer: Boolean, questionList: List<TFQuestion>, questionIndex: Int, timeLimitExceeded: Boolean): Boolean{
         val correctAnswer = questionList[questionIndex].correctAnswer
-        Log.d("TAG", "$correctAnswer == $selectedAnswer")
-        return if (selectedAnswer == correctAnswer) {
+        var returnVal = false
+
+        returnVal = if (timeLimitExceeded){
+            Toast.makeText(requireContext(), "Time exceeded!", Toast.LENGTH_SHORT).show()
+            false
+        } else if (selectedAnswer == correctAnswer) {
             // Perform action for correct answer
             Toast.makeText(requireContext(), "Correct!", Toast.LENGTH_SHORT).show()
             true
@@ -131,6 +137,7 @@ class StandardQuizFragment : Fragment() {
             Toast.makeText(requireContext(), "Wrong!", Toast.LENGTH_SHORT).show()
             false
         }
+        return returnVal
     }
 
     private fun getRandomQuestionIndexes(maxNumber: Int, nrOfQuestions: Int): List<Int> {
@@ -148,6 +155,25 @@ class StandardQuizFragment : Fragment() {
 
         return randomNumbers
     }
+
+    private fun startTimer() {
+        countDownTimer = object : CountDownTimer(7000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                progressBarTimer.progress = millisUntilFinished.toInt()
+            }
+
+            override fun onFinish() {
+                // Time's up, mark the question as wrong
+                answerLogic(selectedAnswer = false, timeLimitExceeded = true)
+            }
+        }
+        countDownTimer.start()
+    }
+
+    private fun stopTimer() {
+        countDownTimer.cancel()
+    }
+
     private fun showNextQuestion(index: Int, questionList: List<TFQuestion>): String{
         return questionList[index].question
     }
@@ -157,6 +183,21 @@ class StandardQuizFragment : Fragment() {
             return true
         }
         return false
+    }
+
+    private fun answerLogic(selectedAnswer: Boolean, timeLimitExceeded: Boolean){
+        stopTimer()
+        currentAnswer = checkAnswer(selectedAnswer, questionList, questionNr, timeLimitExceeded)
+        questionNr++
+        if (questionNr < numberOfQuestions){
+            proceedToNextQuestion(questionTextView, questionNr, numberOfQuestions, score)
+        }else{
+            proceedToEndGame()
+        }
+        if(currentAnswer){
+            score++
+        }
+        updateScoreIfNeeded(score)
     }
 
     private fun getQuestionList(numberOfQuestions: Int, category: String, language: String): List<TFQuestion>{

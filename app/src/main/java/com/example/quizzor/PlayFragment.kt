@@ -12,7 +12,11 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.ListView
 import android.widget.Spinner
+import android.widget.TextView
+import org.w3c.dom.Text
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,6 +29,16 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class PlayFragment : Fragment() {
+    private lateinit var llBackCategory: View
+    private lateinit var txtViewCategories: View
+    private lateinit var txtViewSubCategories: View
+    private lateinit var ll1stRowOfCategories: View
+    private lateinit var ll2ndRowOfCategories: View
+    private lateinit var llGeneralKnowledgeSubs: View
+    private lateinit var btnGeneralKnowledge: View
+    private lateinit var btnBackCategory: View
+    private lateinit var btnTrivia: View
+
     private lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,34 +55,61 @@ class PlayFragment : Fragment() {
 
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_play, container, false)
-        val quizCategoryDropDown = view.findViewById<Spinner>(R.id.spnQuizDropDown)
-        val btnStartGame = view.findViewById<Button>(R.id.btnStartGame)
+        llBackCategory = view.findViewById<LinearLayout>(R.id.llBackCategory)
+        txtViewCategories = view.findViewById<TextView>(R.id.textViewChooseCategory)
+        txtViewSubCategories = view.findViewById<TextView>(R.id.textViewChooseSubCategory)
+        ll1stRowOfCategories = view.findViewById<LinearLayout>(R.id.ll1stRowOfCategoriesButtons)
+        ll2ndRowOfCategories = view.findViewById<LinearLayout>(R.id.ll2ndRowOfCategoriesButtons)
+        llGeneralKnowledgeSubs= view.findViewById<LinearLayout>(R.id.llRowOfGeneralKnowledgeSubs)
 
-        val adapter = setLanguagePreferencesToView(language, view)
+        btnBackCategory = view.findViewById<LinearLayout>(R.id.btnBackCategory)
+        btnGeneralKnowledge = view.findViewById<Button>(R.id.btnGeneralKnowledge)
+        btnTrivia = view.findViewById<Button>(R.id.btnTrivia)
+
+        //val adapter = setLanguagePreferencesToView(language, view)
 
 
-        // create adapter for Quiz Category drop down
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        quizCategoryDropDown.adapter = adapter
-        // Set as default the first category TODO: Maybe randomize it in the future
-        quizCategoryDropDown.setSelection(0)
-        // Get the value from adapter
-        quizCategoryDropDown.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val selectedItem = quizCategoryDropDown.selectedItem as String
-                saveDataToSharedPreferences("category", selectedItem)
+        // Show categories
+        showCategories()
 
-            }
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                // Handle the case where nothing is selected, if needed
-            }
+        btnGeneralKnowledge.setOnClickListener{
+            hideEverything()
+            txtViewSubCategories.visibility = View.VISIBLE
+            llGeneralKnowledgeSubs.visibility = View.VISIBLE
+            llBackCategory.visibility = View.VISIBLE
         }
 
-        btnStartGame.setOnClickListener{
+        btnBackCategory.setOnClickListener{
+            hideEverything()
+            showCategories()
+        }
+
+        btnTrivia.setOnClickListener{
+            saveDataToSharedPreferences("category", "Trivia")
             goToScreen("startGame")
         }
 
+        // THIS TO THE END OF EACH BUTTON
+        /*btnStartGame.setOnClickListener{
+            goToScreen("startGame")
+        }*/
+
         return view
+    }
+
+    private fun showCategories() {
+        txtViewCategories.visibility = View.VISIBLE
+        ll1stRowOfCategories.visibility = View.VISIBLE
+        ll2ndRowOfCategories.visibility = View.VISIBLE
+    }
+
+    private fun hideEverything() {
+        txtViewCategories.visibility = View.GONE
+        ll1stRowOfCategories.visibility = View.GONE
+        ll2ndRowOfCategories.visibility = View.GONE
+        txtViewSubCategories.visibility = View.GONE
+        llGeneralKnowledgeSubs.visibility = View.GONE
+        llBackCategory.visibility = View.GONE
     }
 
     private fun goToScreen(fragment: String) {
@@ -112,16 +153,16 @@ class PlayFragment : Fragment() {
 
 
     private fun setLanguagePreferencesToView(language: String, view: View):  ArrayAdapter<CharSequence>{
-        val btnStartGame = view.findViewById<Button>(R.id.btnStartGame)
+        val btnBackCategory = view.findViewById<Button>(R.id.btnBackCategory)
         var adapter:  ArrayAdapter<CharSequence> = ArrayAdapter.createFromResource(requireContext(), R.array.quizCategoriesEn, android.R.layout.simple_spinner_item)
         when(language){
             "en"->{
                 adapter = ArrayAdapter.createFromResource(requireContext(), R.array.quizCategoriesEn, android.R.layout.simple_spinner_item)
-                btnStartGame.text = "Start Game"
+                btnBackCategory.text = "Start Game"
             }
             "ro"->{
                 adapter = ArrayAdapter.createFromResource(requireContext(), R.array.quizCategoriesRo, android.R.layout.simple_spinner_item)
-                btnStartGame.text = "Incepe Jocul"
+                btnBackCategory.text = "Incepe Jocul"
             }
         }
         return adapter
