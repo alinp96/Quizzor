@@ -97,12 +97,12 @@
             android:text="Sports" />
 
         <Button
-            android:id="@+id/btnArtsAndLiterature"
+            android:id="@+id/btnFoodAndDrinks"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:text="Arts &amp; Literature" />
+            android:text="Food &amp; Drinks" />
     </LinearLayout>
 
     <LinearLayout
@@ -152,7 +152,8 @@
         app:layout_constraintStart_toStartOf="@+id/textViewChooseSubCategory"
         app:layout_constraintTop_toBottomOf="@+id/textViewChooseSubCategory"
         android:padding="2dp"
-        android:layout_marginHorizontal="0dp">
+        android:layout_marginHorizontal="0dp"
+        android:visibility="gone">
 
         <Button
             android:id="@+id/btnPhysics"
@@ -160,17 +161,15 @@
             android:layout_height="100dp"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:text="Physics"
-            android:visibility="gone"/>
+            android:text="Physics"/>
 
         <Button
-            android:id="@+id/Chemistry"
+            android:id="@+id/btnChemistry"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:text="Chemistry"
-            android:visibility="gone"/>
+            android:text="Chemistry"/>
 
     </LinearLayout>
 
@@ -180,10 +179,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center|fill_horizontal"
         android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="@+id/textViewChooseSubCategory"
-        app:layout_constraintTop_toBottomOf="@+id/textViewChooseSubCategory"
+        app:layout_constraintStart_toStartOf="@+id/ll1stRowOfScienceAndTechnologySubs"
+        app:layout_constraintTop_toBottomOf="@+id/ll1stRowOfScienceAndTechnologySubs"
         android:padding="2dp"
-        android:layout_marginHorizontal="0dp">
+        android:layout_marginHorizontal="0dp"
+        android:visibility="gone">
 
         <Button
             android:id="@+id/btnBiology"
@@ -191,15 +191,249 @@
             android:layout_height="100dp"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:visibility="gone" />
+            android:text="Biology"/>
 
         <Button
-            android:id="@+id/ComputerScience"
+            android:id="@+id/btnComputerScience"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:visibility="gone" />
+            android:text="Computer Science"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll1stRowOfHistoryAndGeographySubs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|fill_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="@+id/textViewChooseSubCategory"
+        app:layout_constraintTop_toBottomOf="@+id/textViewChooseSubCategory"
+        android:padding="2dp"
+        android:layout_marginHorizontal="0dp"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/btnContriesAndCapitals"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:text="Contries and Capitals"/>
+
+        <Button
+            android:id="@+id/btnGeographicFactsAndTrivia"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:text="Geographic Facts and Trivia"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll2ndRowOfHistoryAndGeographySubs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|fill_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="@+id/ll1stRowOfHistoryAndGeographySubs"
+        app:layout_constraintTop_toBottomOf="@+id/ll1stRowOfHistoryAndGeographySubs"
+        android:padding="2dp"
+        android:layout_marginHorizontal="0dp"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/btnFamousHistoricalFigures"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:text="Famous Historical Figures"/>
+
+        <Button
+            android:id="@+id/btnHistoricalEvents"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:text="Historical Events"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll1stRowOfEntertainmentSubs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|fill_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="@+id/textViewChooseSubCategory"
+        app:layout_constraintTop_toBottomOf="@+id/textViewChooseSubCategory"
+        android:padding="2dp"
+        android:layout_marginHorizontal="0dp"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/btnMovies"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:text="Movies"/>
+
+        <Button
+            android:id="@+id/btnTvShows"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:text="TV Shows"/>
+
+        <Button
+            android:id="@+id/btnMusic"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:text="Music"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll2ndRowOfEntertainmentSubs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|fill_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="@+id/ll1stRowOfEntertainmentSubs"
+        app:layout_constraintTop_toBottomOf="@+id/ll1stRowOfEntertainmentSubs"
+        android:padding="2dp"
+        android:layout_marginHorizontal="0dp"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/btnBooksAndLiterature"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:text="Books and Literature"/>
+
+        <Button
+            android:id="@+id/btnCelebrityAndPopCulture"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:text="Celebrity and Pop Culture"/>
+
+        <Button
+            android:id="@+id/btnVideoGames"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:text="Video Games"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llRowOfSportsSubs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|fill_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="@+id/textViewChooseSubCategory"
+        app:layout_constraintTop_toBottomOf="@+id/textViewChooseSubCategory"
+        android:padding="2dp"
+        android:layout_marginHorizontal="0dp"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/btnSoccer"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:text="Soccer"/>
+
+        <Button
+            android:id="@+id/btnUnusualSportsFacts"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:text="Unusual sports facts"/>
+
+        <Button
+            android:id="@+id/btnMemorableSportingEvents"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:text="Memorable Sporting Events"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll1stRowOfFoodAndDrinksSubs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|fill_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="@+id/textViewChooseSubCategory"
+        app:layout_constraintTop_toBottomOf="@+id/textViewChooseSubCategory"
+        android:padding="2dp"
+        android:layout_marginHorizontal="0dp"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/btnCuisine"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:text="Cuisine"/>
+
+        <Button
+            android:id="@+id/btnIngredients"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:text="Ingredients"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll2ndRowOfFoodAndDrinksSubs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|fill_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="@+id/ll1stRowOfFoodAndDrinksSubs"
+        app:layout_constraintTop_toBottomOf="@+id/ll1stRowOfFoodAndDrinksSubs"
+        android:padding="2dp"
+        android:layout_marginHorizontal="0dp"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/btnBeverages"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:text="Beverages"/>
+
+        <Button
+            android:id="@+id/btnFoodAndTrivia"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:text="Food Trivia"/>
 
     </LinearLayout>
 
@@ -213,7 +447,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:padding="5dp"
         android:layout_margin="10dp"
-        android:visibility="visible">
+        android:visibility="gone">
 
     <Button
         android:id="@+id/btnBackCategory"
