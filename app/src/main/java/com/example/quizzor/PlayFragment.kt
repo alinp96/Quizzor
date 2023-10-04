@@ -109,7 +109,7 @@ class PlayFragment : Fragment() {
         btnGeneralKnowledge = view.findViewById<Button>(R.id.btnGeneralKnowledge)
         btnTrivia = view.findViewById<Button>(R.id.btnTrivia)
         btnWorldFacts = view.findViewById<Button>(R.id.btnWorldFacts)
-        btnFamousPersonalities = view.findViewById<Button>(R.id.btnFamousPersonalities)
+        btnFamousPersonalities = view.findViewById<Button>(R.id.btnFamousCelebrities)
         btnScienceAndTechnology = view.findViewById<Button>(R.id.btnScienceAndTechnology)
         btnPhysics = view.findViewById<Button>(R.id.btnPhysics)
         btnChemistry = view.findViewById<Button>(R.id.btnChemistry)
@@ -157,12 +157,12 @@ class PlayFragment : Fragment() {
         }
 
         btnWorldFacts.setOnClickListener{
-            saveDataToSharedPreferences("category", "WorldFacts")
+            saveDataToSharedPreferences("category", "World Facts")
             goToScreen("startGame")
         }
 
         btnFamousPersonalities.setOnClickListener{
-            saveDataToSharedPreferences("category", "FamousPersonalities")
+            saveDataToSharedPreferences("category", "Famous Personalities")
             goToScreen("startGame")
         }
 
@@ -190,7 +190,7 @@ class PlayFragment : Fragment() {
         }
 
         btnComputerScience.setOnClickListener{
-            saveDataToSharedPreferences("category", "ComputerScience")
+            saveDataToSharedPreferences("category", "Computer Science")
             goToScreen("startGame")
         }
 
@@ -203,22 +203,22 @@ class PlayFragment : Fragment() {
         }
 
         btnContriesAndCapitals.setOnClickListener{
-            saveDataToSharedPreferences("category", "ContiresAndCaptitals")
+            saveDataToSharedPreferences("category", "Countries and Captitals")
             goToScreen("startGame")
         }
 
         btnGeographicFactsAndTrivia.setOnClickListener{
-            saveDataToSharedPreferences("category", "GeographicFactsAndTrivia")
+            saveDataToSharedPreferences("category", "Geographic facts and Trivia")
             goToScreen("startGame")
         }
 
         btnFamousHistoricalFigures.setOnClickListener{
-            saveDataToSharedPreferences("category", "FamousHistoricalFigures")
+            saveDataToSharedPreferences("category", "Famous Historical Figures")
             goToScreen("startGame")
         }
 
         btnHistoricalEvents.setOnClickListener{
-            saveDataToSharedPreferences("category", "HistoricalEvents")
+            saveDataToSharedPreferences("category", "Historical Events")
             goToScreen("startGame")
         }
 
@@ -236,7 +236,7 @@ class PlayFragment : Fragment() {
         }
 
         btnTvShows.setOnClickListener{
-            saveDataToSharedPreferences("category", "TvShows")
+            saveDataToSharedPreferences("category", "Tv Shows")
             goToScreen("startGame")
         }
 
@@ -246,7 +246,7 @@ class PlayFragment : Fragment() {
         }
 
         btnBooksAndLiterature.setOnClickListener{
-            saveDataToSharedPreferences("category", "Books And Literature")
+            saveDataToSharedPreferences("category", "Books and Literature")
             goToScreen("startGame")
         }
 
