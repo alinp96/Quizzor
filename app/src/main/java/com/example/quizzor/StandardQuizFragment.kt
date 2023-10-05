@@ -1,5 +1,6 @@
 package com.example.quizzor
 
+import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
@@ -10,10 +11,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ProgressBar
-import android.widget.TextView
-import android.widget.Toast
+import android.view.animation.LinearInterpolator
+import android.widget.*
 
 class StandardQuizFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
@@ -24,9 +23,23 @@ class StandardQuizFragment : Fragment() {
     private lateinit var questionTextView: TextView
     private lateinit var showQuestionNrTextView: TextView
     private lateinit var showScore: TextView
-    private lateinit var btnTrue: Button
-    private lateinit var btnFalse: Button
-    private lateinit var btnGoBack: Button
+    private lateinit var categoryTextView: TextView
+    private lateinit var btnTrue: ImageButton
+    private lateinit var btnFalse: ImageButton
+    private lateinit var btnGoBack: ImageButton
+
+    private lateinit var dot: Array<ImageView>
+    private lateinit var dotQ1: ImageView
+    private lateinit var dotQ2: ImageView
+    private lateinit var dotQ3: ImageView
+    private lateinit var dotQ4: ImageView
+    private lateinit var dotQ5: ImageView
+    private lateinit var dotQ6: ImageView
+    private lateinit var dotQ7: ImageView
+    private lateinit var dotQ8: ImageView
+    private lateinit var dotQ9: ImageView
+    private lateinit var dotQ10: ImageView
+
     private var currentAnswer: Boolean = false
     private var score: Int = 0
     private var questionNr: Int = 0
@@ -50,10 +63,34 @@ class StandardQuizFragment : Fragment() {
         questionTextView = view.findViewById<TextView>(R.id.textViewQuestion)
         showQuestionNrTextView = view.findViewById<TextView>(R.id.textViewShowQuestion)
         showScore = view.findViewById<TextView>(R.id.textViewShowScore)
-        btnTrue = view.findViewById<Button>(R.id.btnTrue)
-        btnFalse = view.findViewById<Button>(R.id.btnFalse)
-        btnGoBack = view.findViewById<Button>(R.id.btnGoBack)
+        categoryTextView = view.findViewById<TextView>(R.id.textCategoryText)
+        btnTrue = view.findViewById<ImageButton>(R.id.btnTrue)
+        btnFalse = view.findViewById<ImageButton>(R.id.btnFalse)
+        btnGoBack = view.findViewById<ImageButton>(R.id.btnGoBack)
         progressBarTimer = view.findViewById<ProgressBar>(R.id.progressBarTimer)
+
+        dotQ1 = view.findViewById<ImageView>(R.id.dotQ1)
+        dotQ2 = view.findViewById<ImageView>(R.id.dotQ2)
+        dotQ3 = view.findViewById<ImageView>(R.id.dotQ3)
+        dotQ4 = view.findViewById<ImageView>(R.id.dotQ4)
+        dotQ5 = view.findViewById<ImageView>(R.id.dotQ5)
+        dotQ6 = view.findViewById<ImageView>(R.id.dotQ6)
+        dotQ7 = view.findViewById<ImageView>(R.id.dotQ7)
+        dotQ8 = view.findViewById<ImageView>(R.id.dotQ8)
+        dotQ9 = view.findViewById<ImageView>(R.id.dotQ9)
+        dotQ10 = view.findViewById<ImageView>(R.id.dotQ10)
+
+        dot = Array(10) { ImageView(requireContext())}
+        dot[0] = dotQ1
+        dot[1] = dotQ2
+        dot[2] = dotQ3
+        dot[3] = dotQ4
+        dot[4] = dotQ5
+        dot[5] = dotQ6
+        dot[6] = dotQ7
+        dot[7] = dotQ8
+        dot[8] = dotQ9
+        dot[9] = dotQ10
 
         // Reset
         score = 0
@@ -64,6 +101,9 @@ class StandardQuizFragment : Fragment() {
 
         // Load 10 random questions from the selected category and language
         questionList = getQuestionList(numberOfQuestions, category, language)
+
+        // change the Category text
+        categoryTextView.text = "$category questions"
 
         // Start the quiz
         proceedToNextQuestion(questionTextView, questionNr, numberOfQuestions, score)
@@ -101,8 +141,8 @@ class StandardQuizFragment : Fragment() {
 
     private fun proceedToNextQuestion(view: TextView, questionNr: Int, numberOfQuestions: Int, score: Int){
         questionTextView.text =  showNextQuestion(questionNr, questionList)
-        showQuestionNrTextView.text = "Question ${questionNr + 1}/${numberOfQuestions}"
-        showScore.text = "Score: ${score}"
+        showQuestionNrTextView.text = "${questionNr + 1}/${numberOfQuestions}"
+        showScore.text = "$score"
         btnTrue.visibility = View.VISIBLE
         btnFalse.visibility = View.VISIBLE
         progressBarTimer.visibility = View.VISIBLE
@@ -119,7 +159,7 @@ class StandardQuizFragment : Fragment() {
     }
 
     private fun updateScoreIfNeeded(score: Int){
-        showScore.text = "Score: ${score}"
+        showScore.text = "$score"
     }
     private fun checkAnswer(selectedAnswer: Boolean, questionList: List<TFQuestion>, questionIndex: Int, timeLimitExceeded: Boolean): Boolean{
         val correctAnswer = questionList[questionIndex].correctAnswer
@@ -127,17 +167,29 @@ class StandardQuizFragment : Fragment() {
 
         returnVal = if (timeLimitExceeded){
             Toast.makeText(requireContext(), "Time exceeded!", Toast.LENGTH_SHORT).show()
+            dotLogic(questionIndex, false)
             false
         } else if (selectedAnswer == correctAnswer) {
             // Perform action for correct answer
             Toast.makeText(requireContext(), "Correct!", Toast.LENGTH_SHORT).show()
+            dotLogic(questionIndex, true)
             true
         } else {
             // Perform action for wrong answer
             Toast.makeText(requireContext(), "Wrong!", Toast.LENGTH_SHORT).show()
+            dotLogic(questionIndex, false)
             false
         }
         return returnVal
+    }
+
+    private fun dotLogic(idNr: Int, isCorrectAnswer: Boolean) {
+        if (isCorrectAnswer) {
+            dot[idNr].setImageResource(R.drawable.ic_greendot)
+        } else {
+            dot[idNr].setImageResource(R.drawable.ic_reddot)
+        }
+        dot[idNr].visibility = View.VISIBLE
     }
 
     private fun getRandomQuestionIndexes(maxNumber: Int, nrOfQuestions: Int): List<Int> {
@@ -157,9 +209,21 @@ class StandardQuizFragment : Fragment() {
     }
 
     private fun startTimer() {
+        // Set the initial progress to maximum
+        progressBarTimer.progress = progressBarTimer.max
+
         countDownTimer = object : CountDownTimer(7000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                progressBarTimer.progress = millisUntilFinished.toInt()
+                // Calculate the progress to reach at this tick
+                val targetProgress = (millisUntilFinished * progressBarTimer.max / 7000).toInt()
+
+                val animatedProgress = ObjectAnimator.ofInt(progressBarTimer, "progress", progressBarTimer.progress, targetProgress)
+                animatedProgress.duration = 1000 // Animation duration in milliseconds (1 second)
+                animatedProgress.interpolator = LinearInterpolator() // Linear interpolator for smoother animation
+                animatedProgress.addUpdateListener {
+                    progressBarTimer.progress = it.animatedValue as Int
+                }
+                animatedProgress.start()
             }
 
             override fun onFinish() {
@@ -219,20 +283,20 @@ class StandardQuizFragment : Fragment() {
     }
 
     private fun setLanguagePreferencesToView(language: String, view: View){
-        val btnTrue = view.findViewById<Button>(R.id.btnTrue)
-        val btnFalse = view.findViewById<Button>(R.id.btnFalse)
-        val btnGoBack = view.findViewById<Button>(R.id.btnGoBack)
+        //val btnTrue = view.findViewById<Button>(R.id.btnTrue)
+        //val btnFalse = view.findViewById<Button>(R.id.btnFalse)
+        val btnGoBack = view.findViewById<ImageButton>(R.id.btnGoBack)
 
         when(language){
             "en"->{
-                btnTrue.text = "True"
-                btnFalse.text = "False"
-                btnGoBack.text = "Go Back"
+                //btnTrue.text = "True"
+                //btnFalse.text = "False"
+                //btnGoBack.text = "Go Back"
             }
             "ro"->{
-                btnTrue.text = "Adevarat"
-                btnFalse.text = "Fals"
-                btnGoBack.text = "Inapoi"
+                //btnTrue.text = "Adevarat"
+                //btnFalse.text = "Fals"
+                //btnGoBack.text = "Inapoi"
             }
         }
     }

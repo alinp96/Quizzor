@@ -6,28 +6,133 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".StandardQuizFragment">
 
+    <TextView
+        android:id="@+id/textCategoryText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="25dp"
+        android:text="Placeholder Category"
+        android:textAlignment="center"
+        android:textSize="25dp">
+
+
+    </TextView>
+
+    <LinearLayout
+        android:id="@+id/dots"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/textCategoryText"
+        app:layout_constraintTop_toBottomOf="@+id/textCategoryText"
+        android:layout_marginTop="30dp">
+
+        <ImageView
+            android:id="@+id/dotQ1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_reddot"
+            android:padding="5dp"
+            android:visibility="invisible"/>
+        <ImageView
+            android:id="@+id/dotQ2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_reddot"
+            android:padding="5dp"
+            android:visibility="invisible"/>
+        <ImageView
+            android:id="@+id/dotQ3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_reddot"
+            android:padding="5dp"
+            android:visibility="invisible"/>
+        <ImageView
+            android:id="@+id/dotQ4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_reddot"
+            android:padding="5dp"
+            android:visibility="invisible"/>
+        <ImageView
+            android:id="@+id/dotQ5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_reddot"
+            android:padding="5dp"
+            android:visibility="invisible"/>
+        <ImageView
+            android:id="@+id/dotQ6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_reddot"
+            android:padding="5dp"
+            android:visibility="invisible"/>
+        <ImageView
+            android:id="@+id/dotQ7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_reddot"
+            android:padding="5dp"
+            android:visibility="invisible"/>
+        <ImageView
+            android:id="@+id/dotQ8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_reddot"
+            android:padding="5dp"
+            android:visibility="invisible"/>
+        <ImageView
+            android:id="@+id/dotQ9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_reddot"
+            android:padding="5dp"
+            android:visibility="invisible"/>
+        <ImageView
+            android:id="@+id/dotQ10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_reddot"
+            android:padding="5dp"
+            android:visibility="invisible"/>
+    </LinearLayout>
     <LinearLayout
         android:id="@+id/llRowOfScoreAndQNr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center|fill_horizontal"
         android:orientation="horizontal"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/dots"
+        app:layout_constraintTop_toBottomOf="@+id/dots"
         android:padding="2dp"
-        android:layout_marginHorizontal="3dp">
-            <TextView
-                android:layout_weight="1"
-                android:id="@+id/textViewShowQuestion"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:textAlignment="textStart"
-                android:text="Question 2/10"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="3dp"
-                android:layout_marginEnd="10dp"/>
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginTop="30dp">
+        <TextView
+            android:layout_weight="1"
+            android:id="@+id/textViewShowQuestion"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:textAlignment="textStart"
+            android:text="0/10"
+            android:textSize="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="10dp"/>
         <TextView
             android:layout_weight="1"
             android:id="@+id/textViewShowScore"
@@ -35,7 +140,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:textAlignment="textEnd"
-            android:text="Score: 10"
+            android:drawablePadding="0dp"
+            android:drawableEnd="@drawable/ic_scorebadge"
+            android:text="10"
+            android:textSize="60dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="3dp"
@@ -43,13 +151,15 @@
     </LinearLayout>
     <ProgressBar
         android:id="@+id/progressBarTimer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginBottom="20dp"
         android:max="7000"
         android:progress="1000"
+        android:padding="5px"
+        android:layout_marginHorizontal="25dp"
         style="@android:style/Widget.ProgressBar.Horizontal"
         />
     <TextView
@@ -61,9 +171,9 @@
         android:textSize="24dp"
         android:maxLines="4"
         android:text="Here will appear the question. If it is longer than expected, go to the next line without any issues!"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="200dp"
+        app:layout_constraintStart_toStartOf="@+id/llRowOfScoreAndQNr"
+        app:layout_constraintTop_toBottomOf="@+id/llRowOfScoreAndQNr"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="50dp"
         android:layout_marginStart="50dp"/>
 
@@ -73,34 +183,38 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center|fill_horizontal"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/progressBarTimer"
+        app:layout_constraintBottom_toTopOf="@+id/progressBarTimer"
         android:padding="2dp"
         android:layout_marginHorizontal="3dp">
 
-        <Button
+        <ImageButton
             android:id="@+id/btnTrue"
+            android:src="@drawable/ic_true"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="fill_parent"
             android:layout_height="200dp"
             android:layout_margin="2dp"
             android:layout_weight="1"
-            android:text="True" />
-
-        <Button
+            />
+        <ImageButton
             android:id="@+id/btnFalse"
+            android:src="@drawable/ic_false"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="fill_parent"
             android:layout_height="200dp"
             android:layout_margin="2dp"
             android:layout_weight="1"
-            android:text="False" />
+            />
 
-        <Button
+        <ImageButton
             android:visibility="gone"
             android:id="@+id/btnGoBack"
             android:layout_width="fill_parent"
             android:layout_height="200dp"
             android:layout_margin="2dp"
             android:layout_weight="1"
-            android:text="Go Back" />
+            android:src="@drawable/ic_arrow_back"
+            android:background="@color/primaryColor"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
