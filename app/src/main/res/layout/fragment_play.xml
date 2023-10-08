@@ -7,7 +7,7 @@
     tools:context=".PlayFragment">
 
     <TextView
-        android:id="@+id/textViewChooseCategory"
+        android:id="@+id/textViewChosenCategory"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -19,15 +19,16 @@
         android:visibility="gone"/>
 
     <TextView
-        android:id="@+id/textViewChooseSubCategory"
+        android:id="@+id/textViewChosenSubCategory"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textAlignment="center"
-        android:text="Choose your subcategory!"
+        android:text="Choose a subcategory!"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="100dp"
+        android:layout_marginBottom="50dp"
         android:visibility="gone"/>
 
     <LinearLayout
@@ -36,30 +37,36 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center|fill_horizontal"
         android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="@+id/textViewChooseCategory"
-        app:layout_constraintTop_toBottomOf="@+id/textViewChooseCategory"
+        app:layout_constraintStart_toStartOf="@+id/textViewChosenCategory"
+        app:layout_constraintTop_toBottomOf="@+id/textViewChosenCategory"
         android:padding="2dp"
         android:layout_marginHorizontal="0dp"
         android:visibility="gone">
 
-        <Button
+        <ImageButton
             android:id="@+id/btnGeneralKnowledge"
+            android:src="@drawable/ic_general_knowledge"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:text="General Knowledge" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btnScienceAndTechnology"
+            android:src="@drawable/ic_science_and_technology"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:text="Science &amp; Technology" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btnHistoryAndGeography"
+            android:src="@drawable/ic_history_and_geography"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_margin="10dp"
@@ -76,34 +83,51 @@
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="@+id/ll1stRowOfCategoriesButtons"
         app:layout_constraintTop_toBottomOf="@+id/ll1stRowOfCategoriesButtons"
-        android:padding="2dp"
+        android:padding="1dp"
         android:layout_marginHorizontal="0dp"
         android:visibility="gone">
 
-        <Button
+        <ImageButton
             android:id="@+id/btnEntertainment"
+            android:src="@drawable/ic_entertainment"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:layout_weight="1"
             android:text="Entertainment" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btnSports"
+            android:src="@drawable/ic_sports"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:layout_weight="1"
             android:text="Sports" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btnFoodAndDrinks"
+            android:src="@drawable/ic_food_and_drinks"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
-            android:layout_margin="10dp"
+            android:layout_margin="5dp"
             android:layout_weight="1"
             android:text="Food &amp; Drinks" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btnGoToChooseSubCategory"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        android:text="Next"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:id="@+id/llRowOfGeneralKnowledgeSubs"
@@ -111,30 +135,36 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center|fill_horizontal"
         android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="@+id/textViewChooseSubCategory"
-        app:layout_constraintTop_toBottomOf="@+id/textViewChooseSubCategory"
+        app:layout_constraintStart_toStartOf="@+id/textViewChosenSubCategory"
+        app:layout_constraintTop_toBottomOf="@+id/textViewChosenSubCategory"
         android:padding="2dp"
         android:layout_marginHorizontal="0dp"
         android:visibility="gone">
 
-        <Button
+        <ImageButton
             android:id="@+id/btnTrivia"
+            android:src="@drawable/ic_gk_trivia"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:text="Trivia" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btnWorldFacts"
+            android:src="@drawable/ic_gk_world_facts"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:text="Wordl Facts" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btnFamousCelebrities"
+            android:src="@drawable/ic_gk_famous_celebrities"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_margin="10dp"
@@ -149,22 +179,26 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center|fill_horizontal"
         android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="@+id/textViewChooseSubCategory"
-        app:layout_constraintTop_toBottomOf="@+id/textViewChooseSubCategory"
+        app:layout_constraintStart_toStartOf="@+id/textViewChosenSubCategory"
+        app:layout_constraintTop_toBottomOf="@+id/textViewChosenSubCategory"
         android:padding="2dp"
         android:layout_marginHorizontal="0dp"
         android:visibility="gone">
 
-        <Button
+        <ImageButton
             android:id="@+id/btnPhysics"
+            android:src="@drawable/ic_st_physics"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:text="Physics"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/btnChemistry"
+            android:src="@drawable/ic_st_chemistry"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_margin="10dp"
@@ -185,16 +219,20 @@
         android:layout_marginHorizontal="0dp"
         android:visibility="gone">
 
-        <Button
+        <ImageButton
             android:id="@+id/btnBiology"
+            android:src="@drawable/ic_st_biology"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:text="Biology"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/btnComputerScience"
+            android:src="@drawable/ic_st_computer_science"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_margin="10dp"
@@ -209,22 +247,26 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center|fill_horizontal"
         android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="@+id/textViewChooseSubCategory"
-        app:layout_constraintTop_toBottomOf="@+id/textViewChooseSubCategory"
+        app:layout_constraintStart_toStartOf="@+id/textViewChosenSubCategory"
+        app:layout_constraintTop_toBottomOf="@+id/textViewChosenSubCategory"
         android:padding="2dp"
         android:layout_marginHorizontal="0dp"
         android:visibility="gone">
 
-        <Button
+        <ImageButton
             android:id="@+id/btnContriesAndCapitals"
+            android:src="@drawable/ic_gh_countries_capitals"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:text="Contries and Capitals"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/btnGeographicFactsAndTrivia"
+            android:src="@drawable/ic_gh_geographic_facts_and_trivia"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_margin="10dp"
@@ -245,16 +287,20 @@
         android:layout_marginHorizontal="0dp"
         android:visibility="gone">
 
-        <Button
+        <ImageButton
             android:id="@+id/btnFamousHistoricalFigures"
+            android:src="@drawable/ic_gh_famous_historical_figures"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:text="Famous Historical Figures"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/btnHistoricalEvents"
+            android:src="@drawable/ic_gh_historical_events"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_margin="10dp"
@@ -269,30 +315,36 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center|fill_horizontal"
         android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="@+id/textViewChooseSubCategory"
-        app:layout_constraintTop_toBottomOf="@+id/textViewChooseSubCategory"
+        app:layout_constraintStart_toStartOf="@+id/textViewChosenSubCategory"
+        app:layout_constraintTop_toBottomOf="@+id/textViewChosenSubCategory"
         android:padding="2dp"
         android:layout_marginHorizontal="0dp"
-        android:visibility="gone">
+        android:visibility="visible">
 
-        <Button
+        <ImageButton
             android:id="@+id/btnMovies"
+            android:src="@drawable/ic_e_movies"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:text="Movies"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/btnTvShows"
+            android:src="@drawable/ic_e_tv_shows"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:text="TV Shows"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/btnMusic"
+            android:src="@drawable/ic_e_music"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_margin="10dp"
@@ -313,24 +365,30 @@
         android:layout_marginHorizontal="0dp"
         android:visibility="gone">
 
-        <Button
+        <ImageButton
             android:id="@+id/btnBooksAndLiterature"
+            android:src="@drawable/ic_e_books_and_literature"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:text="Books and Literature"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/btnCelebrityAndPopCulture"
+            android:src="@drawable/ic_e_celebrity_and_pop_culture"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:text="Celebrity and Pop Culture"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/btnVideoGames"
+            android:src="@drawable/ic_e_video_games"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_margin="10dp"
@@ -345,30 +403,36 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center|fill_horizontal"
         android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="@+id/textViewChooseSubCategory"
-        app:layout_constraintTop_toBottomOf="@+id/textViewChooseSubCategory"
+        app:layout_constraintStart_toStartOf="@+id/textViewChosenSubCategory"
+        app:layout_constraintTop_toBottomOf="@+id/textViewChosenSubCategory"
         android:padding="2dp"
         android:layout_marginHorizontal="0dp"
         android:visibility="gone">
 
-        <Button
+        <ImageButton
             android:id="@+id/btnSoccer"
+            android:src="@drawable/ic_s_soccer"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:text="Soccer"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/btnUnusualSportsFacts"
+            android:src="@drawable/ic_s_unusual_sports_facts"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:text="Unusual sports facts"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/btnMemorableSportingEvents"
+            android:src="@drawable/ic_s_memorable_sporting_events"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_margin="10dp"
@@ -383,22 +447,26 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center|fill_horizontal"
         android:orientation="horizontal"
-        app:layout_constraintStart_toStartOf="@+id/textViewChooseSubCategory"
-        app:layout_constraintTop_toBottomOf="@+id/textViewChooseSubCategory"
+        app:layout_constraintStart_toStartOf="@+id/textViewChosenSubCategory"
+        app:layout_constraintTop_toBottomOf="@+id/textViewChosenSubCategory"
         android:padding="2dp"
         android:layout_marginHorizontal="0dp"
         android:visibility="gone">
 
-        <Button
+        <ImageButton
             android:id="@+id/btnCuisine"
+            android:src="@drawable/ic_fd_cuisine"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:text="Cuisine"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/btnIngredients"
+            android:src="@drawable/ic_fd_ingredients"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_margin="10dp"
@@ -419,16 +487,20 @@
         android:layout_marginHorizontal="0dp"
         android:visibility="gone">
 
-        <Button
+        <ImageButton
             android:id="@+id/btnBeverages"
+            android:src="@drawable/ic_fd_beverages"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:text="Beverages"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/btnFoodAndTrivia"
+            android:src="@drawable/ic_fd_food_trivia"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_margin="10dp"

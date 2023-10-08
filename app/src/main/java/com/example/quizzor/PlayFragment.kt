@@ -7,10 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,8 +21,8 @@ private const val ARG_PARAM2 = "param2"
  */
 class PlayFragment : Fragment() {
     private lateinit var llBackCategory: View
-    private lateinit var txtViewCategories: View
     private lateinit var txtViewSubCategories: View
+    private lateinit var txtChosenCategory: TextView
     private lateinit var ll1stRowOfCategories: View
 
     private lateinit var ll2ndRowOfCategories: View
@@ -40,38 +37,39 @@ class PlayFragment : Fragment() {
     private lateinit var ll1stRowOfFoodAndDrinksSubs: View
     private lateinit var ll2ndRowOfFoodAndDrinksSubs: View
 
-    private lateinit var btnGeneralKnowledge: View
-    private lateinit var btnScienceAndTechnology: View
-    private lateinit var btnHistoryAndGeography: View
-    private lateinit var btnEntertainment: View
-    private lateinit var btnSports: View
-    private lateinit var btnFoodAndDrinks: View
+    private lateinit var btnGeneralKnowledge: ImageButton
+    private lateinit var btnScienceAndTechnology: ImageButton
+    private lateinit var btnHistoryAndGeography: ImageButton
+    private lateinit var btnEntertainment: ImageButton
+    private lateinit var btnSports: ImageButton
+    private lateinit var btnFoodAndDrinks: ImageButton
 
-    private lateinit var btnBackCategory: View
-    private lateinit var btnTrivia: View
-    private lateinit var btnWorldFacts: View
-    private lateinit var btnFamousPersonalities: View
-    private lateinit var btnPhysics: View
-    private lateinit var btnChemistry: View
-    private lateinit var btnBiology: View
-    private lateinit var btnComputerScience: View
-    private lateinit var btnContriesAndCapitals: View
-    private lateinit var btnGeographicFactsAndTrivia: View
-    private lateinit var btnFamousHistoricalFigures: View
-    private lateinit var btnHistoricalEvents: View
-    private lateinit var btnMovies: View
-    private lateinit var btnTvShows: View
-    private lateinit var btnMusic: View
-    private lateinit var btnBooksAndLiterature: View
-    private lateinit var btnCelebrityAndPopCulture: View
-    private lateinit var btnVideoGames: View
-    private lateinit var btnSoccer: View
-    private lateinit var btnUnusualSportsFacts: View
-    private lateinit var btnMemorableSportingEvents: View
-    private lateinit var btnCuisine: View
-    private lateinit var btnIngredients: View
-    private lateinit var btnBeverages: View
-    private lateinit var btnFoodAndTrivia: View
+    private lateinit var btnBackCategory: Button
+    private lateinit var btnGoToChooseSubCategory: Button
+    private lateinit var btnTrivia: ImageButton
+    private lateinit var btnWorldFacts: ImageButton
+    private lateinit var btnFamousPersonalities: ImageButton
+    private lateinit var btnPhysics: ImageButton
+    private lateinit var btnChemistry: ImageButton
+    private lateinit var btnBiology: ImageButton
+    private lateinit var btnComputerScience: ImageButton
+    private lateinit var btnContriesAndCapitals: ImageButton
+    private lateinit var btnGeographicFactsAndTrivia: ImageButton
+    private lateinit var btnFamousHistoricalFigures: ImageButton
+    private lateinit var btnHistoricalEvents: ImageButton
+    private lateinit var btnMovies: ImageButton
+    private lateinit var btnTvShows: ImageButton
+    private lateinit var btnMusic: ImageButton
+    private lateinit var btnBooksAndLiterature: ImageButton
+    private lateinit var btnCelebrityAndPopCulture: ImageButton
+    private lateinit var btnVideoGames: ImageButton
+    private lateinit var btnSoccer: ImageButton
+    private lateinit var btnUnusualSportsFacts: ImageButton
+    private lateinit var btnMemorableSportingEvents: ImageButton
+    private lateinit var btnCuisine: ImageButton
+    private lateinit var btnIngredients: ImageButton
+    private lateinit var btnBeverages: ImageButton
+    private lateinit var btnFoodAndTrivia: ImageButton
 
     private lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -90,8 +88,8 @@ class PlayFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_play, container, false)
         llBackCategory = view.findViewById<LinearLayout>(R.id.llBackCategory)
-        txtViewCategories = view.findViewById<TextView>(R.id.textViewChooseCategory)
-        txtViewSubCategories = view.findViewById<TextView>(R.id.textViewChooseSubCategory)
+        txtViewSubCategories = view.findViewById<TextView>(R.id.textViewChosenSubCategory)
+        txtChosenCategory = view.findViewById<TextView>(R.id.textViewChosenCategory)
         ll1stRowOfCategories = view.findViewById<LinearLayout>(R.id.ll1stRowOfCategoriesButtons)
         ll2ndRowOfCategories = view.findViewById<LinearLayout>(R.id.ll2ndRowOfCategoriesButtons)
         llGeneralKnowledgeSubs = view.findViewById<LinearLayout>(R.id.llRowOfGeneralKnowledgeSubs)
@@ -105,37 +103,38 @@ class PlayFragment : Fragment() {
         ll1stRowOfFoodAndDrinksSubs = view.findViewById<LinearLayout>(R.id.ll1stRowOfFoodAndDrinksSubs)
         ll2ndRowOfFoodAndDrinksSubs = view.findViewById<LinearLayout>(R.id.ll2ndRowOfFoodAndDrinksSubs)
 
-        btnBackCategory = view.findViewById<LinearLayout>(R.id.btnBackCategory)
-        btnGeneralKnowledge = view.findViewById<Button>(R.id.btnGeneralKnowledge)
-        btnTrivia = view.findViewById<Button>(R.id.btnTrivia)
-        btnWorldFacts = view.findViewById<Button>(R.id.btnWorldFacts)
-        btnFamousPersonalities = view.findViewById<Button>(R.id.btnFamousCelebrities)
-        btnScienceAndTechnology = view.findViewById<Button>(R.id.btnScienceAndTechnology)
-        btnPhysics = view.findViewById<Button>(R.id.btnPhysics)
-        btnChemistry = view.findViewById<Button>(R.id.btnChemistry)
-        btnBiology = view.findViewById<Button>(R.id.btnBiology)
-        btnComputerScience = view.findViewById<Button>(R.id.btnComputerScience)
-        btnHistoryAndGeography = view.findViewById<Button>(R.id.btnHistoryAndGeography)
-        btnEntertainment = view.findViewById<Button>(R.id.btnEntertainment)
-        btnSports = view.findViewById<Button>(R.id.btnSports)
-        btnFoodAndDrinks = view.findViewById<Button>(R.id.btnFoodAndDrinks)
-        btnContriesAndCapitals = view.findViewById<Button>(R.id.btnContriesAndCapitals)
-        btnGeographicFactsAndTrivia = view.findViewById<Button>(R.id.btnGeographicFactsAndTrivia)
-        btnFamousHistoricalFigures = view.findViewById<Button>(R.id.btnFamousHistoricalFigures)
-        btnHistoricalEvents = view.findViewById<Button>(R.id.btnHistoricalEvents)
-        btnMovies = view.findViewById<Button>(R.id.btnMovies)
-        btnTvShows = view.findViewById<Button>(R.id.btnTvShows)
-        btnMusic = view.findViewById<Button>(R.id.btnMusic)
-        btnBooksAndLiterature = view.findViewById<Button>(R.id.btnBooksAndLiterature)
-        btnCelebrityAndPopCulture = view.findViewById<Button>(R.id.btnCelebrityAndPopCulture)
-        btnVideoGames = view.findViewById<Button>(R.id.btnVideoGames)
-        btnSoccer = view.findViewById<Button>(R.id.btnSoccer)
-        btnUnusualSportsFacts = view.findViewById<Button>(R.id.btnUnusualSportsFacts)
-        btnMemorableSportingEvents = view.findViewById<Button>(R.id.btnMemorableSportingEvents)
-        btnCuisine = view.findViewById<Button>(R.id.btnCuisine)
-        btnIngredients = view.findViewById<Button>(R.id.btnIngredients)
-        btnBeverages = view.findViewById<Button>(R.id.btnBeverages)
-        btnFoodAndTrivia = view.findViewById<Button>(R.id.btnFoodAndTrivia)
+        btnGoToChooseSubCategory = view.findViewById<Button>(R.id.btnGoToChooseSubCategory)
+        btnBackCategory = view.findViewById<Button>(R.id.btnBackCategory)
+        btnGeneralKnowledge = view.findViewById<ImageButton>(R.id.btnGeneralKnowledge)
+        btnTrivia = view.findViewById<ImageButton>(R.id.btnTrivia)
+        btnWorldFacts = view.findViewById<ImageButton>(R.id.btnWorldFacts)
+        btnFamousPersonalities = view.findViewById<ImageButton>(R.id.btnFamousCelebrities)
+        btnScienceAndTechnology = view.findViewById<ImageButton>(R.id.btnScienceAndTechnology)
+        btnPhysics = view.findViewById<ImageButton>(R.id.btnPhysics)
+        btnChemistry = view.findViewById<ImageButton>(R.id.btnChemistry)
+        btnBiology = view.findViewById<ImageButton>(R.id.btnBiology)
+        btnComputerScience = view.findViewById<ImageButton>(R.id.btnComputerScience)
+        btnHistoryAndGeography = view.findViewById<ImageButton>(R.id.btnHistoryAndGeography)
+        btnEntertainment = view.findViewById<ImageButton>(R.id.btnEntertainment)
+        btnSports = view.findViewById<ImageButton>(R.id.btnSports)
+        btnFoodAndDrinks = view.findViewById<ImageButton>(R.id.btnFoodAndDrinks)
+        btnContriesAndCapitals = view.findViewById<ImageButton>(R.id.btnContriesAndCapitals)
+        btnGeographicFactsAndTrivia = view.findViewById<ImageButton>(R.id.btnGeographicFactsAndTrivia)
+        btnFamousHistoricalFigures = view.findViewById<ImageButton>(R.id.btnFamousHistoricalFigures)
+        btnHistoricalEvents = view.findViewById<ImageButton>(R.id.btnHistoricalEvents)
+        btnMovies = view.findViewById<ImageButton>(R.id.btnMovies)
+        btnTvShows = view.findViewById<ImageButton>(R.id.btnTvShows)
+        btnMusic = view.findViewById<ImageButton>(R.id.btnMusic)
+        btnBooksAndLiterature = view.findViewById<ImageButton>(R.id.btnBooksAndLiterature)
+        btnCelebrityAndPopCulture = view.findViewById<ImageButton>(R.id.btnCelebrityAndPopCulture)
+        btnVideoGames = view.findViewById<ImageButton>(R.id.btnVideoGames)
+        btnSoccer = view.findViewById<ImageButton>(R.id.btnSoccer)
+        btnUnusualSportsFacts = view.findViewById<ImageButton>(R.id.btnUnusualSportsFacts)
+        btnMemorableSportingEvents = view.findViewById<ImageButton>(R.id.btnMemorableSportingEvents)
+        btnCuisine = view.findViewById<ImageButton>(R.id.btnCuisine)
+        btnIngredients = view.findViewById<ImageButton>(R.id.btnIngredients)
+        btnBeverages = view.findViewById<ImageButton>(R.id.btnBeverages)
+        btnFoodAndTrivia = view.findViewById<ImageButton>(R.id.btnFoodAndTrivia)
 
         //val adapter = setLanguagePreferencesToView(language, view)
 
@@ -145,10 +144,9 @@ class PlayFragment : Fragment() {
         showCategories()
 
         btnGeneralKnowledge.setOnClickListener{
-            hideEverything()
-            txtViewSubCategories.visibility = View.VISIBLE
-            llGeneralKnowledgeSubs.visibility = View.VISIBLE
-            llBackCategory.visibility = View.VISIBLE
+            txtChosenCategory.text = "General Knowledge"
+            txtChosenCategory.visibility = View.VISIBLE
+            btnGoToChooseSubCategory.visibility = View.VISIBLE
         }
 
         btnTrivia.setOnClickListener{
@@ -167,11 +165,9 @@ class PlayFragment : Fragment() {
         }
 
         btnScienceAndTechnology.setOnClickListener{
-            hideEverything()
-            txtViewSubCategories.visibility = View.VISIBLE
-            ll1stRowOfScienceAndTechnologySubs.visibility = View.VISIBLE
-            ll2ndRowOfScienceAndTechnologySubs.visibility = View.VISIBLE
-            llBackCategory.visibility = View.VISIBLE
+            txtChosenCategory.text = "Science and Technology"
+            txtChosenCategory.visibility = View.VISIBLE
+            btnGoToChooseSubCategory.visibility = View.VISIBLE
         }
 
         btnPhysics.setOnClickListener{
@@ -195,11 +191,9 @@ class PlayFragment : Fragment() {
         }
 
         btnHistoryAndGeography.setOnClickListener{
-            hideEverything()
-            txtViewSubCategories.visibility = View.VISIBLE
-            ll1stRowOfHistoryAndGeographySubs.visibility = View.VISIBLE
-            ll2ndRowOfHistoryAndGeographySubs.visibility = View.VISIBLE
-            llBackCategory.visibility = View.VISIBLE
+            txtChosenCategory.text = "History and Geography"
+            txtChosenCategory.visibility = View.VISIBLE
+            btnGoToChooseSubCategory.visibility = View.VISIBLE
         }
 
         btnContriesAndCapitals.setOnClickListener{
@@ -223,11 +217,9 @@ class PlayFragment : Fragment() {
         }
 
         btnEntertainment.setOnClickListener{
-            hideEverything()
-            txtViewSubCategories.visibility = View.VISIBLE
-            ll1stRowOfEntertainmentSubs.visibility = View.VISIBLE
-            ll2ndRowOfEntertainmentSubs.visibility = View.VISIBLE
-            llBackCategory.visibility = View.VISIBLE
+            txtChosenCategory.text = "Entertainment"
+            txtChosenCategory.visibility = View.VISIBLE
+            btnGoToChooseSubCategory.visibility = View.VISIBLE
         }
 
         btnMovies.setOnClickListener{
@@ -261,10 +253,9 @@ class PlayFragment : Fragment() {
         }
 
         btnSports.setOnClickListener{
-            hideEverything()
-            txtViewSubCategories.visibility = View.VISIBLE
-            llRowOfSportsSubs.visibility = View.VISIBLE
-            llBackCategory.visibility = View.VISIBLE
+            txtChosenCategory.text = "Sports"
+            txtChosenCategory.visibility = View.VISIBLE
+            btnGoToChooseSubCategory.visibility = View.VISIBLE
         }
 
         btnSoccer.setOnClickListener{
@@ -283,11 +274,9 @@ class PlayFragment : Fragment() {
         }
 
         btnFoodAndDrinks.setOnClickListener{
-            hideEverything()
-            txtViewSubCategories.visibility = View.VISIBLE
-            ll1stRowOfFoodAndDrinksSubs.visibility = View.VISIBLE
-            ll2ndRowOfFoodAndDrinksSubs.visibility = View.VISIBLE
-            llBackCategory.visibility = View.VISIBLE
+            txtChosenCategory.text = "Food and Drinks"
+            txtChosenCategory.visibility = View.VISIBLE
+            btnGoToChooseSubCategory.visibility = View.VISIBLE
         }
 
         btnCuisine.setOnClickListener{
@@ -315,6 +304,44 @@ class PlayFragment : Fragment() {
             showCategories()
         }
 
+        btnGoToChooseSubCategory.setOnClickListener{
+            hideEverything()
+            if(txtChosenCategory.text == "General Knowledge"){
+                hideEverything()
+                txtViewSubCategories.visibility = View.VISIBLE
+                llGeneralKnowledgeSubs.visibility = View.VISIBLE
+                llBackCategory.visibility = View.VISIBLE
+            } else if(txtChosenCategory.text == "Science and Technology"){
+                hideEverything()
+                txtViewSubCategories.visibility = View.VISIBLE
+                ll1stRowOfScienceAndTechnologySubs.visibility = View.VISIBLE
+                ll2ndRowOfScienceAndTechnologySubs.visibility = View.VISIBLE
+                llBackCategory.visibility = View.VISIBLE
+            } else if(txtChosenCategory.text == "History and Geography"){
+                hideEverything()
+                txtViewSubCategories.visibility = View.VISIBLE
+                ll1stRowOfHistoryAndGeographySubs.visibility = View.VISIBLE
+                ll2ndRowOfHistoryAndGeographySubs.visibility = View.VISIBLE
+                llBackCategory.visibility = View.VISIBLE
+            } else if(txtChosenCategory.text == "Entertainment"){
+                hideEverything()
+                txtViewSubCategories.visibility = View.VISIBLE
+                ll1stRowOfEntertainmentSubs.visibility = View.VISIBLE
+                ll2ndRowOfEntertainmentSubs.visibility = View.VISIBLE
+                llBackCategory.visibility = View.VISIBLE
+            } else if(txtChosenCategory.text == "Sports"){
+                hideEverything()
+                txtViewSubCategories.visibility = View.VISIBLE
+                llRowOfSportsSubs.visibility = View.VISIBLE
+                llBackCategory.visibility = View.VISIBLE
+            } else if(txtChosenCategory.text == "Food and Drinks"){
+                hideEverything()
+                txtViewSubCategories.visibility = View.VISIBLE
+                ll1stRowOfFoodAndDrinksSubs.visibility = View.VISIBLE
+                ll2ndRowOfFoodAndDrinksSubs.visibility = View.VISIBLE
+                llBackCategory.visibility = View.VISIBLE
+            }
+        }
         // THIS TO THE END OF EACH BUTTON
             /*goToScreen("startGame")*/
 
@@ -322,13 +349,13 @@ class PlayFragment : Fragment() {
     }
 
     private fun showCategories() {
-        txtViewCategories.visibility = View.VISIBLE
+        txtChosenCategory.text = "Choose a Category!"
+        txtChosenCategory.visibility = View.VISIBLE
         ll1stRowOfCategories.visibility = View.VISIBLE
         ll2ndRowOfCategories.visibility = View.VISIBLE
     }
 
     private fun hideEverything() {
-        txtViewCategories.visibility = View.GONE
         ll1stRowOfCategories.visibility = View.GONE
         ll2ndRowOfCategories.visibility = View.GONE
         txtViewSubCategories.visibility = View.GONE
@@ -343,6 +370,8 @@ class PlayFragment : Fragment() {
         llRowOfSportsSubs.visibility = View.GONE
         ll1stRowOfFoodAndDrinksSubs.visibility = View.GONE
         ll2ndRowOfFoodAndDrinksSubs.visibility = View.GONE
+        btnGoToChooseSubCategory.visibility = View.GONE
+        txtChosenCategory.visibility = View.GONE
 
     }
 

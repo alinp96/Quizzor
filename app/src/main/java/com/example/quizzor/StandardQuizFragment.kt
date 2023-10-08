@@ -166,17 +166,17 @@ class StandardQuizFragment : Fragment() {
         var returnVal = false
 
         returnVal = if (timeLimitExceeded){
-            Toast.makeText(requireContext(), "Time exceeded!", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(requireContext(), "Time exceeded!", Toast.LENGTH_SHORT).show()
             dotLogic(questionIndex, false)
             false
         } else if (selectedAnswer == correctAnswer) {
             // Perform action for correct answer
-            Toast.makeText(requireContext(), "Correct!", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(requireContext(), "Correct!", Toast.LENGTH_SHORT).show()
             dotLogic(questionIndex, true)
             true
         } else {
             // Perform action for wrong answer
-            Toast.makeText(requireContext(), "Wrong!", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(requireContext(), "Wrong!", Toast.LENGTH_SHORT).show()
             dotLogic(questionIndex, false)
             false
         }
