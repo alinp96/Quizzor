@@ -20,8 +20,8 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class PlayFragment : Fragment() {
-    private lateinit var llBackCategory: View
-    private lateinit var txtViewSubCategories: View
+    private lateinit var llBackCategory: LinearLayout
+    private lateinit var txtViewSubCategories: TextView
     private lateinit var txtChosenCategory: TextView
     private lateinit var ll1stRowOfCategories: View
 
@@ -44,8 +44,9 @@ class PlayFragment : Fragment() {
     private lateinit var btnSports: ImageButton
     private lateinit var btnFoodAndDrinks: ImageButton
 
-    private lateinit var btnBackCategory: Button
-    private lateinit var btnGoToChooseSubCategory: Button
+    private lateinit var btnBackCategory: ImageButton
+    private lateinit var btnStartGame: ImageButton
+    private lateinit var btnGoToChooseSubCategory: ImageButton
     private lateinit var btnTrivia: ImageButton
     private lateinit var btnWorldFacts: ImageButton
     private lateinit var btnFamousPersonalities: ImageButton
@@ -103,8 +104,9 @@ class PlayFragment : Fragment() {
         ll1stRowOfFoodAndDrinksSubs = view.findViewById<LinearLayout>(R.id.ll1stRowOfFoodAndDrinksSubs)
         ll2ndRowOfFoodAndDrinksSubs = view.findViewById<LinearLayout>(R.id.ll2ndRowOfFoodAndDrinksSubs)
 
-        btnGoToChooseSubCategory = view.findViewById<Button>(R.id.btnGoToChooseSubCategory)
-        btnBackCategory = view.findViewById<Button>(R.id.btnBackCategory)
+        btnGoToChooseSubCategory = view.findViewById<ImageButton>(R.id.btnGoToChooseSubCategory)
+        btnBackCategory = view.findViewById<ImageButton>(R.id.btnBackCategory)
+        btnStartGame = view.findViewById<ImageButton>(R.id.btnStartGame)
         btnGeneralKnowledge = view.findViewById<ImageButton>(R.id.btnGeneralKnowledge)
         btnTrivia = view.findViewById<ImageButton>(R.id.btnTrivia)
         btnWorldFacts = view.findViewById<ImageButton>(R.id.btnWorldFacts)
@@ -144,208 +146,279 @@ class PlayFragment : Fragment() {
         showCategories()
 
         btnGeneralKnowledge.setOnClickListener{
-            txtChosenCategory.text = "General Knowledge"
-            txtChosenCategory.visibility = View.VISIBLE
-            btnGoToChooseSubCategory.visibility = View.VISIBLE
+            chosenCategory("General Knowledge")
         }
 
         btnTrivia.setOnClickListener{
-            saveDataToSharedPreferences("category", "Trivia")
-            goToScreen("startGame")
+            chosenSubCategory("Trivia")
         }
 
         btnWorldFacts.setOnClickListener{
-            saveDataToSharedPreferences("category", "World Facts")
-            goToScreen("startGame")
+            chosenSubCategory("World Facts")
         }
 
         btnFamousPersonalities.setOnClickListener{
-            saveDataToSharedPreferences("category", "Famous Personalities")
-            goToScreen("startGame")
+            chosenSubCategory("Famous Personalities")
         }
 
         btnScienceAndTechnology.setOnClickListener{
-            txtChosenCategory.text = "Science and Technology"
-            txtChosenCategory.visibility = View.VISIBLE
-            btnGoToChooseSubCategory.visibility = View.VISIBLE
+            chosenCategory("Science and Technology")
         }
 
         btnPhysics.setOnClickListener{
-            saveDataToSharedPreferences("category", "Physics")
-            goToScreen("startGame")
+            chosenSubCategory("Physics")
         }
 
         btnChemistry.setOnClickListener{
-            saveDataToSharedPreferences("category", "Chemistry")
-            goToScreen("startGame")
+            chosenSubCategory("Chemistry")
         }
 
         btnBiology.setOnClickListener{
-            saveDataToSharedPreferences("category", "Biology")
-            goToScreen("startGame")
+            chosenSubCategory("Biology")
         }
 
         btnComputerScience.setOnClickListener{
-            saveDataToSharedPreferences("category", "Computer Science")
-            goToScreen("startGame")
+            chosenSubCategory("Computer Science")
         }
 
         btnHistoryAndGeography.setOnClickListener{
-            txtChosenCategory.text = "History and Geography"
-            txtChosenCategory.visibility = View.VISIBLE
-            btnGoToChooseSubCategory.visibility = View.VISIBLE
+            chosenCategory("History and Geography")
         }
 
         btnContriesAndCapitals.setOnClickListener{
-            saveDataToSharedPreferences("category", "Countries and Captitals")
-            goToScreen("startGame")
+            chosenSubCategory("Countries and Captitals")
         }
 
         btnGeographicFactsAndTrivia.setOnClickListener{
-            saveDataToSharedPreferences("category", "Geographic facts and Trivia")
-            goToScreen("startGame")
+            chosenSubCategory("Geographic facts and Trivia")
         }
 
         btnFamousHistoricalFigures.setOnClickListener{
-            saveDataToSharedPreferences("category", "Famous Historical Figures")
-            goToScreen("startGame")
+            chosenSubCategory("Famous Historical Figures")
         }
 
         btnHistoricalEvents.setOnClickListener{
-            saveDataToSharedPreferences("category", "Historical Events")
-            goToScreen("startGame")
+            chosenSubCategory("Historical Events")
         }
 
         btnEntertainment.setOnClickListener{
-            txtChosenCategory.text = "Entertainment"
-            txtChosenCategory.visibility = View.VISIBLE
-            btnGoToChooseSubCategory.visibility = View.VISIBLE
+            chosenCategory("Entertainment")
         }
 
         btnMovies.setOnClickListener{
-            saveDataToSharedPreferences("category", "Movies")
-            goToScreen("startGame")
+            chosenSubCategory("Movies")
         }
 
         btnTvShows.setOnClickListener{
-            saveDataToSharedPreferences("category", "Tv Shows")
-            goToScreen("startGame")
+            chosenSubCategory("Tv Shows")
         }
 
         btnMusic.setOnClickListener{
-            saveDataToSharedPreferences("category", "Music")
-            goToScreen("startGame")
+            chosenSubCategory("Music")
         }
 
         btnBooksAndLiterature.setOnClickListener{
-            saveDataToSharedPreferences("category", "Books and Literature")
-            goToScreen("startGame")
+            chosenSubCategory("Books and Literature")
         }
 
         btnCelebrityAndPopCulture.setOnClickListener{
-            saveDataToSharedPreferences("category", "Celebrity and Pop Culture")
-            goToScreen("startGame")
+            chosenSubCategory("Celebrity and Pop Culture")
         }
 
         btnVideoGames.setOnClickListener{
-            saveDataToSharedPreferences("category", "Video Games")
-            goToScreen("startGame")
+            chosenSubCategory("Video Games")
         }
 
         btnSports.setOnClickListener{
-            txtChosenCategory.text = "Sports"
-            txtChosenCategory.visibility = View.VISIBLE
-            btnGoToChooseSubCategory.visibility = View.VISIBLE
+            chosenCategory("Sports")
         }
 
         btnSoccer.setOnClickListener{
-            saveDataToSharedPreferences("category", "Soccer")
-            goToScreen("startGame")
+            chosenSubCategory("Soccer")
         }
 
         btnUnusualSportsFacts.setOnClickListener{
-            saveDataToSharedPreferences("category", "Unusual sports facts")
-            goToScreen("startGame")
+            chosenSubCategory("Unusual sports facts")
         }
 
         btnMemorableSportingEvents.setOnClickListener{
-            saveDataToSharedPreferences("category", "Memorable sporting events")
-            goToScreen("startGame")
+            chosenSubCategory("Memorable sporting events")
         }
 
         btnFoodAndDrinks.setOnClickListener{
-            txtChosenCategory.text = "Food and Drinks"
-            txtChosenCategory.visibility = View.VISIBLE
-            btnGoToChooseSubCategory.visibility = View.VISIBLE
+            chosenCategory("Food and Drinks")
         }
 
         btnCuisine.setOnClickListener{
-            saveDataToSharedPreferences("category", "Cuisine")
-            goToScreen("startGame")
+            chosenSubCategory("Cuisine")
         }
 
         btnIngredients.setOnClickListener{
-            saveDataToSharedPreferences("category", "Ingredients")
-            goToScreen("startGame")
+            chosenSubCategory("Ingredients")
         }
 
         btnBeverages.setOnClickListener{
-            saveDataToSharedPreferences("category", "Beverages")
-            goToScreen("startGame")
+            chosenSubCategory("Beverages")
         }
 
         btnFoodAndTrivia.setOnClickListener{
-            saveDataToSharedPreferences("category", "Food and Trivia")
-            goToScreen("startGame")
+            chosenSubCategory("Food and Trivia")
         }
 
         btnBackCategory.setOnClickListener{
             hideEverything()
+            txtViewSubCategories.text = "Choose a Subcategory!"
             showCategories()
         }
 
+        btnStartGame.setOnClickListener{
+            hideEverything()
+            when(txtViewSubCategories.text){
+                "Trivia" -> {
+                    saveDataToSharedPreferences("category", "Trivia")
+                }
+                "World Facts" -> {
+                    saveDataToSharedPreferences("category", "World Facts")
+                }
+                "Famous Personalities" -> {
+                    saveDataToSharedPreferences("category", "Famous Personalities")
+                }
+                "Physics" -> {
+                    saveDataToSharedPreferences("category", "Physics")
+                }
+                "Chemistry" -> {
+                    saveDataToSharedPreferences("category", "Chemistry")
+                }
+                "Biology" -> {
+                    saveDataToSharedPreferences("category", "Biology")
+                }
+                "Computer Science" -> {
+                    saveDataToSharedPreferences("category", "Computer Science")
+                }
+                "Countries and Captitals" -> {
+                    saveDataToSharedPreferences("category", "Countries and Captitals")
+                }
+                "Geographic facts and Trivia" -> {
+                    saveDataToSharedPreferences("category", "Geographic facts and Trivia")
+                }
+                "Famous Historical Figures" -> {
+                    saveDataToSharedPreferences("category", "Famous Historical Figures")
+                }
+                "Historical Events" -> {
+                    saveDataToSharedPreferences("category", "Historical Events")
+                }
+                "Movies" -> {
+                    saveDataToSharedPreferences("category", "Movies")
+                }
+                "Tv Shows" -> {
+                    saveDataToSharedPreferences("category", "Tv Shows")
+                }
+                "Music" -> {
+                    saveDataToSharedPreferences("category", "Music")
+                }
+                "Books and Literature" -> {
+                    saveDataToSharedPreferences("category", "Books and Literature")
+                }
+                "Celebrity and Pop Culture" -> {
+                    saveDataToSharedPreferences("category", "Celebrity and Pop Culture")
+                }
+                "Video Games" -> {
+                    saveDataToSharedPreferences("category", "Video Games")
+                }
+                "Soccer" -> {
+                    saveDataToSharedPreferences("category", "Soccer")
+                }
+                "Unusual sports facts" -> {
+                    saveDataToSharedPreferences("category", "Unusual sports facts")
+                }
+                "Memorable sporting events" -> {
+                    saveDataToSharedPreferences("category", "Memorable sporting events")
+                }
+                "Cuisine" -> {
+                    saveDataToSharedPreferences("category", "Cuisine")
+                }
+                "Ingredients" -> {
+                    saveDataToSharedPreferences("category", "Ingredients")
+                }
+                "Beverages" -> {
+                    saveDataToSharedPreferences("category", "Beverages")
+                }
+                "Food and Trivia" -> {
+                    saveDataToSharedPreferences("category", "Food and Trivia")
+                }
+            }
+            txtViewSubCategories.text = "Choose a Subcategory!"
+            goToScreen("startGame")
+        }
+
+
+
         btnGoToChooseSubCategory.setOnClickListener{
             hideEverything()
-            if(txtChosenCategory.text == "General Knowledge"){
-                hideEverything()
-                txtViewSubCategories.visibility = View.VISIBLE
-                llGeneralKnowledgeSubs.visibility = View.VISIBLE
-                llBackCategory.visibility = View.VISIBLE
-            } else if(txtChosenCategory.text == "Science and Technology"){
-                hideEverything()
-                txtViewSubCategories.visibility = View.VISIBLE
-                ll1stRowOfScienceAndTechnologySubs.visibility = View.VISIBLE
-                ll2ndRowOfScienceAndTechnologySubs.visibility = View.VISIBLE
-                llBackCategory.visibility = View.VISIBLE
-            } else if(txtChosenCategory.text == "History and Geography"){
-                hideEverything()
-                txtViewSubCategories.visibility = View.VISIBLE
-                ll1stRowOfHistoryAndGeographySubs.visibility = View.VISIBLE
-                ll2ndRowOfHistoryAndGeographySubs.visibility = View.VISIBLE
-                llBackCategory.visibility = View.VISIBLE
-            } else if(txtChosenCategory.text == "Entertainment"){
-                hideEverything()
-                txtViewSubCategories.visibility = View.VISIBLE
-                ll1stRowOfEntertainmentSubs.visibility = View.VISIBLE
-                ll2ndRowOfEntertainmentSubs.visibility = View.VISIBLE
-                llBackCategory.visibility = View.VISIBLE
-            } else if(txtChosenCategory.text == "Sports"){
-                hideEverything()
-                txtViewSubCategories.visibility = View.VISIBLE
-                llRowOfSportsSubs.visibility = View.VISIBLE
-                llBackCategory.visibility = View.VISIBLE
-            } else if(txtChosenCategory.text == "Food and Drinks"){
-                hideEverything()
-                txtViewSubCategories.visibility = View.VISIBLE
-                ll1stRowOfFoodAndDrinksSubs.visibility = View.VISIBLE
-                ll2ndRowOfFoodAndDrinksSubs.visibility = View.VISIBLE
-                llBackCategory.visibility = View.VISIBLE
+            when(txtChosenCategory.text) {
+                "General Knowledge" -> {
+                    txtViewSubCategories.visibility = View.VISIBLE
+                    llGeneralKnowledgeSubs.visibility = View.VISIBLE
+                    llBackCategory.visibility = View.VISIBLE
+                }
+                "Science and Technology" -> {
+                    txtViewSubCategories.visibility = View.VISIBLE
+                    ll1stRowOfScienceAndTechnologySubs.visibility = View.VISIBLE
+                    ll2ndRowOfScienceAndTechnologySubs.visibility = View.VISIBLE
+                    llBackCategory.visibility = View.VISIBLE
+                }
+                "History and Geography" -> {
+                    txtViewSubCategories.visibility = View.VISIBLE
+                    ll1stRowOfHistoryAndGeographySubs.visibility = View.VISIBLE
+                    ll2ndRowOfHistoryAndGeographySubs.visibility = View.VISIBLE
+                    llBackCategory.visibility = View.VISIBLE
+                }
+                "Entertainment" -> {
+                    txtViewSubCategories.visibility = View.VISIBLE
+                    ll1stRowOfEntertainmentSubs.visibility = View.VISIBLE
+                    ll2ndRowOfEntertainmentSubs.visibility = View.VISIBLE
+                    llBackCategory.visibility = View.VISIBLE
+                }
+                "Sports" -> {
+                    txtViewSubCategories.visibility = View.VISIBLE
+                    llRowOfSportsSubs.visibility = View.VISIBLE
+                    llBackCategory.visibility = View.VISIBLE
+                }
+                "Food and Drinks" -> {
+                    txtViewSubCategories.visibility = View.VISIBLE
+                    ll1stRowOfFoodAndDrinksSubs.visibility = View.VISIBLE
+                    ll2ndRowOfFoodAndDrinksSubs.visibility = View.VISIBLE
+                    llBackCategory.visibility = View.VISIBLE
+                }
             }
+            hideStartButton()
         }
         // THIS TO THE END OF EACH BUTTON
             /*goToScreen("startGame")*/
 
         return view
+    }
+
+    private fun hideStartButton(){
+        btnStartGame.visibility = View.GONE
+    }
+
+    private fun showStartButton(){
+        btnStartGame.visibility = View.VISIBLE
+    }
+
+    private fun chosenCategory(category: String){
+        txtChosenCategory.text = category
+        txtChosenCategory.visibility = View.VISIBLE
+        btnGoToChooseSubCategory.visibility = View.VISIBLE
+    }
+
+    private fun chosenSubCategory(subCategory: String){
+        txtViewSubCategories.text = subCategory
+        txtViewSubCategories.visibility = View.VISIBLE
+        btnStartGame.visibility = View.VISIBLE
+        btnBackCategory.visibility = View.VISIBLE
+        showStartButton()
     }
 
     private fun showCategories() {

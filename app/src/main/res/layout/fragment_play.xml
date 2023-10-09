@@ -118,8 +118,10 @@
             android:text="Food &amp; Drinks" />
     </LinearLayout>
 
-    <Button
+    <ImageButton
         android:id="@+id/btnGoToChooseSubCategory"
+        android:src="@drawable/ic_arrow_forward"
+        android:background="@color/primaryColor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="fill_parent"
@@ -319,7 +321,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewChosenSubCategory"
         android:padding="2dp"
         android:layout_marginHorizontal="0dp"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <ImageButton
             android:id="@+id/btnMovies"
@@ -521,13 +523,27 @@
         android:layout_margin="10dp"
         android:visibility="gone">
 
-    <Button
-        android:id="@+id/btnBackCategory"
-        android:layout_width="fill_parent"
-        android:layout_height="100dp"
-        android:layout_margin="2dp"
-        android:layout_weight="1"
-        android:text="Choose another category "/>
+
+        <ImageButton
+            android:id="@+id/btnBackCategory"
+            android:src="@drawable/ic_arrow_back"
+            android:background="@color/primaryColor"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:text="Choose another category "/>
+
+        <ImageButton
+            android:id="@+id/btnStartGame"
+            android:src="@drawable/ic_start_game"
+            android:background="@color/primaryColor"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:text="Start Game" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
