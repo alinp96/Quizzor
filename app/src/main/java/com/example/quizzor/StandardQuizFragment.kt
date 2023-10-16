@@ -58,6 +58,9 @@ class StandardQuizFragment : Fragment() {
         val language = getDataFromSharedPreferences("language")
         val category = getDataFromSharedPreferences("category")
 
+        val activity = requireActivity()
+        activity.title = "$category questions"
+
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_standard_quiz, container, false)
         questionTextView = view.findViewById<TextView>(R.id.textViewQuestion)

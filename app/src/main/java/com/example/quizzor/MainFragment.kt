@@ -34,6 +34,9 @@ class MainFragment : Fragment() {
         val test = view.findViewById<TextView>(R.id.textViewWelcomeText)
         var language: String = ""
 
+        val activity = requireActivity()
+        activity.title = "Quizzor"
+
         sharedPreferences = requireActivity().getSharedPreferences("userPreferences", Context.MODE_PRIVATE)
 
         language = getDataFromSharedPreferences("language")

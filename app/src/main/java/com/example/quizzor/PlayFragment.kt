@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.cardview.widget.CardView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -37,40 +38,40 @@ class PlayFragment : Fragment() {
     private lateinit var ll1stRowOfFoodAndDrinksSubs: View
     private lateinit var ll2ndRowOfFoodAndDrinksSubs: View
 
-    private lateinit var btnGeneralKnowledge: ImageButton
-    private lateinit var btnScienceAndTechnology: ImageButton
-    private lateinit var btnHistoryAndGeography: ImageButton
-    private lateinit var btnEntertainment: ImageButton
-    private lateinit var btnSports: ImageButton
-    private lateinit var btnFoodAndDrinks: ImageButton
+    private lateinit var cvGeneralKnowledge: CardView
+    private lateinit var cvScienceAndTechnology: CardView
+    private lateinit var cvHistoryAndGeography: CardView
+    private lateinit var cvEntertainment: CardView
+    private lateinit var cvSports: CardView
+    private lateinit var cvFoodAndDrinks: CardView
 
     private lateinit var btnBackCategory: ImageButton
     private lateinit var btnStartGame: ImageButton
     private lateinit var btnGoToChooseSubCategory: ImageButton
-    private lateinit var btnTrivia: ImageButton
-    private lateinit var btnWorldFacts: ImageButton
-    private lateinit var btnFamousPersonalities: ImageButton
-    private lateinit var btnPhysics: ImageButton
-    private lateinit var btnChemistry: ImageButton
-    private lateinit var btnBiology: ImageButton
-    private lateinit var btnComputerScience: ImageButton
-    private lateinit var btnContriesAndCapitals: ImageButton
-    private lateinit var btnGeographicFactsAndTrivia: ImageButton
-    private lateinit var btnFamousHistoricalFigures: ImageButton
-    private lateinit var btnHistoricalEvents: ImageButton
-    private lateinit var btnMovies: ImageButton
-    private lateinit var btnTvShows: ImageButton
-    private lateinit var btnMusic: ImageButton
-    private lateinit var btnBooksAndLiterature: ImageButton
-    private lateinit var btnCelebrityAndPopCulture: ImageButton
-    private lateinit var btnVideoGames: ImageButton
-    private lateinit var btnSoccer: ImageButton
-    private lateinit var btnUnusualSportsFacts: ImageButton
-    private lateinit var btnMemorableSportingEvents: ImageButton
-    private lateinit var btnCuisine: ImageButton
-    private lateinit var btnIngredients: ImageButton
-    private lateinit var btnBeverages: ImageButton
-    private lateinit var btnFoodAndTrivia: ImageButton
+    private lateinit var cvTrivia: CardView
+    private lateinit var cvWorldFacts: CardView
+    private lateinit var cvFamousPersonalities: CardView
+    private lateinit var cvPhysics: CardView
+    private lateinit var cvChemistry: CardView
+    private lateinit var cvBiology: CardView
+    private lateinit var cvComputerScience: CardView
+    private lateinit var cvCountriesAndCapitals: CardView
+    private lateinit var cvGeographicFactsAndTrivia: CardView
+    private lateinit var cvFamousHistoricalFigures: CardView
+    private lateinit var cvHistoricalEvents: CardView
+    private lateinit var cvMovies: CardView
+    private lateinit var cvTvShows: CardView
+    private lateinit var cvMusic: CardView
+    private lateinit var cvBooksAndLiterature: CardView
+    private lateinit var cvCelebrityAndPopCulture: CardView
+    private lateinit var cvVideoGames: CardView
+    private lateinit var cvSoccer: CardView
+    private lateinit var cvUnusualSportsFacts: CardView
+    private lateinit var cvMemorableSportingEvents: CardView
+    private lateinit var cvCuisine: CardView
+    private lateinit var cvIngredients: CardView
+    private lateinit var cvBeverages: CardView
+    private lateinit var cvFoodAndTrivia: CardView
 
     private lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,6 +82,9 @@ class PlayFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // Set the title for the ActionBar (or Toolbar)
+        val activity = requireActivity()
+        activity.title = "Chose your category!"
 
         sharedPreferences = requireActivity().getSharedPreferences("userPreferences", Context.MODE_PRIVATE)
 
@@ -107,36 +111,36 @@ class PlayFragment : Fragment() {
         btnGoToChooseSubCategory = view.findViewById<ImageButton>(R.id.btnGoToChooseSubCategory)
         btnBackCategory = view.findViewById<ImageButton>(R.id.btnBackCategory)
         btnStartGame = view.findViewById<ImageButton>(R.id.btnStartGame)
-        btnGeneralKnowledge = view.findViewById<ImageButton>(R.id.btnGeneralKnowledge)
-        btnTrivia = view.findViewById<ImageButton>(R.id.btnTrivia)
-        btnWorldFacts = view.findViewById<ImageButton>(R.id.btnWorldFacts)
-        btnFamousPersonalities = view.findViewById<ImageButton>(R.id.btnFamousCelebrities)
-        btnScienceAndTechnology = view.findViewById<ImageButton>(R.id.btnScienceAndTechnology)
-        btnPhysics = view.findViewById<ImageButton>(R.id.btnPhysics)
-        btnChemistry = view.findViewById<ImageButton>(R.id.btnChemistry)
-        btnBiology = view.findViewById<ImageButton>(R.id.btnBiology)
-        btnComputerScience = view.findViewById<ImageButton>(R.id.btnComputerScience)
-        btnHistoryAndGeography = view.findViewById<ImageButton>(R.id.btnHistoryAndGeography)
-        btnEntertainment = view.findViewById<ImageButton>(R.id.btnEntertainment)
-        btnSports = view.findViewById<ImageButton>(R.id.btnSports)
-        btnFoodAndDrinks = view.findViewById<ImageButton>(R.id.btnFoodAndDrinks)
-        btnContriesAndCapitals = view.findViewById<ImageButton>(R.id.btnContriesAndCapitals)
-        btnGeographicFactsAndTrivia = view.findViewById<ImageButton>(R.id.btnGeographicFactsAndTrivia)
-        btnFamousHistoricalFigures = view.findViewById<ImageButton>(R.id.btnFamousHistoricalFigures)
-        btnHistoricalEvents = view.findViewById<ImageButton>(R.id.btnHistoricalEvents)
-        btnMovies = view.findViewById<ImageButton>(R.id.btnMovies)
-        btnTvShows = view.findViewById<ImageButton>(R.id.btnTvShows)
-        btnMusic = view.findViewById<ImageButton>(R.id.btnMusic)
-        btnBooksAndLiterature = view.findViewById<ImageButton>(R.id.btnBooksAndLiterature)
-        btnCelebrityAndPopCulture = view.findViewById<ImageButton>(R.id.btnCelebrityAndPopCulture)
-        btnVideoGames = view.findViewById<ImageButton>(R.id.btnVideoGames)
-        btnSoccer = view.findViewById<ImageButton>(R.id.btnSoccer)
-        btnUnusualSportsFacts = view.findViewById<ImageButton>(R.id.btnUnusualSportsFacts)
-        btnMemorableSportingEvents = view.findViewById<ImageButton>(R.id.btnMemorableSportingEvents)
-        btnCuisine = view.findViewById<ImageButton>(R.id.btnCuisine)
-        btnIngredients = view.findViewById<ImageButton>(R.id.btnIngredients)
-        btnBeverages = view.findViewById<ImageButton>(R.id.btnBeverages)
-        btnFoodAndTrivia = view.findViewById<ImageButton>(R.id.btnFoodAndTrivia)
+        cvGeneralKnowledge = view.findViewById<CardView>(R.id.cv_generalKnowledge)
+        cvTrivia = view.findViewById<CardView>(R.id.cv_trivia)
+        cvWorldFacts = view.findViewById<CardView>(R.id.cv_worldFacts)
+        cvFamousPersonalities = view.findViewById<CardView>(R.id.cv_famousCelebrities)
+        cvScienceAndTechnology = view.findViewById<CardView>(R.id.cv_scienceAndTechnology)
+        cvPhysics = view.findViewById<CardView>(R.id.cv_physics)
+        cvChemistry = view.findViewById<CardView>(R.id.cv_chemistry)
+        cvBiology = view.findViewById<CardView>(R.id.cv_biology)
+        cvComputerScience = view.findViewById<CardView>(R.id.cv_computerScience)
+        cvHistoryAndGeography = view.findViewById<CardView>(R.id.cv_historyAndGeography)
+        cvEntertainment = view.findViewById<CardView>(R.id.cv_entertainment)
+        cvSports = view.findViewById<CardView>(R.id.cv_sports)
+        cvFoodAndDrinks = view.findViewById<CardView>(R.id.cv_foodAndDrinks)
+        cvCountriesAndCapitals = view.findViewById<CardView>(R.id.cv_countriesAndCapitals)
+        cvGeographicFactsAndTrivia = view.findViewById<CardView>(R.id.cv_geographicFactsAndTrivia)
+        cvFamousHistoricalFigures = view.findViewById<CardView>(R.id.cv_famousHistoricalFigures)
+        cvHistoricalEvents = view.findViewById<CardView>(R.id.cv_historicalEvents)
+        cvMovies = view.findViewById<CardView>(R.id.cv_movies)
+        cvTvShows = view.findViewById<CardView>(R.id.cv_tvShows)
+        cvMusic = view.findViewById<CardView>(R.id.cv_music)
+        cvBooksAndLiterature = view.findViewById<CardView>(R.id.cv_booksAndLiterature)
+        cvCelebrityAndPopCulture = view.findViewById<CardView>(R.id.cv_celebrityAndPopCulture)
+        cvVideoGames = view.findViewById<CardView>(R.id.cv_videoGames)
+        cvSoccer = view.findViewById<CardView>(R.id.cv_soccer)
+        cvUnusualSportsFacts = view.findViewById<CardView>(R.id.cv_unusualSportsFacts)
+        cvMemorableSportingEvents = view.findViewById<CardView>(R.id.cv_memorableSportingEvents)
+        cvCuisine = view.findViewById<CardView>(R.id.cv_cuisine)
+        cvIngredients = view.findViewById<CardView>(R.id.cv_ingredients)
+        cvBeverages = view.findViewById<CardView>(R.id.cv_beverages)
+        cvFoodAndTrivia = view.findViewById<CardView>(R.id.cv_foodTrivia)
 
         //val adapter = setLanguagePreferencesToView(language, view)
 
@@ -145,123 +149,123 @@ class PlayFragment : Fragment() {
         hideEverything()
         showCategories()
 
-        btnGeneralKnowledge.setOnClickListener{
+        cvGeneralKnowledge.setOnClickListener{
             chosenCategory("General Knowledge")
         }
 
-        btnTrivia.setOnClickListener{
+        cvTrivia.setOnClickListener{
             chosenSubCategory("Trivia")
         }
 
-        btnWorldFacts.setOnClickListener{
+        cvWorldFacts.setOnClickListener{
             chosenSubCategory("World Facts")
         }
 
-        btnFamousPersonalities.setOnClickListener{
+        cvFamousPersonalities.setOnClickListener{
             chosenSubCategory("Famous Personalities")
         }
 
-        btnScienceAndTechnology.setOnClickListener{
+        cvScienceAndTechnology.setOnClickListener{
             chosenCategory("Science and Technology")
         }
 
-        btnPhysics.setOnClickListener{
+        cvPhysics.setOnClickListener{
             chosenSubCategory("Physics")
         }
 
-        btnChemistry.setOnClickListener{
+        cvChemistry.setOnClickListener{
             chosenSubCategory("Chemistry")
         }
 
-        btnBiology.setOnClickListener{
+        cvBiology.setOnClickListener{
             chosenSubCategory("Biology")
         }
 
-        btnComputerScience.setOnClickListener{
+        cvComputerScience.setOnClickListener{
             chosenSubCategory("Computer Science")
         }
 
-        btnHistoryAndGeography.setOnClickListener{
+        cvHistoryAndGeography.setOnClickListener{
             chosenCategory("History and Geography")
         }
 
-        btnContriesAndCapitals.setOnClickListener{
+        cvCountriesAndCapitals.setOnClickListener{
             chosenSubCategory("Countries and Captitals")
         }
 
-        btnGeographicFactsAndTrivia.setOnClickListener{
+        cvGeographicFactsAndTrivia.setOnClickListener{
             chosenSubCategory("Geographic facts and Trivia")
         }
 
-        btnFamousHistoricalFigures.setOnClickListener{
+        cvFamousHistoricalFigures.setOnClickListener{
             chosenSubCategory("Famous Historical Figures")
         }
 
-        btnHistoricalEvents.setOnClickListener{
+        cvHistoricalEvents.setOnClickListener{
             chosenSubCategory("Historical Events")
         }
 
-        btnEntertainment.setOnClickListener{
+        cvEntertainment.setOnClickListener{
             chosenCategory("Entertainment")
         }
 
-        btnMovies.setOnClickListener{
+        cvMovies.setOnClickListener{
             chosenSubCategory("Movies")
         }
 
-        btnTvShows.setOnClickListener{
+        cvTvShows.setOnClickListener{
             chosenSubCategory("Tv Shows")
         }
 
-        btnMusic.setOnClickListener{
+        cvMusic.setOnClickListener{
             chosenSubCategory("Music")
         }
 
-        btnBooksAndLiterature.setOnClickListener{
+        cvBooksAndLiterature.setOnClickListener{
             chosenSubCategory("Books and Literature")
         }
 
-        btnCelebrityAndPopCulture.setOnClickListener{
+        cvCelebrityAndPopCulture.setOnClickListener{
             chosenSubCategory("Celebrity and Pop Culture")
         }
 
-        btnVideoGames.setOnClickListener{
+        cvVideoGames.setOnClickListener{
             chosenSubCategory("Video Games")
         }
 
-        btnSports.setOnClickListener{
+        cvSports.setOnClickListener{
             chosenCategory("Sports")
         }
 
-        btnSoccer.setOnClickListener{
+        cvSoccer.setOnClickListener{
             chosenSubCategory("Soccer")
         }
 
-        btnUnusualSportsFacts.setOnClickListener{
+        cvUnusualSportsFacts.setOnClickListener{
             chosenSubCategory("Unusual sports facts")
         }
 
-        btnMemorableSportingEvents.setOnClickListener{
+        cvMemorableSportingEvents.setOnClickListener{
             chosenSubCategory("Memorable sporting events")
         }
 
-        btnFoodAndDrinks.setOnClickListener{
+        cvFoodAndDrinks.setOnClickListener{
             chosenCategory("Food and Drinks")
         }
 
-        btnCuisine.setOnClickListener{
+        cvCuisine.setOnClickListener{
             chosenSubCategory("Cuisine")
         }
 
-        btnIngredients.setOnClickListener{
+        cvIngredients.setOnClickListener{
             chosenSubCategory("Ingredients")
         }
 
-        btnBeverages.setOnClickListener{
+        cvBeverages.setOnClickListener{
             chosenSubCategory("Beverages")
         }
 
-        btnFoodAndTrivia.setOnClickListener{
+        cvFoodAndTrivia.setOnClickListener{
             chosenSubCategory("Food and Trivia")
         }
 
@@ -269,6 +273,7 @@ class PlayFragment : Fragment() {
             hideEverything()
             txtViewSubCategories.text = "Choose a Subcategory!"
             showCategories()
+            activity?.title = "Chose your category!"
         }
 
         btnStartGame.setOnClickListener{
@@ -347,7 +352,6 @@ class PlayFragment : Fragment() {
                     saveDataToSharedPreferences("category", "Food and Trivia")
                 }
             }
-            txtViewSubCategories.text = "Choose a Subcategory!"
             goToScreen("startGame")
         }
 
@@ -408,17 +412,125 @@ class PlayFragment : Fragment() {
     }
 
     private fun chosenCategory(category: String){
-        txtChosenCategory.text = category
-        txtChosenCategory.visibility = View.VISIBLE
-        btnGoToChooseSubCategory.visibility = View.VISIBLE
+        hideEverything()
+        when(category) {
+            "General Knowledge" -> {
+                txtViewSubCategories.visibility = View.VISIBLE
+                llGeneralKnowledgeSubs.visibility = View.VISIBLE
+                llBackCategory.visibility = View.VISIBLE
+            }
+            "Science and Technology" -> {
+                txtViewSubCategories.visibility = View.VISIBLE
+                ll1stRowOfScienceAndTechnologySubs.visibility = View.VISIBLE
+                ll2ndRowOfScienceAndTechnologySubs.visibility = View.VISIBLE
+                llBackCategory.visibility = View.VISIBLE
+            }
+            "History and Geography" -> {
+                txtViewSubCategories.visibility = View.VISIBLE
+                ll1stRowOfHistoryAndGeographySubs.visibility = View.VISIBLE
+                ll2ndRowOfHistoryAndGeographySubs.visibility = View.VISIBLE
+                llBackCategory.visibility = View.VISIBLE
+            }
+            "Entertainment" -> {
+                txtViewSubCategories.visibility = View.VISIBLE
+                ll1stRowOfEntertainmentSubs.visibility = View.VISIBLE
+                ll2ndRowOfEntertainmentSubs.visibility = View.VISIBLE
+                llBackCategory.visibility = View.VISIBLE
+            }
+            "Sports" -> {
+                txtViewSubCategories.visibility = View.VISIBLE
+                llRowOfSportsSubs.visibility = View.VISIBLE
+                llBackCategory.visibility = View.VISIBLE
+            }
+            "Food and Drinks" -> {
+                txtViewSubCategories.visibility = View.VISIBLE
+                ll1stRowOfFoodAndDrinksSubs.visibility = View.VISIBLE
+                ll2ndRowOfFoodAndDrinksSubs.visibility = View.VISIBLE
+                llBackCategory.visibility = View.VISIBLE
+            }
+        }
+        activity?.title = "Chose your subcategory!"
+        hideStartButton()
     }
 
     private fun chosenSubCategory(subCategory: String){
-        txtViewSubCategories.text = subCategory
-        txtViewSubCategories.visibility = View.VISIBLE
-        btnStartGame.visibility = View.VISIBLE
-        btnBackCategory.visibility = View.VISIBLE
-        showStartButton()
+        hideEverything()
+        when(subCategory){
+            "Trivia" -> {
+                saveDataToSharedPreferences("category", "Trivia")
+            }
+            "World Facts" -> {
+                saveDataToSharedPreferences("category", "World Facts")
+            }
+            "Famous Personalities" -> {
+                saveDataToSharedPreferences("category", "Famous Personalities")
+            }
+            "Physics" -> {
+                saveDataToSharedPreferences("category", "Physics")
+            }
+            "Chemistry" -> {
+                saveDataToSharedPreferences("category", "Chemistry")
+            }
+            "Biology" -> {
+                saveDataToSharedPreferences("category", "Biology")
+            }
+            "Computer Science" -> {
+                saveDataToSharedPreferences("category", "Computer Science")
+            }
+            "Countries and Captitals" -> {
+                saveDataToSharedPreferences("category", "Countries and Captitals")
+            }
+            "Geographic facts and Trivia" -> {
+                saveDataToSharedPreferences("category", "Geographic facts and Trivia")
+            }
+            "Famous Historical Figures" -> {
+                saveDataToSharedPreferences("category", "Famous Historical Figures")
+            }
+            "Historical Events" -> {
+                saveDataToSharedPreferences("category", "Historical Events")
+            }
+            "Movies" -> {
+                saveDataToSharedPreferences("category", "Movies")
+            }
+            "Tv Shows" -> {
+                saveDataToSharedPreferences("category", "Tv Shows")
+            }
+            "Music" -> {
+                saveDataToSharedPreferences("category", "Music")
+            }
+            "Books and Literature" -> {
+                saveDataToSharedPreferences("category", "Books and Literature")
+            }
+            "Celebrity and Pop Culture" -> {
+                saveDataToSharedPreferences("category", "Celebrity and Pop Culture")
+            }
+            "Video Games" -> {
+                saveDataToSharedPreferences("category", "Video Games")
+            }
+            "Soccer" -> {
+                saveDataToSharedPreferences("category", "Soccer")
+            }
+            "Unusual sports facts" -> {
+                saveDataToSharedPreferences("category", "Unusual sports facts")
+            }
+            "Memorable sporting events" -> {
+                saveDataToSharedPreferences("category", "Memorable sporting events")
+            }
+            "Cuisine" -> {
+                saveDataToSharedPreferences("category", "Cuisine")
+            }
+            "Ingredients" -> {
+                saveDataToSharedPreferences("category", "Ingredients")
+            }
+            "Beverages" -> {
+                saveDataToSharedPreferences("category", "Beverages")
+            }
+            "Food and Trivia" -> {
+                saveDataToSharedPreferences("category", "Food and Trivia")
+            }
+        }
+        txtViewSubCategories.text = "Choose a Subcategory!"
+        goToScreen("startGame")
     }
 
     private fun showCategories() {
