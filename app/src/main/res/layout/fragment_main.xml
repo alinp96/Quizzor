@@ -27,8 +27,10 @@
         app:layout_constraintBottom_toTopOf="@id/llSecondRowOfButtons"
         android:padding="2dp">
 
-        <Button
+        <ImageButton
             android:id="@+id/btnPlay"
+            android:src="@drawable/ic_playbtn"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_margin="2dp"
@@ -62,8 +64,10 @@
             android:layout_weight="1"
             android:text="Profile" />
 
-        <Button
+        <ImageButton
             android:id="@+id/btnSettings"
+            android:src="@drawable/ic_settingsbtn"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
             android:layout_margin="2dp"

@@ -268,6 +268,7 @@ class StandardQuizFragment : Fragment() {
     }
 
     private fun getQuestionList(numberOfQuestions: Int, category: String, language: String): List<TFQuestion>{
+
         val csvReader = CSVReader()
         val wholeQuestionList = csvReader.readCSVData(requireContext(), category, language)
         val sessionQuestionList = mutableListOf<TFQuestion>()

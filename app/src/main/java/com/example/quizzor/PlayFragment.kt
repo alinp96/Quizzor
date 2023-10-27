@@ -21,6 +21,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class PlayFragment : Fragment() {
+    private lateinit var btnBackToMainScreen: ImageButton
     private lateinit var llBackCategory: LinearLayout
     private lateinit var txtViewSubCategories: TextView
     private lateinit var txtChosenCategory: TextView
@@ -44,6 +45,13 @@ class PlayFragment : Fragment() {
     private lateinit var cvEntertainment: CardView
     private lateinit var cvSports: CardView
     private lateinit var cvFoodAndDrinks: CardView
+
+    private lateinit var tvGeneralKnowledge: TextView
+    private lateinit var tvScienceAndTechnology: TextView
+    private lateinit var tvHistoryAndGeography: TextView
+    private lateinit var tvEntertainment: TextView
+    private lateinit var tvSports: TextView
+    private lateinit var tvFoodAndDrinks: TextView
 
     private lateinit var btnBackCategory: ImageButton
     private lateinit var btnStartGame: ImageButton
@@ -92,6 +100,7 @@ class PlayFragment : Fragment() {
 
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_play, container, false)
+        btnBackToMainScreen = view.findViewById<ImageButton>(R.id.btnBackToMainScreen)
         llBackCategory = view.findViewById<LinearLayout>(R.id.llBackCategory)
         txtViewSubCategories = view.findViewById<TextView>(R.id.textViewChosenSubCategory)
         txtChosenCategory = view.findViewById<TextView>(R.id.textViewChosenCategory)
@@ -142,12 +151,26 @@ class PlayFragment : Fragment() {
         cvBeverages = view.findViewById<CardView>(R.id.cv_beverages)
         cvFoodAndTrivia = view.findViewById<CardView>(R.id.cv_foodTrivia)
 
-        //val adapter = setLanguagePreferencesToView(language, view)
+        tvGeneralKnowledge = view.findViewById<TextView>(R.id.tv_generalKnowledge)
+        tvScienceAndTechnology = view.findViewById<TextView>(R.id.tv_scienceAndTechnology)
+        tvHistoryAndGeography = view.findViewById<TextView>(R.id.tv_historyAndGeography)
+        tvEntertainment = view.findViewById<TextView>(R.id.tv_entertainment)
+        tvSports = view.findViewById<TextView>(R.id.tv_sports)
+        tvFoodAndDrinks = view.findViewById<TextView>(R.id.tv_foodAndDrinks)
+
+        setLanguagePreferencesToView(language)
 
 
         // Show categories
         hideEverything()
         showCategories()
+
+        btnBackToMainScreen.setOnClickListener{
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.container, MainFragment.newInstance())
+                .addToBackStack(null)
+                .commit()
+        }
 
         cvGeneralKnowledge.setOnClickListener{
             chosenCategory("General Knowledge")
@@ -455,80 +478,8 @@ class PlayFragment : Fragment() {
 
     private fun chosenSubCategory(subCategory: String){
         hideEverything()
-        when(subCategory){
-            "Trivia" -> {
-                saveDataToSharedPreferences("category", "Trivia")
-            }
-            "World Facts" -> {
-                saveDataToSharedPreferences("category", "World Facts")
-            }
-            "Famous Personalities" -> {
-                saveDataToSharedPreferences("category", "Famous Personalities")
-            }
-            "Physics" -> {
-                saveDataToSharedPreferences("category", "Physics")
-            }
-            "Chemistry" -> {
-                saveDataToSharedPreferences("category", "Chemistry")
-            }
-            "Biology" -> {
-                saveDataToSharedPreferences("category", "Biology")
-            }
-            "Computer Science" -> {
-                saveDataToSharedPreferences("category", "Computer Science")
-            }
-            "Countries and Captitals" -> {
-                saveDataToSharedPreferences("category", "Countries and Captitals")
-            }
-            "Geographic facts and Trivia" -> {
-                saveDataToSharedPreferences("category", "Geographic facts and Trivia")
-            }
-            "Famous Historical Figures" -> {
-                saveDataToSharedPreferences("category", "Famous Historical Figures")
-            }
-            "Historical Events" -> {
-                saveDataToSharedPreferences("category", "Historical Events")
-            }
-            "Movies" -> {
-                saveDataToSharedPreferences("category", "Movies")
-            }
-            "Tv Shows" -> {
-                saveDataToSharedPreferences("category", "Tv Shows")
-            }
-            "Music" -> {
-                saveDataToSharedPreferences("category", "Music")
-            }
-            "Books and Literature" -> {
-                saveDataToSharedPreferences("category", "Books and Literature")
-            }
-            "Celebrity and Pop Culture" -> {
-                saveDataToSharedPreferences("category", "Celebrity and Pop Culture")
-            }
-            "Video Games" -> {
-                saveDataToSharedPreferences("category", "Video Games")
-            }
-            "Soccer" -> {
-                saveDataToSharedPreferences("category", "Soccer")
-            }
-            "Unusual sports facts" -> {
-                saveDataToSharedPreferences("category", "Unusual sports facts")
-            }
-            "Memorable sporting events" -> {
-                saveDataToSharedPreferences("category", "Memorable sporting events")
-            }
-            "Cuisine" -> {
-                saveDataToSharedPreferences("category", "Cuisine")
-            }
-            "Ingredients" -> {
-                saveDataToSharedPreferences("category", "Ingredients")
-            }
-            "Beverages" -> {
-                saveDataToSharedPreferences("category", "Beverages")
-            }
-            "Food and Trivia" -> {
-                saveDataToSharedPreferences("category", "Food and Trivia")
-            }
-        }
+        saveDataToSharedPreferences("category", subCategory)
+
         txtViewSubCategories.text = "Choose a Subcategory!"
         goToScreen("startGame")
     }
@@ -538,6 +489,7 @@ class PlayFragment : Fragment() {
         txtChosenCategory.visibility = View.VISIBLE
         ll1stRowOfCategories.visibility = View.VISIBLE
         ll2ndRowOfCategories.visibility = View.VISIBLE
+        btnBackToMainScreen.visibility = View.VISIBLE
     }
 
     private fun hideEverything() {
@@ -557,6 +509,7 @@ class PlayFragment : Fragment() {
         ll2ndRowOfFoodAndDrinksSubs.visibility = View.GONE
         btnGoToChooseSubCategory.visibility = View.GONE
         txtChosenCategory.visibility = View.GONE
+        btnBackToMainScreen.visibility = View.GONE
 
     }
 
@@ -600,19 +553,56 @@ class PlayFragment : Fragment() {
     }
 
 
-    private fun setLanguagePreferencesToView(language: String, view: View):  ArrayAdapter<CharSequence>{
-        val btnBackCategory = view.findViewById<Button>(R.id.btnBackCategory)
-        var adapter:  ArrayAdapter<CharSequence> = ArrayAdapter.createFromResource(requireContext(), R.array.quizCategoriesEn, android.R.layout.simple_spinner_item)
-        when(language){
-            "en"->{
-                adapter = ArrayAdapter.createFromResource(requireContext(), R.array.quizCategoriesEn, android.R.layout.simple_spinner_item)
-                btnBackCategory.text = "Start Game"
+    private fun setLanguagePreferencesToView(language: String){
+        when (language){
+            "en" ->{
+                tvGeneralKnowledge.text = "General Knowledge"
+                tvScienceAndTechnology.text = "Science & Technology"
+                tvHistoryAndGeography.text = "History & Geography"
+                tvEntertainment.text = "Entertainment"
+                tvSports.text = "Sports"
+                tvFoodAndDrinks.text = "Food & Drinks"
             }
-            "ro"->{
-                adapter = ArrayAdapter.createFromResource(requireContext(), R.array.quizCategoriesRo, android.R.layout.simple_spinner_item)
-                btnBackCategory.text = "Incepe Jocul"
+            "ro" -> {
+                tvGeneralKnowledge.text = "Cunoștințe generale"
+                tvScienceAndTechnology.text = "Știință și tehnologie"
+                tvHistoryAndGeography.text = "Istorie și Geografie"
+                tvEntertainment.text = "Divertisment"
+                tvSports.text = "Sporturi"
+                tvFoodAndDrinks.text = "Mâncare și băuturi"
+            }
+            "de" -> {
+                tvGeneralKnowledge.text = "Allgemeinwissen"
+                tvScienceAndTechnology.text = "Wissenschaft & Technik"
+                tvHistoryAndGeography.text = "Geschichte & Geographie"
+                tvEntertainment.text = "Unterhaltung"
+                tvSports.text = "Sport"
+                tvFoodAndDrinks.text = "Essen & Trinken"
+            }
+            "fr" -> {
+                tvGeneralKnowledge.text = "Connaissances générales"
+                tvScienceAndTechnology.text = "Science et technologie"
+                tvHistoryAndGeography.text = "Histoire et géographie"
+                tvEntertainment.text = "Divertissement"
+                tvSports.text = "Sports"
+                tvFoodAndDrinks.text = "Nourriture et boissons"
+            }
+            "hu" -> {
+                tvGeneralKnowledge.text = "Általános ismeretek"
+                tvScienceAndTechnology.text = "Tudomány és technológia"
+                tvHistoryAndGeography.text = "Történelem és földrajz"
+                tvEntertainment.text = "Szórakozás"
+                tvSports.text = "Sport"
+                tvFoodAndDrinks.text = "Ételek és italok"
+            }
+            "jp" -> {
+                tvGeneralKnowledge.text = "一般常識"
+                tvScienceAndTechnology.text = "科学と技術"
+                tvHistoryAndGeography.text = "歴史と地理"
+                tvEntertainment.text = "エンターテインメント"
+                tvSports.text = "スポーツ"
+                tvFoodAndDrinks.text = "フード＆ドリンク"
             }
         }
-        return adapter
     }
 }

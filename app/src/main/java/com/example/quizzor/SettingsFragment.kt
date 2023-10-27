@@ -7,10 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 
 class SettingsFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
@@ -26,17 +23,18 @@ class SettingsFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_settings, container, false)
 
-        val btnChangeLanguage = view.findViewById<Button>(R.id.btnChangeLanguage)
+        val btnChangeLanguage = view.findViewById<ImageButton>(R.id.btnChangeLanguage)
         val firstLanguageRowLL = view.findViewById<LinearLayout>(R.id.llLanguageFirstRow)
         val secondLanguageRowLL = view.findViewById<LinearLayout>(R.id.llLanguageSecondRow)
+        val llRowOfSettingsButtons = view.findViewById<LinearLayout>(R.id.llRowOfSettingsButtons)
         var counterLanguageBtn: Int = 0
 
-        val cbEnglishLanguage = view.findViewById<CheckBox>(R.id.cbEnglish)
-        val cbRomanaLanguage = view.findViewById<CheckBox>(R.id.cbRomana)
-        val cbGermanLanguage = view.findViewById<CheckBox>(R.id.cbGerman)
-        val cbFrancaisLanguage = view.findViewById<CheckBox>(R.id.cbFrancais)
-        val cbHungarianLanguage = view.findViewById<CheckBox>(R.id.cbHungarian)
-        val cbJapanLanguage = view.findViewById<CheckBox>(R.id.cbJapan)
+        val cbEnglishLanguage = view.findViewById<ImageButton>(R.id.btnEnglish)
+        val cbRomanaLanguage = view.findViewById<ImageButton>(R.id.btnRomana)
+        val cbGermanLanguage = view.findViewById<ImageButton>(R.id.btnGerman)
+        val cbFrancaisLanguage = view.findViewById<ImageButton>(R.id.btnFrancais)
+        val cbHungarianLanguage = view.findViewById<ImageButton>(R.id.btnHungarian)
+        val cbJapanLanguage = view.findViewById<ImageButton>(R.id.btnJapan)
 
         // Initialize shared preferences
         sharedPreferences = requireActivity().getSharedPreferences("userPreferences", Context.MODE_PRIVATE)
@@ -48,12 +46,13 @@ class SettingsFragment : Fragment() {
 
         if (!isInitDone) {
             // Set English as default language
-            checkOnlyOneLanguage(language, view)
+            updateLanguageInSharedPreferencesFromFragment("language", "en")
             val editor = sharedPreferences.edit()
             editor.putBoolean("isSettingsInitDone", true)
             editor.apply()
         }
-
+        firstLanguageRowLL.visibility = View.GONE
+        secondLanguageRowLL.visibility = View.GONE
 
 
 
@@ -61,53 +60,36 @@ class SettingsFragment : Fragment() {
             if (counterLanguageBtn % 2 == 0){
                 firstLanguageRowLL.visibility = View.VISIBLE
                 secondLanguageRowLL.visibility = View.VISIBLE
+                counterLanguageBtn = 1
             } else{
                 firstLanguageRowLL.visibility = View.GONE
                 secondLanguageRowLL.visibility = View.GONE
-            }
-            counterLanguageBtn++
-        }
-
-        cbEnglishLanguage.setOnCheckedChangeListener{
-                _, isChecked ->
-            if (isChecked) {
-                checkOnlyOneLanguage("en", view)
+                counterLanguageBtn = 0
             }
         }
 
-        cbRomanaLanguage.setOnCheckedChangeListener{
-                _, isChecked ->
-            if (isChecked) {
-                checkOnlyOneLanguage("ro", view)
-            }
+        cbEnglishLanguage.setOnClickListener{
+            updateLanguageInSharedPreferencesFromFragment("language", "en")
         }
 
-        cbGermanLanguage.setOnCheckedChangeListener{
-                _, isChecked ->
-            if (isChecked) {
-                checkOnlyOneLanguage("de", view)
-            }
+        cbRomanaLanguage.setOnClickListener{
+            updateLanguageInSharedPreferencesFromFragment("language", "ro")
         }
 
-        cbFrancaisLanguage.setOnCheckedChangeListener{
-                _, isChecked ->
-            if (isChecked) {
-                checkOnlyOneLanguage("fr", view)
-            }
+        cbGermanLanguage.setOnClickListener{
+            updateLanguageInSharedPreferencesFromFragment("language", "de")
         }
 
-        cbHungarianLanguage.setOnCheckedChangeListener{
-                _, isChecked ->
-            if (isChecked) {
-                checkOnlyOneLanguage("hu", view)
-            }
+        cbFrancaisLanguage.setOnClickListener{
+            updateLanguageInSharedPreferencesFromFragment("language", "fr")
         }
 
-        cbJapanLanguage.setOnCheckedChangeListener{
-                _, isChecked ->
-            if (isChecked) {
-                checkOnlyOneLanguage("jp", view)
-            }
+        cbHungarianLanguage.setOnClickListener{
+            updateLanguageInSharedPreferencesFromFragment("language", "hu")
+        }
+
+        cbJapanLanguage.setOnClickListener{
+            updateLanguageInSharedPreferencesFromFragment("language", "jp")
         }
 
         return view
@@ -130,105 +112,6 @@ class SettingsFragment : Fragment() {
 
                 }
             }
-    }
-
-    fun checkOnlyOneLanguage(checkedLanguage: String, view: View){
-        val cbEnglishLanguage = view.findViewById<CheckBox>(R.id.cbEnglish)
-        val cbRomanaLanguage = view.findViewById<CheckBox>(R.id.cbRomana)
-        val cbGermanLanguage = view.findViewById<CheckBox>(R.id.cbGerman)
-        val cbFrancaisLanguage = view.findViewById<CheckBox>(R.id.cbFrancais)
-        val cbHungarianLanguage = view.findViewById<CheckBox>(R.id.cbHungarian)
-        val cbJapanLanguage = view.findViewById<CheckBox>(R.id.cbJapan)
-
-        when(checkedLanguage){
-            "en"->{
-                updateLanguageInSharedPreferencesFromFragment("language", "en")
-                cbEnglishLanguage.isChecked = true
-                cbEnglishLanguage.isClickable = false
-                cbRomanaLanguage.isChecked = false
-                cbRomanaLanguage.isClickable = true
-                cbGermanLanguage.isChecked = false
-                cbGermanLanguage.isClickable = true
-                cbFrancaisLanguage.isChecked = false
-                cbFrancaisLanguage.isClickable = true
-                cbHungarianLanguage.isChecked = false
-                cbHungarianLanguage.isClickable = true
-                cbJapanLanguage.isChecked = false
-                cbJapanLanguage.isClickable = true
-            }"ro"->{
-                updateLanguageInSharedPreferencesFromFragment("language", "ro")
-                cbEnglishLanguage.isChecked = false
-                cbEnglishLanguage.isClickable = true
-                cbRomanaLanguage.isChecked = true
-                cbRomanaLanguage.isClickable = false
-                cbGermanLanguage.isChecked = false
-                cbGermanLanguage.isClickable = true
-                cbFrancaisLanguage.isChecked = false
-                cbFrancaisLanguage.isClickable = true
-                cbHungarianLanguage.isChecked = false
-                cbHungarianLanguage.isClickable = true
-                cbJapanLanguage.isChecked = false
-                cbJapanLanguage.isClickable = true
-            }"de"->{
-                updateLanguageInSharedPreferencesFromFragment("language", "de")
-                cbEnglishLanguage.isChecked = false
-                cbEnglishLanguage.isClickable = true
-                cbRomanaLanguage.isChecked = false
-                cbRomanaLanguage.isClickable = true
-                cbGermanLanguage.isChecked = true
-                cbGermanLanguage.isClickable = false
-                cbFrancaisLanguage.isChecked = false
-                cbFrancaisLanguage.isClickable = true
-                cbHungarianLanguage.isChecked = false
-                cbHungarianLanguage.isClickable = true
-                cbJapanLanguage.isChecked = false
-                cbJapanLanguage.isClickable = true
-            }"fr"->{
-                updateLanguageInSharedPreferencesFromFragment("language", "fr")
-                cbEnglishLanguage.isChecked = false
-                cbEnglishLanguage.isClickable = true
-                cbRomanaLanguage.isChecked = false
-                cbRomanaLanguage.isClickable = true
-                cbGermanLanguage.isChecked = false
-                cbGermanLanguage.isClickable = true
-                cbFrancaisLanguage.isChecked = true
-                cbFrancaisLanguage.isClickable = false
-                cbHungarianLanguage.isChecked = false
-                cbHungarianLanguage.isClickable = true
-                cbJapanLanguage.isChecked = false
-                cbJapanLanguage.isClickable = true
-            }"hu"->{
-                updateLanguageInSharedPreferencesFromFragment("language", "hu")
-                cbEnglishLanguage.isChecked = false
-                cbEnglishLanguage.isClickable = true
-                cbRomanaLanguage.isChecked = false
-                cbRomanaLanguage.isClickable = true
-                cbGermanLanguage.isChecked = false
-                cbGermanLanguage.isClickable = true
-                cbFrancaisLanguage.isChecked = false
-                cbFrancaisLanguage.isClickable = true
-                cbHungarianLanguage.isChecked = true
-                cbHungarianLanguage.isClickable = false
-                cbJapanLanguage.isChecked = false
-                cbJapanLanguage.isClickable = true
-            }"jp"->{
-                updateLanguageInSharedPreferencesFromFragment("language", "jp")
-                cbEnglishLanguage.isChecked = false
-                cbEnglishLanguage.isClickable = true
-                cbRomanaLanguage.isChecked = false
-                cbRomanaLanguage.isClickable = true
-                cbGermanLanguage.isChecked = false
-                cbGermanLanguage.isClickable = true
-                cbFrancaisLanguage.isChecked = false
-                cbFrancaisLanguage.isClickable = true
-                cbHungarianLanguage.isChecked = false
-                cbHungarianLanguage.isClickable = true
-                cbJapanLanguage.isChecked = true
-                cbJapanLanguage.isClickable = false
-            }
-        }
-        val textview = view.findViewById<TextView>(R.id.textViewWelcomeText)
-        textview.text = getDataFromSharedPreferences("language")
     }
 
     private fun getDataFromSharedPreferences(key: String): String {
