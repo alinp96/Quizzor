@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.fragment.app.FragmentActivity
 
 class SettingsFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
@@ -42,6 +43,10 @@ class SettingsFragment : Fragment() {
         // Retrieve data from shared preferences
         val language = getDataFromSharedPreferences("language")
 
+        val activity = requireActivity()
+        // Set language
+        loadSettingsTextLanguage(language, view, activity)
+
         val isInitDone = sharedPreferences.getBoolean("isSettingsInitDone", false)
 
         if (!isInitDone) {
@@ -70,26 +75,32 @@ class SettingsFragment : Fragment() {
 
         cbEnglishLanguage.setOnClickListener{
             updateLanguageInSharedPreferencesFromFragment("language", "en")
+            changeToNewLanguage(view, activity)
         }
 
         cbRomanaLanguage.setOnClickListener{
             updateLanguageInSharedPreferencesFromFragment("language", "ro")
+            changeToNewLanguage(view, activity)
         }
 
         cbGermanLanguage.setOnClickListener{
             updateLanguageInSharedPreferencesFromFragment("language", "de")
+            changeToNewLanguage(view, activity)
         }
 
         cbFrancaisLanguage.setOnClickListener{
             updateLanguageInSharedPreferencesFromFragment("language", "fr")
+            changeToNewLanguage(view, activity)
         }
 
         cbHungarianLanguage.setOnClickListener{
             updateLanguageInSharedPreferencesFromFragment("language", "hu")
+            changeToNewLanguage(view, activity)
         }
 
         cbJapanLanguage.setOnClickListener{
             updateLanguageInSharedPreferencesFromFragment("language", "jp")
+            changeToNewLanguage(view, activity)
         }
 
         return view
@@ -122,5 +133,33 @@ class SettingsFragment : Fragment() {
         val editor = sharedPreferences.edit()
         editor.putString(key, newValue)
         editor.apply()
+    }
+
+    private fun loadSettingsTextLanguage(language: String, view: View, activity: FragmentActivity){
+        when(language){
+            "en" -> {
+                activity.title = "Settings"
+            }
+            "ro" -> {
+                activity.title = "Setări"
+            }
+            "de" -> {
+                activity.title = "Einstellungen"
+            }
+            "fr" -> {
+                activity.title = "Paramètres"
+            }
+            "hu" -> {
+                activity.title = "Beállítások"
+            }
+            "jp" -> {
+                activity.title = "設定"
+            }
+        }
+    }
+
+    private fun changeToNewLanguage(view: View, activity: FragmentActivity){
+        val language: String = getDataFromSharedPreferences("language")
+        loadSettingsTextLanguage(language, view, activity)
     }
 }
