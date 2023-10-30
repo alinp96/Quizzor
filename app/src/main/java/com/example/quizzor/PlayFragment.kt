@@ -53,6 +53,8 @@ class PlayFragment : Fragment() {
     private lateinit var tvSports: TextView
     private lateinit var tvFoodAndDrinks: TextView
 
+    private lateinit var backButton: Button
+    private lateinit var titleTextView: TextView
     private lateinit var btnBackCategory: ImageButton
     private lateinit var btnStartGame: ImageButton
     private lateinit var btnGoToChooseSubCategory: ImageButton
@@ -90,9 +92,6 @@ class PlayFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Set the title for the ActionBar (or Toolbar)
-        val activity = requireActivity()
-        activity.title = "Chose your category!"
 
         sharedPreferences = requireActivity().getSharedPreferences("userPreferences", Context.MODE_PRIVATE)
 
@@ -100,7 +99,6 @@ class PlayFragment : Fragment() {
 
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_play, container, false)
-        btnBackToMainScreen = view.findViewById<ImageButton>(R.id.btnBackToMainScreen)
         llBackCategory = view.findViewById<LinearLayout>(R.id.llBackCategory)
         txtViewSubCategories = view.findViewById<TextView>(R.id.textViewChosenSubCategory)
         txtChosenCategory = view.findViewById<TextView>(R.id.textViewChosenCategory)
@@ -158,6 +156,9 @@ class PlayFragment : Fragment() {
         tvSports = view.findViewById<TextView>(R.id.tv_sports)
         tvFoodAndDrinks = view.findViewById<TextView>(R.id.tv_foodAndDrinks)
 
+        backButton = view.findViewById<Button>(R.id.backButton)
+        titleTextView = view.findViewById<TextView>(R.id.titleTextView)
+
         setLanguagePreferencesToView(language)
 
 
@@ -165,7 +166,10 @@ class PlayFragment : Fragment() {
         hideEverything()
         showCategories()
 
-        btnBackToMainScreen.setOnClickListener{
+        titleTextView.text = "Chose your Category!"
+        backButton.visibility = View.VISIBLE
+
+        backButton.setOnClickListener{
             parentFragmentManager.beginTransaction()
                 .replace(R.id.container, MainFragment.newInstance())
                 .addToBackStack(null)
@@ -296,7 +300,7 @@ class PlayFragment : Fragment() {
             hideEverything()
             txtViewSubCategories.text = "Choose a Subcategory!"
             showCategories()
-            activity?.title = "Chose your category!"
+            titleTextView.text = "Chose your category!"
         }
 
         btnStartGame.setOnClickListener{
@@ -472,7 +476,7 @@ class PlayFragment : Fragment() {
                 llBackCategory.visibility = View.VISIBLE
             }
         }
-        activity?.title = "Chose your subcategory!"
+        titleTextView.text = "$category Topics"
         hideStartButton()
     }
 
@@ -480,7 +484,7 @@ class PlayFragment : Fragment() {
         hideEverything()
         saveDataToSharedPreferences("category", subCategory)
 
-        txtViewSubCategories.text = "Choose a Subcategory!"
+        titleTextView.text = "$subCategory Questions"
         goToScreen("startGame")
     }
 
@@ -489,7 +493,6 @@ class PlayFragment : Fragment() {
         txtChosenCategory.visibility = View.VISIBLE
         ll1stRowOfCategories.visibility = View.VISIBLE
         ll2ndRowOfCategories.visibility = View.VISIBLE
-        btnBackToMainScreen.visibility = View.VISIBLE
     }
 
     private fun hideEverything() {
@@ -509,7 +512,6 @@ class PlayFragment : Fragment() {
         ll2ndRowOfFoodAndDrinksSubs.visibility = View.GONE
         btnGoToChooseSubCategory.visibility = View.GONE
         txtChosenCategory.visibility = View.GONE
-        btnBackToMainScreen.visibility = View.GONE
 
     }
 

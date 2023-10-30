@@ -35,8 +35,11 @@ class MainFragment : Fragment() {
         val test = view.findViewById<TextView>(R.id.textViewWelcomeText)
         var language: String = ""
 
-        val activity = requireActivity()
-        activity.title = "Quizzor"
+        val backButton = view.findViewById<Button>(R.id.backButton)
+        val titleTextView = view.findViewById<TextView>(R.id.titleTextView)
+
+        backButton.visibility = View.GONE
+        titleTextView.text = "Quizzor"
 
         sharedPreferences = requireActivity().getSharedPreferences("userPreferences", Context.MODE_PRIVATE)
 
