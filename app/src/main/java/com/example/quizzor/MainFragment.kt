@@ -29,9 +29,6 @@ class MainFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_main, container, false)
         val btnPlay = view.findViewById<ImageButton>(R.id.btnPlay)
-        val btnLeaderboard = view.findViewById<Button>(R.id.btnLeaderboard)
-        val btnProfile = view.findViewById<Button>(R.id.btnProfile)
-        val btnSettings = view.findViewById<ImageButton>(R.id.btnSettings)
         val test = view.findViewById<TextView>(R.id.textViewWelcomeText)
         var language: String = ""
 
@@ -44,22 +41,9 @@ class MainFragment : Fragment() {
         sharedPreferences = requireActivity().getSharedPreferences("userPreferences", Context.MODE_PRIVATE)
 
         language = getDataFromSharedPreferences("language")
-        setLanguagePreferencesToView(language, view)
 
         btnPlay.setOnClickListener{
             goToScreen("play")
-        }
-
-        btnLeaderboard.setOnClickListener{
-            goToScreen("leaderboard")
-        }
-
-        btnProfile.setOnClickListener{
-            goToScreen("profile")
-        }
-
-        btnSettings.setOnClickListener{
-            goToScreen("settings")
         }
 
         // Inflate the layout for this fragment
@@ -110,25 +94,4 @@ class MainFragment : Fragment() {
         return sharedPreferences.getString(key, "") ?: ""
     }
 
-    private fun setLanguagePreferencesToView(language: String, view: View){
-        val btnPlay = view.findViewById<ImageButton>(R.id.btnPlay)
-        val btnLeaderboard = view.findViewById<Button>(R.id.btnLeaderboard)
-        val btnProfile = view.findViewById<Button>(R.id.btnProfile)
-        val btnSettings = view.findViewById<ImageButton>(R.id.btnSettings)
-
-        when(language){
-            "en"->{
-                //btnPlay.text = "Play"
-                btnLeaderboard.text = "Leaderboard"
-                btnProfile.text = "Profile"
-                //btnSettings.text = "Settings"
-            }
-            "ro"->{
-                //btnPlay.text = "Joaca"
-                btnLeaderboard.text = "Clasament"
-                btnProfile.text = "Profil"
-                //btnSettings.text = "Setari"
-            }
-        }
-    }
 }
