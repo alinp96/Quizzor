@@ -81,6 +81,9 @@ class PlayFragment : Fragment() {
     private lateinit var cvBeverages: CardView
     private lateinit var cvFoodAndTrivia: CardView
 
+    private lateinit var backButton: Button
+    private lateinit var tvTitle: TextView
+
     private lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,6 +103,8 @@ class PlayFragment : Fragment() {
 
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_play, container, false)
+        backButton = view.findViewById<Button>(R.id.backButton)
+        tvTitle = view.findViewById<TextView>(R.id.titleTextView)
         btnBackToMainScreen = view.findViewById<ImageButton>(R.id.btnBackToMainScreen)
         llBackCategory = view.findViewById<LinearLayout>(R.id.llBackCategory)
         txtViewSubCategories = view.findViewById<TextView>(R.id.textViewChosenSubCategory)
@@ -297,6 +302,14 @@ class PlayFragment : Fragment() {
             txtViewSubCategories.text = "Choose a Subcategory!"
             showCategories()
             activity?.title = "Chose your category!"
+            tvTitle.text = "Quizzor"
+        }
+
+        backButton.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.container, MainFragment.newInstance())
+                .addToBackStack(null)
+                .commit()
         }
 
         btnStartGame.setOnClickListener{
@@ -473,6 +486,7 @@ class PlayFragment : Fragment() {
             }
         }
         activity?.title = "Chose your subcategory!"
+        tvTitle.text = category
         hideStartButton()
     }
 
@@ -490,6 +504,7 @@ class PlayFragment : Fragment() {
         ll1stRowOfCategories.visibility = View.VISIBLE
         ll2ndRowOfCategories.visibility = View.VISIBLE
         btnBackToMainScreen.visibility = View.VISIBLE
+        backButton.visibility = View.VISIBLE
     }
 
     private fun hideEverything() {

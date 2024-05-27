@@ -24,6 +24,7 @@ class SettingsFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_settings, container, false)
 
+        var backButton: Button = view.findViewById<Button>(R.id.backButton)
         val btnChangeLanguage = view.findViewById<ImageButton>(R.id.btnChangeLanguage)
         val firstLanguageRowLL = view.findViewById<LinearLayout>(R.id.llLanguageFirstRow)
         val secondLanguageRowLL = view.findViewById<LinearLayout>(R.id.llLanguageSecondRow)
@@ -60,6 +61,13 @@ class SettingsFragment : Fragment() {
         secondLanguageRowLL.visibility = View.GONE
 
 
+
+        backButton.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.container, MainFragment.newInstance())
+                .addToBackStack(null)
+                .commit()
+        }
 
         btnChangeLanguage.setOnClickListener{
             if (counterLanguageBtn % 2 == 0){

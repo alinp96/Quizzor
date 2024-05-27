@@ -27,7 +27,9 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val view = inflater.inflate(R.layout.fragment_main, container, false)
+        var backButton: Button = view.findViewById<Button>(R.id.backButton)
         val btnPlay = view.findViewById<ImageButton>(R.id.btnPlay)
         val btnLeaderboard = view.findViewById<Button>(R.id.btnLeaderboard)
         val btnProfile = view.findViewById<Button>(R.id.btnProfile)
@@ -58,6 +60,8 @@ class MainFragment : Fragment() {
         btnSettings.setOnClickListener{
             goToScreen("settings")
         }
+
+        backButton.visibility = View.GONE
 
         // Inflate the layout for this fragment
         return view
