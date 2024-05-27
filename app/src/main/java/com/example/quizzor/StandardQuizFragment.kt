@@ -23,10 +23,12 @@ class StandardQuizFragment : Fragment() {
     private lateinit var questionTextView: TextView
     private lateinit var showQuestionNrTextView: TextView
     private lateinit var showScore: TextView
-    private lateinit var categoryTextView: TextView
     private lateinit var btnTrue: ImageButton
     private lateinit var btnFalse: ImageButton
     private lateinit var btnGoBack: ImageButton
+
+    private lateinit var backButton: Button
+    private lateinit var titleTextView: TextView
 
     private lateinit var dot: Array<ImageView>
     private lateinit var dotQ1: ImageView
@@ -66,11 +68,14 @@ class StandardQuizFragment : Fragment() {
         questionTextView = view.findViewById<TextView>(R.id.textViewQuestion)
         showQuestionNrTextView = view.findViewById<TextView>(R.id.textViewShowQuestion)
         showScore = view.findViewById<TextView>(R.id.textViewShowScore)
-        categoryTextView = view.findViewById<TextView>(R.id.textCategoryText)
         btnTrue = view.findViewById<ImageButton>(R.id.btnTrue)
         btnFalse = view.findViewById<ImageButton>(R.id.btnFalse)
         btnGoBack = view.findViewById<ImageButton>(R.id.btnGoBack)
         progressBarTimer = view.findViewById<ProgressBar>(R.id.progressBarTimer)
+
+        backButton = view.findViewById<Button>(R.id.backButton)
+        backButton.visibility = View.GONE
+        titleTextView = view.findViewById<TextView>(R.id.titleTextView)
 
         dotQ1 = view.findViewById<ImageView>(R.id.dotQ1)
         dotQ2 = view.findViewById<ImageView>(R.id.dotQ2)
@@ -106,8 +111,14 @@ class StandardQuizFragment : Fragment() {
         questionList = getQuestionList(numberOfQuestions, category, language)
 
         // change the Category text
-        categoryTextView.text = "$category questions"
+        titleTextView.text = "$category Questions"
 
+        backButton.setOnClickListener{
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.container, MainFragment.newInstance())
+                .addToBackStack(null)
+                .commit()
+        }
         // Start the quiz
         proceedToNextQuestion(questionTextView, questionNr, numberOfQuestions, score)
 

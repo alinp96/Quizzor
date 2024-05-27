@@ -7,6 +7,7 @@ import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.os.ConfigurationCompat
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.intellij.lang.annotations.Language
 import java.util.*
 
@@ -16,6 +17,40 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.mainFragment -> {
+                    // Replace the current fragment with the first fragment
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, MainFragment())
+                        .commit()
+                    return@setOnItemSelectedListener true
+                }
+                R.id.LeaderboardFragment -> {
+                    // Replace the current fragment with the first fragment
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, LeaderboardFragment())
+                        .commit()
+                    return@setOnItemSelectedListener true
+                }
+                R.id.ProfileFragment -> {
+                    // Replace the current fragment with the first fragment
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, ProfileFragment())
+                        .commit()
+                    return@setOnItemSelectedListener true
+                }
+                R.id.settingsFragment -> {
+                    // Replace the current fragment with the second fragment
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, SettingsFragment())
+                        .commit()
+                    return@setOnItemSelectedListener true
+                }
+                else -> return@setOnItemSelectedListener false
+            }
+        }
 
         // Initialize shared preferences
         sharedPreferences = getSharedPreferences("userPreferences", Context.MODE_PRIVATE)
@@ -46,5 +81,9 @@ class MainActivity : AppCompatActivity() {
 
         // Save data to shared preferences
         saveDataToSharedPreferences("language", defaultLanguage)
+    }
+
+    private val bottomNavigationView: BottomNavigationView by lazy {
+        findViewById(R.id.bottom_navigation)
     }
 }
