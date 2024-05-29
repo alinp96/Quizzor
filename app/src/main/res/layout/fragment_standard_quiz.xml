@@ -155,15 +155,16 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textAlignment="center"
-        android:textSize="24dp"
-        android:maxLines="4"
-        android:text="Here will appear the question. If it is longer than expected, go to the next line without any issues!"
-        app:layout_constraintStart_toStartOf="@+id/dots"
-        app:layout_constraintTop_toBottomOf="@+id/dots"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="50dp"
-        android:layout_marginStart="50dp"/>
+        android:maxLines="4"
+        android:text=" "
+        android:textAlignment="center"
+        android:textSize="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/dots"
+        app:layout_constraintTop_toBottomOf="@+id/dots" />
 
     <LinearLayout
         android:id="@+id/llRowOfTFButtons"

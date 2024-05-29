@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "935701951881",
+    "project_id": "quizzor-f7c3b",
+    "storage_bucket": "quizzor-f7c3b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:935701951881:android:e8b41982a2e624cd38dd58",
+        "android_client_info": {
+          "package_name": "com.example.quizzor"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAT4q_XHsY7grAhbbu5s0ksZSl8JrqwN2A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

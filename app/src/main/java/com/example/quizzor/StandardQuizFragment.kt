@@ -13,6 +13,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
 import android.widget.*
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.firestore
+import com.google.firebase.firestore.snapshots
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.android.gms.tasks.Task
 
 class StandardQuizFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
@@ -46,6 +51,8 @@ class StandardQuizFragment : Fragment() {
     private var score: Int = 0
     private var questionNr: Int = 0
     private var numberOfQuestions: Int = 10
+
+    private var documentName: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,7 +115,9 @@ class StandardQuizFragment : Fragment() {
         setLanguagePreferencesToView(language, view)
 
         // Load 10 random questions from the selected category and language
-        questionList = getQuestionList(numberOfQuestions, category, language)
+        //questionList = getQuestionList(numberOfQuestions, category, language)
+        questionList = emptyList()
+
 
         // change the Category text
         titleTextView.text = "$category Questions"
@@ -119,8 +128,21 @@ class StandardQuizFragment : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
+        documentName = "${category.lowercase()}_${language}"
         // Start the quiz
-        proceedToNextQuestion(questionTextView, questionNr, numberOfQuestions, score)
+        //proceedToNextQuestion(questionTextView, questionNr, numberOfQuestions, score)
+
+        fetchRandomQuestions("questions", documentName, 10)
+            .addOnSuccessListener { questions ->
+                // Use the list of TFQuestion objects
+                questionList = questions
+                // Start the quiz
+                proceedToNextQuestion(questionTextView, questionNr, numberOfQuestions, score)
+            }
+            .addOnFailureListener { exception ->
+                // Handle the error
+                println("Error fetching questions: ${exception.message}")
+            }
 
         btnTrue.setOnClickListener{
             if(ifGameInProgress(questionNr, numberOfQuestions)) {
@@ -151,6 +173,42 @@ class StandardQuizFragment : Fragment() {
 
                 }
             }
+    }
+
+    fun fetchRandomQuestions(collectionName: String, documentName: String, numberOfQuestions: Int): Task<List<TFQuestion>> {
+        val db = FirebaseFirestore.getInstance()
+
+        // Task to handle the asynchronous Firestore call
+        val task = db.collection(collectionName).document(documentName).get()
+            .continueWith { task ->
+                if (task.isSuccessful) {
+                    val document = task.result
+                    if (document != null && document.exists()) {
+                        // Parse the document data to extract questions
+                        val questionsMap = document.data as Map<String, Map<String, Any>>
+
+                        // Convert the map to a list of TFQuestion objects
+                        val questionList = questionsMap.values.map {
+                            TFQuestion(
+                                question = it["question"] as String,
+                                correctAnswer = it["correctAnswer"] as Boolean
+                            )
+                        }.toMutableList() // Convert to a mutable list
+
+                        // Shuffle the list to randomize the questions
+                        questionList.shuffle()
+
+                        // Select the first 'numberOfQuestions' questions from the shuffled list
+                        questionList.take(numberOfQuestions)
+                    } else {
+                        emptyList<TFQuestion>()
+                    }
+                } else {
+                    throw task.exception ?: Exception("Unknown error occurred")
+                }
+            }
+
+        return task
     }
 
     private fun proceedToNextQuestion(view: TextView, questionNr: Int, numberOfQuestions: Int, score: Int){
