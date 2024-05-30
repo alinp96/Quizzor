@@ -12,6 +12,8 @@ import androidx.fragment.app.FragmentActivity
 
 class SettingsFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var tvTitle: TextView
+    private lateinit var backButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +26,6 @@ class SettingsFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_settings, container, false)
 
-        var backButton: Button = view.findViewById<Button>(R.id.backButton)
         val btnChangeLanguage = view.findViewById<ImageButton>(R.id.btnChangeLanguage)
         val firstLanguageRowLL = view.findViewById<LinearLayout>(R.id.llLanguageFirstRow)
         val secondLanguageRowLL = view.findViewById<LinearLayout>(R.id.llLanguageSecondRow)
@@ -38,9 +39,15 @@ class SettingsFragment : Fragment() {
         val cbHungarianLanguage = view.findViewById<ImageButton>(R.id.btnHungarian)
         val cbJapanLanguage = view.findViewById<ImageButton>(R.id.btnJapan)
 
+        tvTitle = view.findViewById<TextView>(R.id.titleTextView)
+        backButton = view.findViewById<Button>(R.id.backButton)
+
         // Initialize shared preferences
         sharedPreferences = requireActivity().getSharedPreferences("userPreferences", Context.MODE_PRIVATE)
 
+
+
+        //tvTitle.text = "Settings"
         // Retrieve data from shared preferences
         val language = getDataFromSharedPreferences("language")
 
@@ -147,21 +154,33 @@ class SettingsFragment : Fragment() {
         when(language){
             "en" -> {
                 activity.title = "Settings"
+                tvTitle.text = "Settings"
+                backButton.text = "Back"
             }
             "ro" -> {
                 activity.title = "Setări"
+                tvTitle.text = "Setări"
+                backButton.text = "Înapoi"
             }
             "de" -> {
                 activity.title = "Einstellungen"
+                tvTitle.text = "Einstellungen"
+                backButton.text = "Back"
             }
             "fr" -> {
                 activity.title = "Paramètres"
+                tvTitle.text = "Paramètres"
+                backButton.text = "Retour"
             }
             "hu" -> {
                 activity.title = "Beállítások"
+                tvTitle.text = "Beállítások"
+                backButton.text = "Vissza"
             }
             "jp" -> {
                 activity.title = "設定"
+                tvTitle.text = "設定"
+                backButton.text = "バック"
             }
         }
     }

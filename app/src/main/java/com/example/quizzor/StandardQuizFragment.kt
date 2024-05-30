@@ -18,6 +18,7 @@ import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.snapshots
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.android.gms.tasks.Task
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class StandardQuizFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
@@ -107,6 +108,7 @@ class StandardQuizFragment : Fragment() {
         dot[8] = dotQ9
         dot[9] = dotQ10
 
+        hideBottomNavigation()
         // Reset
         score = 0
         questionNr = 0
@@ -161,6 +163,7 @@ class StandardQuizFragment : Fragment() {
             btnGoBack.visibility = View.GONE
             btnTrue.visibility = View.VISIBLE
             btnFalse.visibility = View.VISIBLE
+            showBottomNavigation()
         }
         return view
     }
@@ -379,5 +382,13 @@ class StandardQuizFragment : Fragment() {
             .replace(R.id.container, MainFragment.newInstance())
             .addToBackStack(null)
             .commit()
+    }
+
+    fun Fragment.hideBottomNavigation() {
+        (activity as? MainActivity)?.findViewById<BottomNavigationView>(R.id.bottom_navigation)?.visibility = View.GONE
+    }
+
+    fun Fragment.showBottomNavigation() {
+        (activity as? MainActivity)?.findViewById<BottomNavigationView>(R.id.bottom_navigation)?.visibility = View.VISIBLE
     }
 }

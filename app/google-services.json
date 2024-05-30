@@ -12,7 +12,20 @@
           "package_name": "com.example.quizzor"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "935701951881-hbg3ah49n03llesk8j0s740tu7v9e6hr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.quizzor",
+            "certificate_hash": "4bd93733b3083f5ae8633d60150c15ef9b07cce0"
+          }
+        },
+        {
+          "client_id": "935701951881-pua8bvovmspjicbg3pj1pnh87lin2b8a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAT4q_XHsY7grAhbbu5s0ksZSl8JrqwN2A"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "935701951881-pua8bvovmspjicbg3pj1pnh87lin2b8a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

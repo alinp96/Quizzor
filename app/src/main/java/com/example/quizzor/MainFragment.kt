@@ -19,6 +19,8 @@ import org.w3c.dom.Text
  */
 class MainFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var txtWelcome: TextView
+    //private lateinit var tvTitle: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -31,14 +33,17 @@ class MainFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_main, container, false)
         var backButton: Button = view.findViewById<Button>(R.id.backButton)
         val btnPlay = view.findViewById<ImageButton>(R.id.btnPlay)
-        val btnLeaderboard = view.findViewById<Button>(R.id.btnLeaderboard)
-        val btnProfile = view.findViewById<Button>(R.id.btnProfile)
-        val btnSettings = view.findViewById<ImageButton>(R.id.btnSettings)
-        val test = view.findViewById<TextView>(R.id.textViewWelcomeText)
+        txtWelcome = view.findViewById<TextView>(R.id.textViewWelcomeText)
+        //tvTitle = view.findViewById<TextView>(R.id.titleTextView)
+        //val btnLeaderboard = view.findViewById<Button>(R.id.btnLeaderboard)
+        //val btnProfile = view.findViewById<Button>(R.id.btnProfile)
+        //val btnSettings = view.findViewById<ImageButton>(R.id.btnSettings)
+        //val test = view.findViewById<TextView>(R.id.textViewWelcomeText)
         var language: String = ""
 
         val activity = requireActivity()
         activity.title = "Quizzor"
+
 
         sharedPreferences = requireActivity().getSharedPreferences("userPreferences", Context.MODE_PRIVATE)
 
@@ -49,7 +54,7 @@ class MainFragment : Fragment() {
             goToScreen("play")
         }
 
-        btnLeaderboard.setOnClickListener{
+        /*btnLeaderboard.setOnClickListener{
             goToScreen("leaderboard")
         }
 
@@ -59,7 +64,7 @@ class MainFragment : Fragment() {
 
         btnSettings.setOnClickListener{
             goToScreen("settings")
-        }
+        }*/
 
         backButton.visibility = View.GONE
 
@@ -112,23 +117,24 @@ class MainFragment : Fragment() {
     }
 
     private fun setLanguagePreferencesToView(language: String, view: View){
-        val btnPlay = view.findViewById<ImageButton>(R.id.btnPlay)
-        val btnLeaderboard = view.findViewById<Button>(R.id.btnLeaderboard)
-        val btnProfile = view.findViewById<Button>(R.id.btnProfile)
-        val btnSettings = view.findViewById<ImageButton>(R.id.btnSettings)
-
         when(language){
             "en"->{
-                //btnPlay.text = "Play"
-                btnLeaderboard.text = "Leaderboard"
-                btnProfile.text = "Profile"
-                //btnSettings.text = "Settings"
+                txtWelcome.text = "Welcome to Quizzor!"
             }
             "ro"->{
-                //btnPlay.text = "Joaca"
-                btnLeaderboard.text = "Clasament"
-                btnProfile.text = "Profil"
-                //btnSettings.text = "Setari"
+                txtWelcome.text = "Bine ați venit la Quizzor!"
+            }
+            "de" -> {
+                txtWelcome.text = "Willkommen bei Quizzor!"
+            }
+            "fr" -> {
+                txtWelcome.text = "Bienvenue sur Quizzor!"
+            }
+            "hu" -> {
+                txtWelcome.text = "Üdvözöljük a Quizzorban!"
+            }
+            "jp" -> {
+                txtWelcome.text = "Quizzorへようこそ！"
             }
         }
     }

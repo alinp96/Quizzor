@@ -5,8 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 
 class ProfileFragment : Fragment() {
+    private lateinit var tvTitle: TextView
+    private lateinit var backButton: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -16,7 +20,22 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        val view = inflater.inflate(R.layout.fragment_profile, container, false)
+
+        tvTitle = view.findViewById<TextView>(R.id.titleTextView)
+        backButton = view.findViewById<Button>(R.id.backButton)
+
+        tvTitle.text = "Profile"
+
+
+        backButton.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.container, MainFragment.newInstance())
+                .addToBackStack(null)
+                .commit()
+        }
+
+        return view
     }
 
     companion object {

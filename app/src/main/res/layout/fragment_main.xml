@@ -24,8 +24,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center|fill_horizontal"
         android:orientation="horizontal"
-        app:layout_constraintStart_toEndOf="@id/llSecondRowOfButtons"
-        app:layout_constraintBottom_toTopOf="@id/llSecondRowOfButtons"
+        android:layout_marginBottom="300dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:padding="2dp">
 
         <ImageButton
@@ -37,44 +38,9 @@
             android:layout_margin="2dp"
             android:layout_weight="1"
             android:text="Play" />
-
-        <Button
-            android:id="@+id/btnLeaderboard"
-            android:layout_width="fill_parent"
-            android:layout_height="100dp"
-            android:layout_margin="2dp"
-            android:layout_weight="1"
-            android:text="Leadereboard" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/llSecondRowOfButtons"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center|fill_horizontal"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:padding="2dp">
 
-        <Button
-            android:id="@+id/btnProfile"
-            android:layout_width="fill_parent"
-            android:layout_height="100dp"
-            android:layout_margin="2dp"
-            android:layout_weight="1"
-            android:text="Profile" />
-
-        <ImageButton
-            android:id="@+id/btnSettings"
-            android:src="@drawable/ic_settingsbtn"
-            android:background="?android:attr/selectableItemBackground"
-            android:layout_width="fill_parent"
-            android:layout_height="100dp"
-            android:layout_margin="2dp"
-            android:layout_weight="1"
-            android:text="Settings" />
-    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
