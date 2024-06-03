@@ -8,5 +8,6 @@
     android:background="?android:attr/windowBackground"
     app:menu="@menu/bottom_navigation_menu"
     app:labelVisibilityMode="labeled"
-    app:itemIconTint="@null">
+    app:itemIconTint="@null"
+    android:visibility="visible">
 </com.google.android.material.bottomnavigation.BottomNavigationView>

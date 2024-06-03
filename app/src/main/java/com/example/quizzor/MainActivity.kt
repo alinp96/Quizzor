@@ -6,18 +6,23 @@ import android.content.SharedPreferences
 import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.core.os.ConfigurationCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.firestore.auth.User
 import org.intellij.lang.annotations.Language
 import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var userManagement: UserManagement
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        userManagement = UserManagement()
 
+        bottomNavigationView.visibility = View.GONE
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.mainFragment -> {
@@ -64,7 +69,7 @@ class MainActivity : AppCompatActivity() {
         }
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, MainFragment.newInstance())
+                .replace(R.id.container, AuthenticationFragment.newInstance())
                 .commitNow()
         }
     }
@@ -85,5 +90,9 @@ class MainActivity : AppCompatActivity() {
 
     private val bottomNavigationView: BottomNavigationView by lazy {
         findViewById(R.id.bottom_navigation)
+    }
+
+    public fun getUserManagement(): UserManagement{
+        return userManagement
     }
 }

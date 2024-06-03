@@ -66,7 +66,7 @@ class MainFragment : Fragment() {
         }
 
         btnSignIn.setOnClickListener{
-            userManager.signIn("testuser@example.com", "password1234") { callback, test ->
+            userManager.signIn("testuser@example.com", "password123") { callback, test ->
                 if (test != null) {
                     Log.d("TAG", test)
                 }

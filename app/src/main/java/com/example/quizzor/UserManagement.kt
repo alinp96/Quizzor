@@ -7,6 +7,9 @@ import java.security.MessageDigest
 
 class UserManagement {
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
+    private var loggedInUserId: String? = null
+    private var loggedInUsername: String? = null
+
     fun registerUser(username: String, password: String){
         val username = hashMapOf(
             "username" to username,
@@ -26,6 +29,8 @@ class UserManagement {
                 val p = document.get("password")
                 if (u == username && p == hashString(password, "MD5")){
                     callback(true, u.toString())
+                    loggedInUserId = document.id
+                    loggedInUsername = u.toString()
                     break
                 }
             }
@@ -38,5 +43,13 @@ class UserManagement {
         val res = MessageDigest.getInstance(algorithm).digest(str.toByteArray(UTF_8))
         val bigInt = BigInteger(1, res)
         return String.format("%032x", bigInt)
+    }
+
+    fun isUserLoggedIn(): Boolean {
+        return loggedInUserId != null
+    }
+
+    fun getLoggedInUserId(): String? {
+        return loggedInUserId
     }
 }
