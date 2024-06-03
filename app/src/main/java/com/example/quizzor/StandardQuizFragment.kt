@@ -130,7 +130,7 @@ class StandardQuizFragment : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
-        documentName = "${category.lowercase()}_${language}"
+        documentName = "${category.replace(" ", "").lowercase()}_${language}"
         // Start the quiz
         //proceedToNextQuestion(questionTextView, questionNr, numberOfQuestions, score)
 
@@ -182,6 +182,7 @@ class StandardQuizFragment : Fragment() {
         val db = FirebaseFirestore.getInstance()
 
         // Task to handle the asynchronous Firestore call
+        Log.d("TAG" ,documentName)
         val task = db.collection(collectionName).document(documentName).get()
             .continueWith { task ->
                 if (task.isSuccessful) {

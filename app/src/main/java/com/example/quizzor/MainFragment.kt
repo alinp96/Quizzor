@@ -3,6 +3,7 @@ package com.example.quizzor
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,6 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import org.w3c.dom.Text
 
 /**
  * A simple [Fragment] subclass.
@@ -20,6 +20,8 @@ import org.w3c.dom.Text
 class MainFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var txtWelcome: TextView
+    private lateinit var btnRegister: Button
+    private lateinit var btnSignIn: Button
     //private lateinit var tvTitle: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +36,11 @@ class MainFragment : Fragment() {
         var backButton: Button = view.findViewById<Button>(R.id.backButton)
         val btnPlay = view.findViewById<ImageButton>(R.id.btnPlay)
         txtWelcome = view.findViewById<TextView>(R.id.textViewWelcomeText)
+
+        btnRegister = view.findViewById<Button>(R.id.btnRegister)
+        btnSignIn = view.findViewById<Button>(R.id.btnSignIn)
+
+        val userManager = UserManagement()
         //tvTitle = view.findViewById<TextView>(R.id.titleTextView)
         //val btnLeaderboard = view.findViewById<Button>(R.id.btnLeaderboard)
         //val btnProfile = view.findViewById<Button>(R.id.btnProfile)
@@ -52,6 +59,18 @@ class MainFragment : Fragment() {
 
         btnPlay.setOnClickListener{
             goToScreen("play")
+        }
+
+        btnRegister.setOnClickListener{
+            userManager.registerUser("testuser@example.com", "password123")
+        }
+
+        btnSignIn.setOnClickListener{
+            userManager.signIn("testuser@example.com", "password1234") { callback, test ->
+                if (test != null) {
+                    Log.d("TAG", test)
+                }
+            }
         }
 
         /*btnLeaderboard.setOnClickListener{
