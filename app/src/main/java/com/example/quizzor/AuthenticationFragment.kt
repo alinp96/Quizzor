@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.LinearLayout
+import android.widget.TextView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class AuthenticationFragment : Fragment() {
@@ -24,7 +25,13 @@ class AuthenticationFragment : Fragment() {
     private lateinit var buttonLogin: Button
     private lateinit var editTextLoginUsername: EditText
     private lateinit var editTextLoginPassword: EditText
+    private lateinit var textViewLoginErrorMsg: TextView
     private lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var editTextRegisterNickname: EditText
+    private lateinit var editTextRegisterUsername: EditText
+    private lateinit var editTextRegisterPassword: EditText
+    private lateinit var editTextRegisterConfirmPassword: EditText
+    private lateinit var textViewRegisterErrorMsg: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -48,8 +55,14 @@ class AuthenticationFragment : Fragment() {
         buttonLoginBack = view.findViewById<Button>(R.id.buttonLoginBack)
         buttonRegister = view.findViewById<Button>(R.id.buttonRegister)
         buttonLogin = view.findViewById<Button>(R.id.buttonLogin)
+        textViewLoginErrorMsg = view.findViewById<TextView>(R.id.textViewLoginErrorMsg)
         editTextLoginUsername = view.findViewById<EditText>(R.id.editTextLoginUsername)
         editTextLoginPassword = view.findViewById<EditText>(R.id.editTextLoginPassword)
+        editTextRegisterNickname = view.findViewById<EditText>(R.id.editTextRegisterNickname)
+        editTextRegisterUsername = view.findViewById<EditText>(R.id.editTextRegisterUsername)
+        editTextRegisterPassword = view.findViewById<EditText>(R.id.editTextRegisterPassword)
+        editTextRegisterConfirmPassword = view.findViewById<EditText>(R.id.editTextRegisterConfirmPassword)
+        textViewRegisterErrorMsg = view.findViewById<TextView>(R.id.textViewRegisterErrorMsg)
 
         imgBtnRegister.setOnClickListener{
             showRegisterForm()
@@ -72,7 +85,19 @@ class AuthenticationFragment : Fragment() {
                 userManager.signIn(editTextLoginUsername.text.toString(), editTextLoginPassword.text.toString()) { callback, test ->
                     if (test != null) {
                         loginSuccessfully()
+                    } else{
+                        loginFailed()
                     }
+                }
+            } else {
+                emptyFieldsWarning()
+            }
+        }
+
+        buttonRegister.setOnClickListener {
+            if (registerFormFilled()){
+                if(registerPasswordCheck()){
+                    registerUser(userManager, editTextRegisterNickname.text.toString(), editTextRegisterUsername.text.toString(),editTextRegisterPassword.text.toString())
                 }
             }
         }
@@ -93,11 +118,19 @@ class AuthenticationFragment : Fragment() {
     private fun hideRegisterForm(){
         llAuthenticationButtons.visibility = View.VISIBLE
         llRegisterForm.visibility = View.GONE
+        textViewRegisterErrorMsg.visibility = View.GONE
+        editTextRegisterNickname.text.clear()
+        editTextRegisterUsername.text.clear()
+        editTextRegisterPassword.text.clear()
+        editTextRegisterConfirmPassword.text.clear()
     }
 
     private fun hideLoginForm(){
         llAuthenticationButtons.visibility = View.VISIBLE
         llLoginForm.visibility = View.GONE
+        textViewLoginErrorMsg.visibility = View.GONE
+        editTextLoginUsername.text.clear()
+        editTextLoginPassword.text.clear()
     }
 
     private fun hideRegisterButtons(){
@@ -113,6 +146,48 @@ class AuthenticationFragment : Fragment() {
             .replace(R.id.container, MainFragment.newInstance())
             .addToBackStack(null)
             .commit()
+    }
+
+    private fun loginFailed(){
+        textViewLoginErrorMsg.text = "Error! Credentils are incorrect!"
+            textViewLoginErrorMsg.visibility = View.VISIBLE
+    }
+
+    private fun emptyFieldsWarning(){
+        textViewLoginErrorMsg.text = "Please complete all form fields!"
+        textViewLoginErrorMsg.visibility = View.VISIBLE
+    }
+
+    private fun registerFormFilled(): Boolean{
+        if (editTextRegisterNickname.text.toString() != ""
+            && editTextRegisterUsername.text.toString() != ""
+            && editTextRegisterPassword.text.toString() != ""
+            && editTextRegisterConfirmPassword.text.toString() != ""){
+            return true
+        }
+        textViewRegisterErrorMsg.text = "Please complete all form fields!"
+        textViewRegisterErrorMsg.visibility = View.VISIBLE
+        return false
+    }
+
+    private fun registerPasswordCheck(): Boolean{
+        if (editTextRegisterPassword.text.toString() == editTextRegisterConfirmPassword.text.toString()){
+            return true
+        }
+        textViewRegisterErrorMsg.text = "Password fields are different!"
+        textViewRegisterErrorMsg.visibility = View.VISIBLE
+        return false
+    }
+
+    private fun registerUser(userManager: UserManagement, nickname: String, user: String, password: String){
+        userManager.registerUser(nickname, user, password)
+        resetFragmentView()
+    }
+
+    private fun resetFragmentView(){
+        textViewRegisterErrorMsg.visibility = View.GONE
+        llRegisterForm.visibility = View.GONE
+        llAuthenticationButtons.visibility = View.VISIBLE
     }
 
     companion object {

@@ -62,7 +62,7 @@ class MainFragment : Fragment() {
         }
 
         btnRegister.setOnClickListener{
-            userManager.registerUser("testuser@example.com", "password123")
+            //userManager.registerUser("testuser@example.com", "password123")
         }
 
         btnSignIn.setOnClickListener{

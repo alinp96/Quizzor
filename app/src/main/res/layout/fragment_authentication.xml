@@ -110,6 +110,16 @@ tools:context=".AuthenticationFragment">
             android:inputType="textPassword"
             android:padding="12dp" />
 
+        <TextView
+            android:id="@+id/textViewRegisterErrorMsg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Error!"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -171,6 +181,15 @@ tools:context=".AuthenticationFragment">
             android:hint="Password"
             android:inputType="textPassword"
             android:padding="12dp" />
+        <TextView
+            android:id="@+id/textViewLoginErrorMsg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Error! Username or Password is incorrect!"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
 
         <LinearLayout
             android:layout_width="match_parent"

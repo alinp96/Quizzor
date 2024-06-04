@@ -10,8 +10,9 @@ class UserManagement {
     private var loggedInUserId: String? = null
     private var loggedInUsername: String? = null
 
-    fun registerUser(username: String, password: String){
+    fun registerUser(nickname: String, username: String, password: String){
         val username = hashMapOf(
+            "nickname" to nickname,
             "username" to username,
             "password" to hashString(password, "MD5"),
         )
@@ -25,6 +26,7 @@ class UserManagement {
     fun signIn(username: String, password: String, callback: (Boolean, String?) -> Unit) {
         db.collection("users").get().addOnSuccessListener { documents ->
             for (document in documents){
+                val n = document.get("nickname")
                 val u = document.get("username")
                 val p = document.get("password")
                 if (u == username && p == hashString(password, "MD5")){
