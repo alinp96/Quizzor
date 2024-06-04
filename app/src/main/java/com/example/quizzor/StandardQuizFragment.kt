@@ -19,6 +19,7 @@ import com.google.firebase.firestore.snapshots
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.firestore.auth.User
 
 class StandardQuizFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
@@ -54,6 +55,7 @@ class StandardQuizFragment : Fragment() {
     private var numberOfQuestions: Int = 10
 
     private var documentName: String = ""
+    private lateinit var userManager: UserManagement
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,6 +72,9 @@ class StandardQuizFragment : Fragment() {
 
         val activity = requireActivity()
         activity.title = "$category questions"
+
+        val mActivity = activity as? MainActivity
+        userManager = mActivity?.getUserManagement() ?: throw IllegalStateException("MainActivity expected")
 
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_standard_quiz, container, false)
@@ -178,7 +183,7 @@ class StandardQuizFragment : Fragment() {
             }
     }
 
-    fun fetchRandomQuestions(collectionName: String, documentName: String, numberOfQuestions: Int): Task<List<TFQuestion>> {
+    private fun fetchRandomQuestions(collectionName: String, documentName: String, numberOfQuestions: Int): Task<List<TFQuestion>> {
         val db = FirebaseFirestore.getInstance()
 
         // Task to handle the asynchronous Firestore call
@@ -226,7 +231,22 @@ class StandardQuizFragment : Fragment() {
     }
 
     private fun proceedToEndGame(){
-        questionTextView.text ="Completed!"
+        // documentName = movies_en, booskandliterature_en
+        val db = FirebaseFirestore.getInstance()
+        val docId = userManager.getLoggedInUserId().toString()
+        val docRef = db.collection("users").document(docId)
+        docRef.get().addOnSuccessListener { documentSnapshot ->
+            val currentScoreMap = documentSnapshot.get("score") as? Map<String, Int> ?: emptyMap()
+            val previousScore = (currentScoreMap["${documentName.toString().dropLast(3)}"] as? Number)?.toInt() ?: 0
+            var updatedScore = 0
+            val updatedScoreMap = currentScoreMap.toMutableMap()
+            //val updatedScoreValue = updatedScoreMap["${documentName.toString().dropLast(3)}"]
+            updatedScore = previousScore + score
+            updatedScoreMap["${documentName.toString().dropLast(3)}"] = updatedScore
+            docRef.update("score", updatedScoreMap)
+            questionTextView.text ="Completed!\n Round points: ${score} \n Total category points: ${updatedScore}"
+        }
+
         btnTrue.visibility = View.GONE
         btnFalse.visibility = View.GONE
         progressBarTimer.visibility = View.GONE
@@ -329,13 +349,15 @@ class StandardQuizFragment : Fragment() {
         stopTimer()
         currentAnswer = checkAnswer(selectedAnswer, questionList, questionNr, timeLimitExceeded)
         questionNr++
+        if(currentAnswer){
+            score++
+        }else{
+            score--
+        }
         if (questionNr < numberOfQuestions){
             proceedToNextQuestion(questionTextView, questionNr, numberOfQuestions, score)
         }else{
             proceedToEndGame()
-        }
-        if(currentAnswer){
-            score++
         }
         updateScoreIfNeeded(score)
     }

@@ -83,7 +83,7 @@ class PlayFragment : Fragment() {
 
     private lateinit var tvTrivia: TextView
     private lateinit var tvWorldFacts: TextView
-    private lateinit var tvFamousPersonalities: TextView
+    private lateinit var tvFamousCelebrities: TextView
     private lateinit var tvPhysics: TextView
     private lateinit var tvChemistry: TextView
     private lateinit var tvBiology: TextView
@@ -183,7 +183,7 @@ class PlayFragment : Fragment() {
 
         tvTrivia = view.findViewById<TextView>(R.id.tv_trivia)
         tvWorldFacts = view.findViewById<TextView>(R.id.tv_worldFacts)
-        tvFamousPersonalities = view.findViewById<TextView>(R.id.tv_famousCelebrities)
+        tvFamousCelebrities = view.findViewById<TextView>(R.id.tv_famousCelebrities)
         tvPhysics = view.findViewById<TextView>(R.id.tv_physics)
         tvChemistry = view.findViewById<TextView>(R.id.tv_chemistry)
         tvBiology = view.findViewById<TextView>(R.id.tv_biology)
@@ -772,7 +772,7 @@ class PlayFragment : Fragment() {
 
                 tvTrivia.text = "Trivia"
                 tvWorldFacts.text = "World Facts"
-                tvFamousPersonalities.text = "Famous Celebrities"
+                tvFamousCelebrities.text = "Famous Celebrities"
                 tvPhysics.text = "Physics"
                 tvChemistry.text = "Chemistry"
                 tvBiology.text = "Biology"
@@ -808,7 +808,7 @@ class PlayFragment : Fragment() {
 
                 tvTrivia.text = "Curiozități"
                 tvWorldFacts.text = "Fapte din lume"
-                tvFamousPersonalities.text = "Personalități celebre"
+                tvFamousCelebrities.text = "Personalități celebre"
                 tvPhysics.text = "Fizică"
                 tvChemistry.text = "Chimie"
                 tvBiology.text = "Biologie"
@@ -844,7 +844,7 @@ class PlayFragment : Fragment() {
 
                 tvTrivia.text = "Quizfragen"
                 tvWorldFacts.text = "Weltfakten"
-                tvFamousPersonalities.text = "Berühmte Persönlichkeiten"
+                tvFamousCelebrities.text = "Berühmte Persönlichkeiten"
                 tvPhysics.text = "Physik"
                 tvChemistry.text = "Chemie"
                 tvBiology.text = "Biologie"
@@ -880,7 +880,7 @@ class PlayFragment : Fragment() {
 
                 tvTrivia.text = "Anecdotes"
                 tvWorldFacts.text = "Faits sur le monde"
-                tvFamousPersonalities.text = "Célébrités célèbres"
+                tvFamousCelebrities.text = "Célébrités célèbres"
                 tvPhysics.text = "Physique"
                 tvChemistry.text = "Chimie"
                 tvBiology.text = "Biologie"
@@ -916,7 +916,7 @@ class PlayFragment : Fragment() {
 
                 tvTrivia.text = "Kvíz"
                 tvWorldFacts.text = "Világtények"
-                tvFamousPersonalities.text = "Híres hírességek"
+                tvFamousCelebrities.text = "Híres hírességek"
                 tvPhysics.text = "Fizika"
                 tvChemistry.text = "Kémia"
                 tvBiology.text = "Biológia"
@@ -952,7 +952,7 @@ class PlayFragment : Fragment() {
 
                 tvTrivia.text = "トリビア"
                 tvWorldFacts.text = "世界の事実"
-                tvFamousPersonalities.text = "有名な有名人"
+                tvFamousCelebrities.text = "有名な有名人"
                 tvPhysics.text = "物理学"
                 tvChemistry.text = "化学"
                 tvBiology.text = "生物学"

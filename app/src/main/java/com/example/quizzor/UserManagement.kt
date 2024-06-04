@@ -18,6 +18,32 @@ class UserManagement {
             "nickname" to nickname,
             "username" to mUsername,
             "password" to hashString(password, "MD5"),
+            "score" to hashMapOf(
+                "beverages" to 0,
+                "biology" to 0,
+                "booksandliterature" to 0,
+                "celebrityandpopculture" to 0,
+                "cheistry" to 0,
+                "computerscience" to 0,
+                "countriesandcapitals" to 0,
+                "cuisine" to 0,
+                "famoushistoricalfigures" to 0,
+                "famouspersonalities" to 0,
+                "foodandtrivia" to 0,
+                "geographicfactsandtrivia" to 0,
+                "historicalevents" to 0,
+                "ingredients" to 0,
+                "memorablesportingevents" to 0,
+                "movies" to 0,
+                "music" to 0,
+                "physics" to 0,
+                "soccer" to 0,
+                "trivia" to 0,
+                "tvshows" to 0,
+                "unusualsportsfacts" to 0,
+                "videogames" to 0,
+                "worldfacts" to 0,
+            )
         )
         var userMatchFound: Boolean = false
         var nicknameMatchFound: Boolean = false
