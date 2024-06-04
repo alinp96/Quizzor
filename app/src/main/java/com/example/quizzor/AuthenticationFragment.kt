@@ -12,6 +12,9 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class AuthenticationFragment : Fragment() {
     private lateinit var llAuthenticationButtons: LinearLayout
@@ -179,9 +182,24 @@ class AuthenticationFragment : Fragment() {
         return false
     }
 
+    private fun registerUserError(type: String){
+        textViewRegisterErrorMsg.text = "${type.replaceFirstChar { it.uppercaseChar() }} already exists! Choose another one!"
+        textViewRegisterErrorMsg.visibility = View.VISIBLE
+    }
+
     private fun registerUser(userManager: UserManagement, nickname: String, user: String, password: String){
-        userManager.registerUser(nickname, user, password)
-        resetFragmentView()
+        CoroutineScope(Dispatchers.Main).launch {
+            var registerCompleted: Char = userManager.registerUser(nickname, user, password)
+            handleRegisterResult(registerCompleted)
+        }
+    }
+
+    private fun handleRegisterResult(result: Char){
+        when(result){
+            '1' -> resetFragmentView()
+            'n' -> registerUserError("nickname")
+            'u' -> registerUserError("user")
+        }
     }
 
     private fun resetFragmentView(){

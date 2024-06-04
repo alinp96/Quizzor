@@ -4,29 +4,59 @@ import com.google.firebase.firestore.FirebaseFirestore
 import java.math.BigInteger
 import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
+import com.google.firebase.firestore.QuerySnapshot
+import kotlinx.coroutines.tasks.await
 
 class UserManagement {
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
     private var loggedInUserId: String? = null
     private var loggedInUsername: String? = null
 
-    fun registerUser(nickname: String, username: String, password: String){
+    suspend fun registerUser(nickname: String, mUsername: String, password: String): Char{
+        var returnValue: Char = '0'
         val username = hashMapOf(
             "nickname" to nickname,
-            "username" to username,
+            "username" to mUsername,
             "password" to hashString(password, "MD5"),
         )
+        var userMatchFound: Boolean = false
+        var nicknameMatchFound: Boolean = false
 
-        db.collection("users").add(username)
-            //.set(username)
-            //.addOnSuccessListener { Log.d("TAG", "DocumentSnapshot successfully written!") }
-            //.addOnFailureListener { e -> Log.w("TAG", "Error writing document", e) }
+        try {
+            val documents: QuerySnapshot = db.collection("users").get().await()
+            for (document in documents) {
+                if (nickname.lowercase() == document.get("nickname").toString().lowercase()) {
+                    nicknameMatchFound = true
+                    break
+                }
+                if (mUsername.lowercase() == document.get("username").toString().lowercase()) {
+                    userMatchFound = true
+                    break
+                }
+            }
+
+            if (!userMatchFound && !nicknameMatchFound) {
+                db.collection("users").add(username).await()
+                returnValue = '1'
+            } else {
+                if (userMatchFound) {
+                    returnValue = 'u'
+                }
+                if (nicknameMatchFound) {
+                    returnValue = 'n'
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            // Handle the exception as needed
+        }
+
+        return returnValue
     }
 
     fun signIn(username: String, password: String, callback: (Boolean, String?) -> Unit) {
         db.collection("users").get().addOnSuccessListener { documents ->
             for (document in documents){
-                val n = document.get("nickname")
                 val u = document.get("username")
                 val p = document.get("password")
                 if (u == username && p == hashString(password, "MD5")){
