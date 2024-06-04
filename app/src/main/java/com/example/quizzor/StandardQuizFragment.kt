@@ -238,11 +238,15 @@ class StandardQuizFragment : Fragment() {
         docRef.get().addOnSuccessListener { documentSnapshot ->
             val currentScoreMap = documentSnapshot.get("score") as? Map<String, Int> ?: emptyMap()
             val previousScore = (currentScoreMap["${documentName.toString().dropLast(3)}"] as? Number)?.toInt() ?: 0
+            var totalScore = (currentScoreMap["total"] as? Number)?.toInt() ?: 0
             var updatedScore = 0
             val updatedScoreMap = currentScoreMap.toMutableMap()
             //val updatedScoreValue = updatedScoreMap["${documentName.toString().dropLast(3)}"]
             updatedScore = previousScore + score
             updatedScoreMap["${documentName.toString().dropLast(3)}"] = updatedScore
+            docRef.update("score", updatedScoreMap)
+            totalScore += score
+            updatedScoreMap["total"] = totalScore
             docRef.update("score", updatedScoreMap)
             questionTextView.text ="Completed!\n Round points: ${score} \n Total category points: ${updatedScore}"
         }

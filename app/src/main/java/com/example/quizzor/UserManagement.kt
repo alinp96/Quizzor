@@ -11,6 +11,7 @@ class UserManagement {
     private val db: FirebaseFirestore = FirebaseFirestore.getInstance()
     private var loggedInUserId: String? = null
     private var loggedInUsername: String? = null
+    private var loggedInNickname: String? = null
 
     suspend fun registerUser(nickname: String, mUsername: String, password: String): Char{
         var returnValue: Char = '0'
@@ -43,6 +44,7 @@ class UserManagement {
                 "unusualsportsfacts" to 0,
                 "videogames" to 0,
                 "worldfacts" to 0,
+                "total" to 0,
             )
         )
         var userMatchFound: Boolean = false
@@ -85,10 +87,12 @@ class UserManagement {
             for (document in documents){
                 val u = document.get("username")
                 val p = document.get("password")
+                val n = document.get("nickname")
                 if (u == username && p == hashString(password, "MD5")){
                     callback(true, u.toString())
                     loggedInUserId = document.id
                     loggedInUsername = u.toString()
+                    loggedInNickname = n.toString()
                     break
                 }
             }
@@ -109,5 +113,13 @@ class UserManagement {
 
     fun getLoggedInUserId(): String? {
         return loggedInUserId
+    }
+
+    fun getLoggedInNickname(): String? {
+        return loggedInNickname
+    }
+
+    fun setLoggedInNickname(newNickname: String) {
+        loggedInNickname = newNickname
     }
 }
