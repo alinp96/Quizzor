@@ -1,5 +1,7 @@
 package com.example.quizzor
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -17,6 +19,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class AuthenticationFragment : Fragment() {
+    private lateinit var sharedPreferences: SharedPreferences
+
     private lateinit var llAuthenticationButtons: LinearLayout
     private lateinit var llRegisterForm: LinearLayout
     private lateinit var llLoginForm: LinearLayout
@@ -35,6 +39,9 @@ class AuthenticationFragment : Fragment() {
     private lateinit var editTextRegisterPassword: EditText
     private lateinit var editTextRegisterConfirmPassword: EditText
     private lateinit var textViewRegisterErrorMsg: TextView
+    private lateinit var textViewRegisterTitle: TextView
+    private lateinit var textViewLoginTitle: TextView
+    private lateinit var language: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -47,6 +54,8 @@ class AuthenticationFragment : Fragment() {
         var view = inflater.inflate(R.layout.fragment_authentication, container, false)
         val activity = activity as? MainActivity
         val userManager: UserManagement = activity?.getUserManagement() ?: throw IllegalStateException("MainActivity expected")
+        sharedPreferences = requireActivity().getSharedPreferences("userPreferences", Context.MODE_PRIVATE)
+        language = getDataFromSharedPreferences("language")
         bottomNavigationView = activity.findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
         llAuthenticationButtons = view.findViewById<LinearLayout>(R.id.llAuthenticationButtons)
@@ -66,6 +75,10 @@ class AuthenticationFragment : Fragment() {
         editTextRegisterPassword = view.findViewById<EditText>(R.id.editTextRegisterPassword)
         editTextRegisterConfirmPassword = view.findViewById<EditText>(R.id.editTextRegisterConfirmPassword)
         textViewRegisterErrorMsg = view.findViewById<TextView>(R.id.textViewRegisterErrorMsg)
+        textViewRegisterTitle = view.findViewById<TextView>(R.id.textViewRegisterTitle)
+        textViewLoginTitle = view.findViewById<TextView>(R.id.textViewLoginTitle)
+
+        loadUIText(language)
 
         imgBtnRegister.setOnClickListener{
             showRegisterForm()
@@ -108,6 +121,9 @@ class AuthenticationFragment : Fragment() {
         return view
     }
 
+    private fun getDataFromSharedPreferences(key: String): String {
+        return sharedPreferences.getString(key, "") ?: ""
+    }
     private fun showRegisterForm(){
         llAuthenticationButtons.visibility = View.GONE
         llRegisterForm.visibility = View.VISIBLE
@@ -152,12 +168,12 @@ class AuthenticationFragment : Fragment() {
     }
 
     private fun loginFailed(){
-        textViewLoginErrorMsg.text = "Error! Credentils are incorrect!"
+        textViewLoginErrorMsg.text = translatedErrorMessage(language, "IncorrectCredentials")
             textViewLoginErrorMsg.visibility = View.VISIBLE
     }
 
     private fun emptyFieldsWarning(){
-        textViewLoginErrorMsg.text = "Please complete all form fields!"
+        textViewLoginErrorMsg.text = translatedErrorMessage(language, "FormNotFilled")
         textViewLoginErrorMsg.visibility = View.VISIBLE
     }
 
@@ -168,7 +184,7 @@ class AuthenticationFragment : Fragment() {
             && editTextRegisterConfirmPassword.text.toString() != ""){
             return true
         }
-        textViewRegisterErrorMsg.text = "Please complete all form fields!"
+        textViewRegisterErrorMsg.text = translatedErrorMessage(language, "FormNotFilled")
         textViewRegisterErrorMsg.visibility = View.VISIBLE
         return false
     }
@@ -177,14 +193,20 @@ class AuthenticationFragment : Fragment() {
         if (editTextRegisterPassword.text.toString() == editTextRegisterConfirmPassword.text.toString()){
             return true
         }
-        textViewRegisterErrorMsg.text = "Password fields are different!"
+        textViewRegisterErrorMsg.text = translatedErrorMessage(language, "DifferentPassword")
         textViewRegisterErrorMsg.visibility = View.VISIBLE
         return false
     }
 
     private fun registerUserError(type: String){
-        textViewRegisterErrorMsg.text = "${type.replaceFirstChar { it.uppercaseChar() }} already exists! Choose another one!"
-        textViewRegisterErrorMsg.visibility = View.VISIBLE
+        if (type == "nickname"){
+            textViewRegisterErrorMsg.text = translatedErrorMessage(language, "NicknameCheck")
+            textViewRegisterErrorMsg.visibility = View.VISIBLE
+        }else if (type == "user"){
+            textViewRegisterErrorMsg.text = translatedErrorMessage(language, "UsernameCheck")
+            textViewRegisterErrorMsg.visibility = View.VISIBLE
+        }
+
     }
 
     private fun registerUser(userManager: UserManagement, nickname: String, user: String, password: String){
@@ -206,6 +228,84 @@ class AuthenticationFragment : Fragment() {
         textViewRegisterErrorMsg.visibility = View.GONE
         llRegisterForm.visibility = View.GONE
         llAuthenticationButtons.visibility = View.VISIBLE
+    }
+
+    private fun loadUIText(language: String){
+        when (language){
+            "en" -> {
+                textViewRegisterTitle.text = "Register"
+                editTextRegisterNickname.hint = "Nickname"
+                editTextRegisterUsername.hint = "Username"
+                editTextRegisterPassword.hint = "Password"
+                editTextRegisterConfirmPassword.hint = "Confirm Password"
+                buttonRegisterBack.text = "Back"
+                buttonRegister.text = "Register"
+
+                textViewLoginTitle.text = "Login"
+                editTextLoginUsername.hint = "Username"
+                editTextLoginPassword.hint = "Password"
+                buttonLogin.text = "Login"
+            }
+            "ro" -> {
+                textViewRegisterTitle.text = "Inregistrare"
+                editTextRegisterNickname.hint = "Porecla"
+                editTextRegisterUsername.hint = "Nume utilizator"
+                editTextRegisterPassword.hint = "Parola"
+                editTextRegisterConfirmPassword.hint = "Confirmarea parolei"
+                buttonRegisterBack.text = "Inapoi"
+                buttonRegister.text = "Inregistrare"
+
+                textViewLoginTitle.text = "Autentificare"
+                editTextLoginUsername.hint = "Nume Utilizator"
+                editTextLoginPassword.hint = "Parola"
+                buttonLogin.text = "Inregistrare"
+            }
+        }
+    }
+
+    private fun translatedErrorMessage(language: String, error: String): String{
+        var errorMsg: String = ""
+        when(language){
+            "en" -> {
+                when(error){
+                    "IncorrectCredentials" -> {
+                        errorMsg = "Incorrect Credentials!"
+                    }
+                    "FormNotFilled" -> {
+                        errorMsg = "Please complete all form fields!"
+                    }
+                    "DifferentPassword" -> {
+                        errorMsg = "Password fields are different!"
+                    }
+                    "NicknameCheck" -> {
+                        errorMsg = "Nickname already exists! Choose another one!"
+                    }
+                    "UsernameCheck" -> {
+                        errorMsg = "Username already exists! Choose another one!"
+                    }
+                }
+            }
+            "ro" -> {
+                when(error){
+                    "IncorrectCredentials" -> {
+                        errorMsg = "Credintiale incorecte!"
+                    }
+                    "FormNotFilled" -> {
+                        errorMsg = "Te rog completeaza toate celulele!"
+                    }
+                    "DifferentPassword" -> {
+                        errorMsg = "Campurile de parole sunt diferite!"
+                    }
+                    "NicknameCheck" -> {
+                        errorMsg = "Porecla deja exista! Alege alta porleca!"
+                    }
+                    "UsernameCheck" -> {
+                        errorMsg = "Numele de utilizator deja exista! Alege altul!"
+                    }
+                }
+            }
+        }
+        return errorMsg
     }
 
     companion object {

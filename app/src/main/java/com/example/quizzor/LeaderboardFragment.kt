@@ -111,6 +111,7 @@ class LeaderboardFragment : Fragment() {
     }
 
     private fun showScores(view: View){
+        clearTable()
         scoresTable = view.findViewById<TableLayout>(R.id.scores_table)
 
         val db = FirebaseFirestore.getInstance()
