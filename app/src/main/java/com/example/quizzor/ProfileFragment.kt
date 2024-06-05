@@ -36,6 +36,9 @@ class ProfileFragment : Fragment() {
     private lateinit var etConfirmNewPassword: EditText
     private lateinit var btnResetPassword: Button
     private lateinit var tvErrorNickname: TextView
+    private lateinit var tvErrorPassword: TextView
+
+    private lateinit var oldNickname: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +52,8 @@ class ProfileFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
         val activity = activity as? MainActivity
         userManager = activity?.getUserManagement() ?: throw IllegalStateException("MainActivity expected")
+
+        oldNickname = userManager.getLoggedInNickname().toString()
 
         llProfileMainView = view.findViewById<LinearLayout>(R.id.llProfileMainView)
         tvPrincipalText = view.findViewById<TextView>(R.id.tvPrincipalText)
@@ -68,6 +73,7 @@ class ProfileFragment : Fragment() {
         etConfirmNewPassword = view.findViewById<EditText>(R.id.etConfirmNewPassword)
         btnResetPassword = view.findViewById<Button>(R.id.btnResetPassword)
         tvErrorNickname = view.findViewById<TextView>(R.id.tvErrorNickname)
+        tvErrorPassword = view.findViewById<TextView>(R.id.tvErrorPassword)
         backButton = view.findViewById<Button>(R.id.backButton)
 
         tvTitle.text = "Profile"
@@ -102,6 +108,10 @@ class ProfileFragment : Fragment() {
             resetNickname()
         }
 
+        btnResetPassword.setOnClickListener{
+            resetPassword()
+        }
+
         return view
     }
 
@@ -109,18 +119,25 @@ class ProfileFragment : Fragment() {
         llProfileMainView.visibility = View.VISIBLE
         llChangeNickname.visibility = View.GONE
         llChangePassword.visibility = View.GONE
+        etNewPassword.text.clear()
+        etConfirmNewPassword.text.clear()
+        etCurrentPassword.text.clear()
+        etChangeNickname.text.clear()
+        backButton.visibility = View.GONE
     }
 
     private fun showChangeNicknameForm(){
         llProfileMainView.visibility = View.GONE
         llChangeNickname.visibility = View.VISIBLE
         llChangePassword.visibility = View.GONE
+        backButton.visibility = View.VISIBLE
     }
 
     private fun showChangePasswordForm(){
         llProfileMainView.visibility = View.GONE
         llChangeNickname.visibility = View.GONE
         llChangePassword.visibility = View.VISIBLE
+        backButton.visibility = View.VISIBLE
     }
 
     private fun resetScore(){
@@ -139,7 +156,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun resetNickname(){
-        val oldNickname: String = userManager.getLoggedInNickname().toString()
+
         val newNickname: String = etChangeNickname.text.toString()
         val db = FirebaseFirestore.getInstance()
         val docId = userManager.getLoggedInUserId().toString()
@@ -177,25 +194,58 @@ class ProfileFragment : Fragment() {
             val nickname = documentSnapshot.get("nickname")?.toString() ?: ""
             tvCurrentNickname.text = "Your current nickname is ${nickname}"
             tvPrincipalText.text = "Hello, ${nickname}"
+            oldNickname = nickname
         }.addOnFailureListener { e ->
             // Handle potential errors (e.g., document not found)
             println("Error getting nickname: $e")
         }
-        //val nickname: String = userManager.getLoggedInNickname().toString()
 
     }
+    private fun resetPassword(){
+        val db = FirebaseFirestore.getInstance()
+        val docId = userManager.getLoggedInUserId().toString()
+        val docRef = db.collection("users").document(docId)
+        var verifyCurrentPassword: String = etCurrentPassword.text.toString()
+        var newPassword: String = etNewPassword.text.toString()
+        var confirmNewPassword: String = etConfirmNewPassword.text.toString()
 
-    /*private fun getNickname(){
+        if (verifyCurrentPassword != "" && newPassword != "" && confirmNewPassword != ""){
+            newPassword = userManager.hashString(etNewPassword.text.toString(), "MD5")
+            confirmNewPassword = userManager.hashString(etConfirmNewPassword.text.toString(), "MD5")
+            verifyCurrentPassword = userManager.hashString(etCurrentPassword.text.toString(), "MD5")
+            docRef.get().addOnSuccessListener { documentSnapshot ->
+                val currentPassword = documentSnapshot.get("password")?.toString() ?: ""
+                if (currentPassword == verifyCurrentPassword){
+                    if (newPassword != currentPassword){
+                        if (newPassword == confirmNewPassword){
+                            docRef.update("password", newPassword)
+                            tvErrorPassword.visibility = View.GONE
+                            showMainProfilePage()
+                            etNewPassword.text.clear()
+                            etConfirmNewPassword.text.clear()
+                            etCurrentPassword.text.clear()
+                        }else{
+                            tvErrorPassword.text = "New password doesn't match!"
+                            tvErrorPassword.visibility = View.VISIBLE
+                        }
+                    }else{
+                        tvErrorPassword.text = "New password is the same with the current one!"
+                        tvErrorPassword.visibility = View.VISIBLE
+                    }
+                }else{
+                    tvErrorPassword.text = "Current password is incorrect!"
+                    tvErrorPassword.visibility = View.VISIBLE
+                }
 
-        val docRef = db.collection("users").document(userId)
-        docRef.get().addOnSuccessListener { documentSnapshot ->
-            val nickname = documentSnapshot.get("nickname")?.toString() ?: ""
-            // Use the retrieved nickname here (e.g., update UI)
-        }.addOnFailureListener { e ->
-            // Handle potential errors (e.g., document not found)
-            println("Error getting nickname: $e")
-        }*/
-    //}
+            }.addOnFailureListener { e ->
+                // Handle potential errors (e.g., document not found)
+                println("Error getting nickname: $e")
+            }
+        }else{
+            tvErrorPassword.text = "Empty fields are not allowed!"
+            tvErrorPassword.visibility = View.VISIBLE
+        }
+    }
 
     private fun setScore(){
         val db = FirebaseFirestore.getInstance()
