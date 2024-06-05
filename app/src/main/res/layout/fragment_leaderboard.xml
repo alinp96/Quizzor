@@ -7,14 +7,52 @@
     tools:context=".LeaderboardFragment">
     <include layout="@layout/custom_top_bar"/>
 
-    <TextView
-        android:id="@+id/textViewWelcomeText"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textAlignment="center"
-        android:text="LeaderBoard Fragment"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:id="@+id/llLeaderboardButtons"
+        >
+
+        <Button
+            android:id="@+id/btnAllScores"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:text="Show All Scores" />
+
+        <Button
+            android:id="@+id/btnLeaderboard"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:text="Show Leaderboard" />
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="65dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="200dp"/>
+        android:id="@+id/llLeaderboardContent"
+        android:visibility="gone">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="80dp"
+            android:layout_gravity="center">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/scores_table">
+            </TableLayout>
+
+        </ScrollView>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
