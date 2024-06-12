@@ -245,20 +245,82 @@ class AuthenticationFragment : Fragment() {
                 editTextLoginUsername.hint = "Username"
                 editTextLoginPassword.hint = "Password"
                 buttonLogin.text = "Login"
+                buttonLoginBack.text = "Back"
             }
             "ro" -> {
-                textViewRegisterTitle.text = "Inregistrare"
-                editTextRegisterNickname.hint = "Porecla"
-                editTextRegisterUsername.hint = "Nume utilizator"
-                editTextRegisterPassword.hint = "Parola"
-                editTextRegisterConfirmPassword.hint = "Confirmarea parolei"
-                buttonRegisterBack.text = "Inapoi"
-                buttonRegister.text = "Inregistrare"
+                textViewRegisterTitle.text = "Înregistrare"
+                editTextRegisterNickname.hint = "Pseudonim"
+                editTextRegisterUsername.hint = "Nume de utilizator"
+                editTextRegisterPassword.hint = "Parolă"
+                editTextRegisterConfirmPassword.hint = "Confirmă parola"
+                buttonRegisterBack.text = "Înapoi"
+                buttonRegister.text = "Înregistrare"
 
                 textViewLoginTitle.text = "Autentificare"
-                editTextLoginUsername.hint = "Nume Utilizator"
-                editTextLoginPassword.hint = "Parola"
-                buttonLogin.text = "Inregistrare"
+                editTextLoginUsername.hint = "Nume de utilizator"
+                editTextLoginPassword.hint = "Parolă"
+                buttonLogin.text = "Autentificare"
+                buttonLoginBack.text = "Înapoi"
+            }
+            "de" -> {
+                textViewRegisterTitle.text = "Registrieren"
+                editTextRegisterNickname.hint = "Spitzname"
+                editTextRegisterUsername.hint = "Benutzername"
+                editTextRegisterPassword.hint = "Passwort"
+                editTextRegisterConfirmPassword.hint = "Passwort bestätigen"
+                buttonRegisterBack.text = "Zurück"
+                buttonRegister.text = "Registrieren"
+
+                textViewLoginTitle.text = "Anmelden"
+                editTextLoginUsername.hint = "Benutzername"
+                editTextLoginPassword.hint = "Passwort"
+                buttonLogin.text = "Anmelden"
+                buttonLoginBack.text = "Zurück"
+            }
+            "fr" -> {
+                textViewRegisterTitle.text = "S'inscrire"
+                editTextRegisterNickname.hint = "Pseudo"
+                editTextRegisterUsername.hint = "Nom d'utilisateur"
+                editTextRegisterPassword.hint = "Mot de passe"
+                editTextRegisterConfirmPassword.hint = "Confirmer le mot de passe"
+                buttonRegisterBack.text = "Retour"
+                buttonRegister.text = "S'inscrire"
+
+                textViewLoginTitle.text = "Connexion"
+                editTextLoginUsername.hint = "Nom d'utilisateur"
+                editTextLoginPassword.hint = "Mot de passe"
+                buttonLogin.text = "Connexion"
+                buttonLoginBack.text = "Retour"
+            }
+            "hu" -> {
+                textViewRegisterTitle.text = "Regisztráció"
+                editTextRegisterNickname.hint = "Becenév"
+                editTextRegisterUsername.hint = "Felhasználónév"
+                editTextRegisterPassword.hint = "Jelszó"
+                editTextRegisterConfirmPassword.hint = "Jelszó megerősítése"
+                buttonRegisterBack.text = "Vissza"
+                buttonRegister.text = "Regisztráció"
+
+                textViewLoginTitle.text = "Bejelentkezés"
+                editTextLoginUsername.hint = "Felhasználónév"
+                editTextLoginPassword.hint = "Jelszó"
+                buttonLogin.text = "Bejelentkezés"
+                buttonLoginBack.text = "Vissza"
+            }
+            "jp" -> {
+                textViewRegisterTitle.text = "登録"
+                editTextRegisterNickname.hint = "ニックネーム"
+                editTextRegisterUsername.hint = "ユーザー名"
+                editTextRegisterPassword.hint = "パスワード"
+                editTextRegisterConfirmPassword.hint = "パスワードを確認"
+                buttonRegisterBack.text = "戻る"
+                buttonRegister.text = "登録"
+
+                textViewLoginTitle.text = "ログイン"
+                editTextLoginUsername.hint = "ユーザー名"
+                editTextLoginPassword.hint = "パスワード"
+                buttonLogin.text = "ログイン"
+                buttonLoginBack.text = "戻る"
             }
         }
     }
@@ -291,16 +353,92 @@ class AuthenticationFragment : Fragment() {
                         errorMsg = "Credintiale incorecte!"
                     }
                     "FormNotFilled" -> {
-                        errorMsg = "Te rog completeaza toate celulele!"
+                        errorMsg = "Vă rugăm să completați toate câmpurile formularului!"
                     }
                     "DifferentPassword" -> {
-                        errorMsg = "Campurile de parole sunt diferite!"
+                        errorMsg = "Câmpurile pentru parolă sunt diferite!"
                     }
                     "NicknameCheck" -> {
-                        errorMsg = "Porecla deja exista! Alege alta porleca!"
+                        errorMsg = "Pseudonimul există deja! Alegeți altul!"
                     }
                     "UsernameCheck" -> {
-                        errorMsg = "Numele de utilizator deja exista! Alege altul!"
+                        errorMsg = "Numele de utilizator există deja! Alegeți altul!"
+                    }
+                }
+            }
+            "de" -> {
+                when(error){
+                    "IncorrectCredentials" -> {
+                        errorMsg = "Falsche Anmeldeinformationen!"
+                    }
+                    "FormNotFilled" -> {
+                        errorMsg = "Bitte füllen Sie alle Formularfelder aus!"
+                    }
+                    "DifferentPassword" -> {
+                        errorMsg = "Passwortfelder sind unterschiedlich!"
+                    }
+                    "NicknameCheck" -> {
+                        errorMsg = "Spitzname existiert bereits! Wählen Sie einen anderen!"
+                    }
+                    "UsernameCheck" -> {
+                        errorMsg = "Benutzername existiert bereits! Wählen Sie einen anderen!"
+                    }
+                }
+            }
+            "fr" -> {
+                when(error){
+                    "IncorrectCredentials" -> {
+                        errorMsg = "Identifiants incorrects!"
+                    }
+                    "FormNotFilled" -> {
+                        errorMsg = "Veuillez compléter tous les champs du formulaire!"
+                    }
+                    "DifferentPassword" -> {
+                        errorMsg = "Les champs de mot de passe sont différents!"
+                    }
+                    "NicknameCheck" -> {
+                        errorMsg = "Le pseudo existe déjà! Choisissez-en un autre!"
+                    }
+                    "UsernameCheck" -> {
+                        errorMsg = "Le nom d'utilisateur existe déjà! Choisissez-en un autre!"
+                    }
+                }
+            }
+            "hu" -> {
+                when(error){
+                    "IncorrectCredentials" -> {
+                        errorMsg = "Helytelen adatok!"
+                    }
+                    "FormNotFilled" -> {
+                        errorMsg = "Kérjük, töltse ki az összes űrlapmezőt!"
+                    }
+                    "DifferentPassword" -> {
+                        errorMsg = "A jelszavak nem egyeznek!"
+                    }
+                    "NicknameCheck" -> {
+                        errorMsg = "A becenév már létezik! Válasszon másikat!"
+                    }
+                    "UsernameCheck" -> {
+                        errorMsg = "A felhasználónév már létezik! Válasszon másikat!"
+                    }
+                }
+            }
+            "jp" -> {
+                when(error){
+                    "IncorrectCredentials" -> {
+                        errorMsg = "認証情報が正しくありません!"
+                    }
+                    "FormNotFilled" -> {
+                        errorMsg = "すべてのフォームフィールドに記入してください!"
+                    }
+                    "DifferentPassword" -> {
+                        errorMsg = "パスワードフィールドが異なります!"
+                    }
+                    "NicknameCheck" -> {
+                        errorMsg = "ニックネームは既に存在します! 別のものを選んでください!"
+                    }
+                    "UsernameCheck" -> {
+                        errorMsg = "ユーザー名は既に存在します! 別のものを選んでください!"
                     }
                 }
             }

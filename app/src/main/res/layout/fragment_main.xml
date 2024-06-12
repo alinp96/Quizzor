@@ -38,21 +38,6 @@
             android:layout_margin="2dp"
             android:layout_weight="1"
             android:text="Play" />
-
-        <Button
-            android:id="@+id/btnRegister"
-            android:layout_width="fill_parent"
-            android:layout_height="100dp"
-            android:layout_margin="2dp"
-            android:layout_weight="1"
-            android:text="Register"/>
-        <Button
-            android:id="@+id/btnSignIn"
-            android:layout_width="fill_parent"
-            android:layout_height="100dp"
-            android:layout_margin="2dp"
-            android:layout_weight="1"
-            android:text="Sign In"/>
     </LinearLayout>
 
 

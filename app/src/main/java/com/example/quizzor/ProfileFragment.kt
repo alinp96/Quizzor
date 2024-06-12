@@ -269,6 +269,7 @@ class ProfileFragment : Fragment() {
         when (language){
             "en" -> {
                 tvTitle.text = "Profile"
+                backButton.text = "Back"
                 btnChangeNickname.text = "Change Nickname"
                 btnChangePassword.text = "Change Password"
                 btnResetScore.text = "Reset Score"
@@ -283,6 +284,7 @@ class ProfileFragment : Fragment() {
             }
             "ro" -> {
                 tvTitle.text = "Profil"
+                backButton.text = "Back"
                 btnChangeNickname.text = "Schimba Porecla"
                 btnChangePassword.text = "Schimba Parola"
                 btnResetScore.text = "Reseteaza Scorul"
@@ -295,6 +297,67 @@ class ProfileFragment : Fragment() {
                 btnResetPassword.text = "Reseteaza Parola"
                 btnResetScore.text = "Reseteaza Scorul"
             }
+            "de" -> {
+                tvTitle.text = "Profil"
+                backButton.text = "Zurück"
+                btnChangeNickname.text = "Spitznamen ändern"
+                btnChangePassword.text = "Passwort ändern"
+                btnResetScore.text = "Punkte zurücksetzen"
+                etChangeNickname.hint = "Spitznamen ändern"
+                btnResetNickname.text = "Spitznamen zurücksetzen"
+                tvPasswordText.text = "Ändern Sie Ihr aktuelles Passwort"
+                etCurrentPassword.hint = "Aktuelles Passwort"
+                etNewPassword.hint = "Neues Passwort"
+                etConfirmNewPassword.hint = "Passwort bestätigen"
+                btnResetPassword.text = "Passwort zurücksetzen"
+                btnResetScore.text = "Punkte zurücksetzen"
+            }
+            "fr" -> {
+                tvTitle.text = "Profil"
+                backButton.text = "Retour"
+                btnChangeNickname.text = "Changer le pseudonyme"
+                btnChangePassword.text = "Changer le mot de passe"
+                btnResetScore.text = "Réinitialiser le score"
+                etChangeNickname.hint = "Changer le pseudonyme"
+                btnResetNickname.text = "Réinitialiser le pseudonyme"
+                tvPasswordText.text = "Changez votre mot de passe actuel"
+                etCurrentPassword.hint = "Mot de passe actuel"
+                etNewPassword.hint = "Nouveau mot de passe"
+                etConfirmNewPassword.hint = "Confirmer le mot de passe"
+                btnResetPassword.text = "Réinitialiser le mot de passe"
+                btnResetScore.text = "Réinitialiser le score"
+            }
+            "hu" -> {
+                tvTitle.text = "Profil"
+                backButton.text = "Vissza"
+                btnChangeNickname.text = "Becenév megváltoztatása"
+                btnChangePassword.text = "Jelszó megváltoztatása"
+                btnResetScore.text = "Pontszám visszaállítása"
+                etChangeNickname.hint = "Becenév megváltoztatása"
+                btnResetNickname.text = "Becenév visszaállítása"
+                tvPasswordText.text = "Jelszó módosítása"
+                etCurrentPassword.hint = "Jelenlegi jelszó"
+                etNewPassword.hint = "Új jelszó"
+                etConfirmNewPassword.hint = "Jelszó megerősítése"
+                btnResetPassword.text = "Jelszó visszaállítása"
+                btnResetScore.text = "Pontszám visszaállítása"
+            }
+            "jp" -> {
+                tvTitle.text = "プロフィール"
+                backButton.text = "戻る"
+                btnChangeNickname.text = "ニックネームを変更"
+                btnChangePassword.text = "パスワードを変更"
+                btnResetScore.text = "スコアをリセット"
+                etChangeNickname.hint = "ニックネームを変更"
+                btnResetNickname.text = "ニックネームをリセット"
+                tvPasswordText.text = "現在のパスワードを変更"
+                etCurrentPassword.hint = "現在のパスワード"
+                etNewPassword.hint = "新しいパスワード"
+                etConfirmNewPassword.hint = "パスワードを確認"
+                btnResetPassword.text = "パスワードをリセット"
+                btnResetScore.text = "スコアをリセット"
+            }
+
         }
     }
 
@@ -361,6 +424,118 @@ class ProfileFragment : Fragment() {
 
                     "YourScore" -> {
                         errorMsg = "Scorul Tau: ${placeholder}"
+                    }
+                }
+            }
+            "de" -> {
+                when(error){
+                    "SameNick" -> {
+                        errorMsg = "Sie haben denselben Spitznamen!"
+                    }
+                    "EmptyField" -> {
+                        errorMsg = "Leere Felder sind nicht erlaubt!"
+                    }
+                    "PasswordMatch" -> {
+                        errorMsg = "Das neue Passwort stimmt nicht überein!"
+                    }
+                    "SamePassword" -> {
+                        errorMsg = "Das neue Passwort ist dasselbe wie das aktuelle!"
+                    }
+                    "WrongPassword" -> {
+                        errorMsg = "Das aktuelle Passwort ist falsch!"
+                    }
+                    "CurrentNickname" -> {
+                        errorMsg = "Ihr aktueller Spitzname ist ${placeholder}"
+                    }
+                    "PrincipalText" -> {
+                        errorMsg = "Hallo, ${placeholder}"
+                    }
+                    "YourScore" -> {
+                        errorMsg = "Ihre Punktzahl: ${placeholder}"
+                    }
+                }
+            }
+            "fr" -> {
+                when(error){
+                    "SameNick" -> {
+                        errorMsg = "Vous avez le même pseudonyme !"
+                    }
+                    "EmptyField" -> {
+                        errorMsg = "Les champs vides ne sont pas autorisés !"
+                    }
+                    "PasswordMatch" -> {
+                        errorMsg = "Le nouveau mot de passe ne correspond pas !"
+                    }
+                    "SamePassword" -> {
+                        errorMsg = "Le nouveau mot de passe est identique à l'actuel !"
+                    }
+                    "WrongPassword" -> {
+                        errorMsg = "Le mot de passe actuel est incorrect !"
+                    }
+                    "CurrentNickname" -> {
+                        errorMsg = "Votre pseudonyme actuel est ${placeholder}"
+                    }
+                    "PrincipalText" -> {
+                        errorMsg = "Bonjour, ${placeholder}"
+                    }
+                    "YourScore" -> {
+                        errorMsg = "Votre score : ${placeholder}"
+                    }
+                }
+            }
+            "hu" -> {
+                when(error){
+                    "SameNick" -> {
+                        errorMsg = "Ugyanaz a becenév!"
+                    }
+                    "EmptyField" -> {
+                        errorMsg = "Üres mezők nem engedélyezettek!"
+                    }
+                    "PasswordMatch" -> {
+                        errorMsg = "Az új jelszó nem egyezik!"
+                    }
+                    "SamePassword" -> {
+                        errorMsg = "Az új jelszó megegyezik a jelenlegivel!"
+                    }
+                    "WrongPassword" -> {
+                        errorMsg = "A jelenlegi jelszó helytelen!"
+                    }
+                    "CurrentNickname" -> {
+                        errorMsg = "Jelenlegi beceneved ${placeholder}"
+                    }
+                    "PrincipalText" -> {
+                        errorMsg = "Helló, ${placeholder}"
+                    }
+                    "YourScore" -> {
+                        errorMsg = "Pontszámod: ${placeholder}"
+                    }
+                }
+            }
+            "jp" -> {
+                when(error){
+                    "SameNick" -> {
+                        errorMsg = "同じニックネームがあります！"
+                    }
+                    "EmptyField" -> {
+                        errorMsg = "空のフィールドは許可されていません！"
+                    }
+                    "PasswordMatch" -> {
+                        errorMsg = "新しいパスワードが一致しません！"
+                    }
+                    "SamePassword" -> {
+                        errorMsg = "新しいパスワードが現在のパスワードと同じです！"
+                    }
+                    "WrongPassword" -> {
+                        errorMsg = "現在のパスワードが間違っています！"
+                    }
+                    "CurrentNickname" -> {
+                        errorMsg = "あなたの現在のニックネームは ${placeholder} です"
+                    }
+                    "PrincipalText" -> {
+                        errorMsg = "こんにちは、 ${placeholder}"
+                    }
+                    "YourScore" -> {
+                        errorMsg = "あなたのスコア： ${placeholder}"
                     }
                 }
             }

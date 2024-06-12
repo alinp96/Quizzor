@@ -20,8 +20,6 @@ import androidx.fragment.app.Fragment
 class MainFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var txtWelcome: TextView
-    private lateinit var btnRegister: Button
-    private lateinit var btnSignIn: Button
     //private lateinit var tvTitle: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,8 +35,6 @@ class MainFragment : Fragment() {
         val btnPlay = view.findViewById<ImageButton>(R.id.btnPlay)
         txtWelcome = view.findViewById<TextView>(R.id.textViewWelcomeText)
 
-        btnRegister = view.findViewById<Button>(R.id.btnRegister)
-        btnSignIn = view.findViewById<Button>(R.id.btnSignIn)
 
         val userManager = UserManagement()
         //tvTitle = view.findViewById<TextView>(R.id.titleTextView)
@@ -60,30 +56,6 @@ class MainFragment : Fragment() {
         btnPlay.setOnClickListener{
             goToScreen("play")
         }
-
-        btnRegister.setOnClickListener{
-            //userManager.registerUser("testuser@example.com", "password123")
-        }
-
-        btnSignIn.setOnClickListener{
-            userManager.signIn("testuser@example.com", "password123") { callback, test ->
-                if (test != null) {
-                    Log.d("TAG", test)
-                }
-            }
-        }
-
-        /*btnLeaderboard.setOnClickListener{
-            goToScreen("leaderboard")
-        }
-
-        btnProfile.setOnClickListener{
-            goToScreen("profile")
-        }
-
-        btnSettings.setOnClickListener{
-            goToScreen("settings")
-        }*/
 
         backButton.visibility = View.GONE
 

@@ -56,6 +56,7 @@ class StandardQuizFragment : Fragment() {
 
     private var documentName: String = ""
     private lateinit var userManager: UserManagement
+    private lateinit var language: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +68,7 @@ class StandardQuizFragment : Fragment() {
     ): View? {
 
         sharedPreferences = requireActivity().getSharedPreferences("userPreferences", Context.MODE_PRIVATE)
-        val language = getDataFromSharedPreferences("language")
+        language = getDataFromSharedPreferences("language")
         val category = getDataFromSharedPreferences("category")
 
         val activity = requireActivity()
@@ -127,7 +128,7 @@ class StandardQuizFragment : Fragment() {
 
 
         // change the Category text
-        titleTextView.text = "$category Questions"
+        titleTVLanguage(language, category)
 
         backButton.setOnClickListener{
             parentFragmentManager.beginTransaction()
@@ -248,7 +249,8 @@ class StandardQuizFragment : Fragment() {
             totalScore += score
             updatedScoreMap["total"] = totalScore
             docRef.update("score", updatedScoreMap)
-            questionTextView.text ="Completed!\n Round points: ${score} \n Total category points: ${updatedScore}"
+            questionTVLanguage(language, score, updatedScore)
+            //questionTextView.text ="Completed!\n Round points: ${score} \n Total category points: ${updatedScore}"
         }
 
         btnTrue.visibility = View.GONE
@@ -417,5 +419,162 @@ class StandardQuizFragment : Fragment() {
 
     fun Fragment.showBottomNavigation() {
         (activity as? MainActivity)?.findViewById<BottomNavigationView>(R.id.bottom_navigation)?.visibility = View.VISIBLE
+    }
+
+    private fun titleTVLanguage(language: String, category: String){
+        when (language){
+            "en" -> titleTextView.text = "$category Questions"
+            "ro" -> {
+                when (category) {
+                    "Trivia" -> titleTextView.text = "Întrebări despre Curiozități"
+                    "World Facts" -> titleTextView.text = "Întrebări despre Fapte din lume"
+                    "Famous Celebrities" -> titleTextView.text = "Întrebări despre Personalități celebre"
+                    "Physics" -> titleTextView.text = "Întrebări despre Fizică"
+                    "Chemistry" -> titleTextView.text = "Întrebări despre Chimie"
+                    "Biology" -> titleTextView.text = "Întrebări despre Biologie"
+                    "Computer Science" -> titleTextView.text = "Întrebări despre Informatică"
+                    "Countries & Capitals" -> titleTextView.text = "Întrebări despre Țări și capitale"
+                    "Geographic facts & trivia" -> titleTextView.text = "Întrebări despre Date geografice și curiozități"
+                    "Famous historical figures" -> titleTextView.text = "Întrebări despre Personalități istorice celebre"
+                    "Historical events" -> titleTextView.text = "Întrebări despre Evenimente istorice"
+                    "Movies" -> titleTextView.text = "Întrebări despre Filme"
+                    "TV Shows" -> titleTextView.text = "Întrebări despre Emisiuni TV"
+                    "Music" -> titleTextView.text = "Întrebări despre Muzică"
+                    "Books & Literature" -> titleTextView.text = "Întrebări despre Cărți și literatură"
+                    "Celebrity & Pop culture" -> titleTextView.text = "Întrebări despre Celebritate și cultură populară"
+                    "Video games" -> titleTextView.text = "Întrebări despre Jocuri video"
+                    "Soccer" -> titleTextView.text = "Întrebări despre Fotbal"
+                    "Unusual Sports Facts" -> titleTextView.text = "Întrebări despre Fapte sportive neobișnuite"
+                    "Memorable Sporting Events" -> titleTextView.text = "Întrebări despre Evenimente sportive memorabile"
+                    "Cuisine" -> titleTextView.text = "Întrebări despre Bucătărie"
+                    "Ingredients" -> titleTextView.text = "Întrebări despre Ingrediente"
+                    "Beverages" -> titleTextView.text = "Întrebări despre Băuturi"
+                    "Food trivia" -> titleTextView.text = "Întrebări despre Curiozități alimentare"
+                }
+            }
+            "de" -> {
+                when (category) {
+                    "Trivia" -> titleTextView.text = "Fragen zu Kuriositäten"
+                    "World Facts" -> titleTextView.text = "Fragen zu Weltfakten"
+                    "Famous Celebrities" -> titleTextView.text = "Fragen zu Berühmten Persönlichkeiten"
+                    "Physics" -> titleTextView.text = "Fragen zur Physik"
+                    "Chemistry" -> titleTextView.text = "Fragen zur Chemie"
+                    "Biology" -> titleTextView.text = "Fragen zur Biologie"
+                    "Computer Science" -> titleTextView.text = "Fragen zur Informatik"
+                    "Countries & Capitals" -> titleTextView.text = "Fragen zu Ländern und Hauptstädten"
+                    "Geographic facts & trivia" -> titleTextView.text = "Fragen zu Geografischen Fakten und Kuriositäten"
+                    "Famous historical figures" -> titleTextView.text = "Fragen zu Berühmten historischen Persönlichkeiten"
+                    "Historical events" -> titleTextView.text = "Fragen zu Historischen Ereignissen"
+                    "Movies" -> titleTextView.text = "Fragen zu Filmen"
+                    "TV Shows" -> titleTextView.text = "Fragen zu Fernsehsendungen"
+                    "Music" -> titleTextView.text = "Fragen zur Musik"
+                    "Books & Literature" -> titleTextView.text = "Fragen zu Büchern und Literatur"
+                    "Celebrity & Pop culture" -> titleTextView.text = "Fragen zu Prominenten und Popkultur"
+                    "Video games" -> titleTextView.text = "Fragen zu Videospielen"
+                    "Soccer" -> titleTextView.text = "Fragen zum Fußball"
+                    "Unusual Sports Facts" -> titleTextView.text = "Fragen zu Ungewöhnlichen Sportfakten"
+                    "Memorable Sporting Events" -> titleTextView.text = "Fragen zu Denkwürdigen Sportereignissen"
+                    "Cuisine" -> titleTextView.text = "Fragen zur Küche"
+                    "Ingredients" -> titleTextView.text = "Fragen zu Zutaten"
+                    "Beverages" -> titleTextView.text = "Fragen zu Getränken"
+                    "Food trivia" -> titleTextView.text = "Fragen zu Ernährungskuriositäten"
+                }
+            }
+            "fr" -> {
+                when (category) {
+                    "Trivia" -> titleTextView.text = "Questions de Curiosités"
+                    "World Facts" -> titleTextView.text = "Questions sur les Faits du monde"
+                    "Famous Celebrities" -> titleTextView.text = "Questions sur les Célébrités célèbres"
+                    "Physics" -> titleTextView.text = "Questions sur la Physique"
+                    "Chemistry" -> titleTextView.text = "Questions sur la Chimie"
+                    "Biology" -> titleTextView.text = "Questions sur la Biologie"
+                    "Computer Science" -> titleTextView.text = "Questions sur l'Informatique"
+                    "Countries & Capitals" -> titleTextView.text = "Questions sur les Pays et capitales"
+                    "Geographic facts & trivia" -> titleTextView.text = "Questions sur les Faits géographiques et curiosités"
+                    "Famous historical figures" -> titleTextView.text = "Questions sur les Personnalités historiques célèbres"
+                    "Historical events" -> titleTextView.text = "Questions sur les Événements historiques"
+                    "Movies" -> titleTextView.text = "Questions sur les Films"
+                    "TV Shows" -> titleTextView.text = "Questions sur les Émissions TV"
+                    "Music" -> titleTextView.text = "Questions sur la Musique"
+                    "Books & Literature" -> titleTextView.text = "Questions sur les Livres et littérature"
+                    "Celebrity & Pop culture" -> titleTextView.text = "Questions sur les Célébrités et la culture populaire"
+                    "Video games" -> titleTextView.text = "Questions sur les Jeux vidéo"
+                    "Soccer" -> titleTextView.text = "Questions sur le Football"
+                    "Unusual Sports Facts" -> titleTextView.text = "Questions sur les Faits sportifs inhabituels"
+                    "Memorable Sporting Events" -> titleTextView.text = "Questions sur les Événements sportifs mémorables"
+                    "Cuisine" -> titleTextView.text = "Questions sur la Cuisine"
+                    "Ingredients" -> titleTextView.text = "Questions sur les Ingrédients"
+                    "Beverages" -> titleTextView.text = "Questions sur les Boissons"
+                    "Food trivia" -> titleTextView.text = "Questions sur les Curiosités alimentaires"
+                }
+            }
+            "hu" -> {
+                when (category) {
+                    "Trivia" -> titleTextView.text = "Kérdések érdekességekről"
+                    "World Facts" -> titleTextView.text = "Kérdések a világ tényeiről"
+                    "Famous Celebrities" -> titleTextView.text = "Kérdések híres hírességekről"
+                    "Physics" -> titleTextView.text = "Kérdések a fizikáról"
+                    "Chemistry" -> titleTextView.text = "Kérdések a kémiáról"
+                    "Biology" -> titleTextView.text = "Kérdések a biológiáról"
+                    "Computer Science" -> titleTextView.text = "Kérdések a számítástechnikáról"
+                    "Countries & Capitals" -> titleTextView.text = "Kérdések országokról és fővárosokról"
+                    "Geographic facts & trivia" -> titleTextView.text = "Kérdések földrajzi tényekről és érdekességekről"
+                    "Famous historical figures" -> titleTextView.text = "Kérdések híres történelmi személyekről"
+                    "Historical events" -> titleTextView.text = "Kérdések történelmi eseményekről"
+                    "Movies" -> titleTextView.text = "Kérdések filmekről"
+                    "TV Shows" -> titleTextView.text = "Kérdések tévéműsorokról"
+                    "Music" -> titleTextView.text = "Kérdések zenéről"
+                    "Books & Literature" -> titleTextView.text = "Kérdések könyvekről és irodalomról"
+                    "Celebrity & Pop culture" -> titleTextView.text = "Kérdések hírességekről és popkultúráról"
+                    "Video games" -> titleTextView.text = "Kérdések videojátékokról"
+                    "Soccer" -> titleTextView.text = "Kérdések fociról"
+                    "Unusual Sports Facts" -> titleTextView.text = "Kérdések szokatlan sporttényekről"
+                    "Memorable Sporting Events" -> titleTextView.text = "Kérdések emlékezetes sporteseményekről"
+                    "Cuisine" -> titleTextView.text = "Kérdések a konyhaművészetről"
+                    "Ingredients" -> titleTextView.text = "Kérdések hozzávalókról"
+                    "Beverages" -> titleTextView.text = "Kérdések italokról"
+                    "Food trivia" -> titleTextView.text = "Kérdések élelmiszer érdekességekről"
+                }
+            }
+            "jp" -> {
+                when (category) {
+                    "Trivia" -> titleTextView.text = "雑学の質問"
+                    "World Facts" -> titleTextView.text = "世界の事実に関する質問"
+                    "Famous Celebrities" -> titleTextView.text = "有名なセレブに関する質問"
+                    "Physics" -> titleTextView.text = "物理学に関する質問"
+                    "Chemistry" -> titleTextView.text = "化学に関する質問"
+                    "Biology" -> titleTextView.text = "生物学に関する質問"
+                    "Computer Science" -> titleTextView.text = "コンピュータサイエンスに関する質問"
+                    "Countries & Capitals" -> titleTextView.text = "国と首都に関する質問"
+                    "Geographic facts & trivia" -> titleTextView.text = "地理的事実と雑学に関する質問"
+                    "Famous historical figures" -> titleTextView.text = "有名な歴史上の人物に関する質問"
+                    "Historical events" -> titleTextView.text = "歴史的出来事に関する質問"
+                    "Movies" -> titleTextView.text = "映画に関する質問"
+                    "TV Shows" -> titleTextView.text = "テレビ番組に関する質問"
+                    "Music" -> titleTextView.text = "音楽に関する質問"
+                    "Books & Literature" -> titleTextView.text = "本と文学に関する質問"
+                    "Celebrity & Pop culture" -> titleTextView.text = "セレブとポップカルチャーに関する質問"
+                    "Video games" -> titleTextView.text = "ビデオゲームに関する質問"
+                    "Soccer" -> titleTextView.text = "サッカーに関する質問"
+                    "Unusual Sports Facts" -> titleTextView.text = "珍しいスポーツの事実に関する質問"
+                    "Memorable Sporting Events" -> titleTextView.text = "記憶に残るスポーツイベントに関する質問"
+                    "Cuisine" -> titleTextView.text = "料理に関する質問"
+                    "Ingredients" -> titleTextView.text = "材料に関する質問"
+                    "Beverages" -> titleTextView.text = "飲み物に関する質問"
+                    "Food trivia" -> titleTextView.text = "食べ物の雑学に関する質問"
+                }
+            }
+        }
+    }
+
+    private fun questionTVLanguage(language: String, score: Int, updatedScore: Int){
+        when (language){
+            "en" -> questionTextView.text ="Completed!\n Round points: ${score} \n  Total category points: ${updatedScore}"
+            "ro" -> questionTextView.text ="Runda încheiată!\n Punctele rundei: ${score} \n Total puncte categorie: ${updatedScore}"
+            "de" -> questionTextView.text = "Abgeschlossen!\n Rundenpunkte: ${score} \n Gesamtkategoriepunkte: ${updatedScore}"
+            "fr" -> questionTextView.text = "Terminé!\n Points de la manche: ${score} \n Points de la catégorie totale: ${updatedScore}"
+            "hu" -> questionTextView.text = "Kész!\n Kör pontok: ${score} \n Kategória összpontok: ${updatedScore}"
+            "jp" -> questionTextView.text = "完了！\n ラウンドポイント: ${score} \n カテゴリー総ポイント: ${updatedScore}"
+        }
     }
 }
