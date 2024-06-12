@@ -46,7 +46,7 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="165dp"
             android:id="@+id/cv_generalKnowledge"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -85,7 +85,7 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="165dp"
             android:id="@+id/cv_scienceAndTechnology"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -135,7 +135,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:padding="4dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="165dp"
                 android:background="@color/backgroundDayColor">
 
                 <ImageView
@@ -188,7 +188,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:padding="4dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="165dp"
                 android:background="@color/backgroundDayColor">
 
                 <ImageView
@@ -227,7 +227,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:padding="4dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="165dp"
                 android:background="@color/backgroundDayColor">
 
                 <ImageView
@@ -255,7 +255,7 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="165dp"
             android:id="@+id/cv_foodAndDrinks"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -331,7 +331,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:padding="4dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="165dp"
                 android:background="@color/backgroundDayColor">
 
                 <ImageView
@@ -370,7 +370,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:padding="4dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="165dp"
                 android:background="@color/backgroundDayColor">
 
                 <ImageView
@@ -409,7 +409,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:padding="4dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="165dp"
                 android:background="@color/backgroundDayColor">
 
                 <ImageView
@@ -461,7 +461,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:padding="4dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="165dp"
                 android:background="@color/backgroundDayColor">
 
                 <ImageView
@@ -500,7 +500,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:padding="4dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="165dp"
                 android:background="@color/backgroundDayColor">
 
                 <ImageView
@@ -553,7 +553,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:padding="4dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="165dp"
                 android:background="@color/backgroundDayColor">
 
                 <ImageView
@@ -592,7 +592,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:padding="4dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="165dp"
                 android:background="@color/backgroundDayColor">
 
                 <ImageView
@@ -644,7 +644,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:padding="4dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="165dp"
                 android:background="@color/backgroundDayColor">
 
                 <ImageView
@@ -683,7 +683,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:padding="4dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="165dp"
                 android:background="@color/backgroundDayColor">
 
                 <ImageView
@@ -735,7 +735,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:padding="4dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="165dp"
                 android:background="@color/backgroundDayColor">
 
                 <ImageView
@@ -774,7 +774,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:padding="4dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="165dp"
                 android:background="@color/backgroundDayColor">
 
                 <ImageView
@@ -826,7 +826,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:padding="4dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="165dp"
                 android:background="@color/backgroundDayColor">
 
                 <ImageView
@@ -865,7 +865,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:padding="4dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="165dp"
                 android:background="@color/backgroundDayColor">
 
                 <ImageView
@@ -904,7 +904,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:padding="4dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="165dp"
                 android:background="@color/backgroundDayColor">
 
                 <ImageView
@@ -956,7 +956,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:padding="4dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="165dp"
                 android:background="@color/backgroundDayColor">
 
                 <ImageView
@@ -995,7 +995,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:padding="4dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="165dp"
                 android:background="@color/backgroundDayColor">
 
                 <ImageView
@@ -1034,7 +1034,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:padding="4dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="165dp"
                 android:background="@color/backgroundDayColor">
 
                 <ImageView
@@ -1086,7 +1086,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:padding="4dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="165dp"
                 android:background="@color/backgroundDayColor">
 
                 <ImageView
@@ -1125,7 +1125,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:padding="4dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="165dp"
                 android:background="@color/backgroundDayColor">
 
                 <ImageView
@@ -1164,7 +1164,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:padding="4dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="165dp"
                 android:background="@color/backgroundDayColor">
 
                 <ImageView
@@ -1216,7 +1216,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:padding="4dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="165dp"
                 android:background="@color/backgroundDayColor">
 
                 <ImageView
@@ -1255,7 +1255,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:padding="4dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="165dp"
                 android:background="@color/backgroundDayColor">
 
                 <ImageView
@@ -1307,7 +1307,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:padding="4dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="165dp"
                 android:background="@color/backgroundDayColor">
 
                 <ImageView
@@ -1346,7 +1346,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:padding="4dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="165dp"
                 android:background="@color/backgroundDayColor">
 
                 <ImageView
@@ -1392,9 +1392,10 @@
             android:background="@color/primaryColor"
             android:layout_width="fill_parent"
             android:layout_height="100dp"
-            android:layout_margin="2dp"
             android:layout_weight="1"
-            android:text="Choose another category "/>
+            android:text="Choose another category "
+            android:layout_marginBottom="60dp"
+            android:layout_marginHorizontal="2dp"/>
 
         <ImageButton
             android:id="@+id/btnStartGame"
@@ -1418,8 +1419,9 @@
         android:background="@color/primaryColor"
         android:layout_width="fill_parent"
         android:layout_height="100dp"
-        android:layout_margin="2dp"
         android:layout_weight="1"
-        android:text="Choose another category "/>
+        android:text="Choose another category "
+        android:layout_marginBottom="70dp"
+        android:layout_marginHorizontal="10dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

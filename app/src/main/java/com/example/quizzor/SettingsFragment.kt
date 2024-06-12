@@ -15,6 +15,14 @@ class SettingsFragment : Fragment() {
     private lateinit var tvTitle: TextView
     private lateinit var backButton: Button
 
+    private lateinit var tvInfoAppName: TextView
+    private lateinit var tvInfoDevName: TextView
+    private lateinit var tvInfoPurpose: TextView
+    private lateinit var tvInfoTitle: TextView
+    private lateinit var tvInfoFaculty: TextView
+    private lateinit var tvInfoSpecialization: TextView
+    private lateinit var tvInfoGroup: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -38,6 +46,18 @@ class SettingsFragment : Fragment() {
         val cbFrancaisLanguage = view.findViewById<ImageButton>(R.id.btnFrancais)
         val cbHungarianLanguage = view.findViewById<ImageButton>(R.id.btnHungarian)
         val cbJapanLanguage = view.findViewById<ImageButton>(R.id.btnJapan)
+
+        val btnAboutApp = view.findViewById<ImageButton>(R.id.btnAboutApp)
+        val informationLL = view.findViewById<LinearLayout>(R.id.llInformation)
+        var counterAboutBtn: Int = 0
+
+        tvInfoAppName = view.findViewById<TextView>(R.id.textInfoAppName)
+        tvInfoDevName = view.findViewById<TextView>(R.id.textInfoDevName)
+        tvInfoPurpose = view.findViewById<TextView>(R.id.textInfoPurpose)
+        tvInfoTitle = view.findViewById<TextView>(R.id.textInfoTitle)
+        tvInfoFaculty = view.findViewById<TextView>(R.id.textInfoFaculty)
+        tvInfoSpecialization = view.findViewById<TextView>(R.id.textInfoSpecialization)
+        tvInfoGroup = view.findViewById<TextView>(R.id.textInfoGroup)
 
         tvTitle = view.findViewById<TextView>(R.id.titleTextView)
         backButton = view.findViewById<Button>(R.id.backButton)
@@ -77,6 +97,8 @@ class SettingsFragment : Fragment() {
         }
 
         btnChangeLanguage.setOnClickListener{
+            informationLL.visibility = View.GONE
+            counterAboutBtn = 0
             if (counterLanguageBtn % 2 == 0){
                 firstLanguageRowLL.visibility = View.VISIBLE
                 secondLanguageRowLL.visibility = View.VISIBLE
@@ -85,6 +107,19 @@ class SettingsFragment : Fragment() {
                 firstLanguageRowLL.visibility = View.GONE
                 secondLanguageRowLL.visibility = View.GONE
                 counterLanguageBtn = 0
+            }
+        }
+
+        btnAboutApp.setOnClickListener {
+            firstLanguageRowLL.visibility = View.GONE
+            secondLanguageRowLL.visibility = View.GONE
+            counterLanguageBtn = 0
+            if (counterAboutBtn % 2 == 0){
+                informationLL.visibility = View.VISIBLE
+                counterAboutBtn = 1
+            } else{
+                informationLL.visibility = View.GONE
+                counterAboutBtn = 0
             }
         }
 
@@ -156,31 +191,84 @@ class SettingsFragment : Fragment() {
                 activity.title = "Settings"
                 tvTitle.text = "Settings"
                 backButton.text = "Back"
+
+                tvInfoAppName.text = "Application Name: Quizzor"
+                tvInfoDevName.text = "Developer: Alin Popa"
+                tvInfoPurpose.text = "Purpose of the app: Developing of general cultur"
+                tvInfoTitle.text = "Title: Dissertation"
+                tvInfoFaculty.text = "Faculty: Transilvania University"
+                tvInfoSpecialization.text = "Specialization: Mobile Applications and Internet Technologies in E-Business"
+                tvInfoGroup.text = "Group: MITB xxx"
             }
             "ro" -> {
                 activity.title = "Setări"
                 tvTitle.text = "Setări"
                 backButton.text = "Înapoi"
+
+                tvInfoAppName.text = "Nume aplicație: Quizzor"
+                tvInfoDevName.text = "Dezvoltator: Alin Popa"
+                tvInfoPurpose.text = "Scopul aplicației: Dezvoltarea culturii generale"
+                tvInfoTitle.text = "Titlu: Disertație"
+                tvInfoFaculty.text = "Facultate: Universitatea Transilvania"
+                tvInfoSpecialization.text = "Specializare: Aplicații Mobile și Tehnologii Internet în E-Business"
+                tvInfoGroup.text = "Grupa: MITB xxx"
+
             }
             "de" -> {
                 activity.title = "Einstellungen"
                 tvTitle.text = "Einstellungen"
                 backButton.text = "Back"
+
+                tvInfoAppName.text = "Anwendungsname: Quizzor"
+                tvInfoDevName.text = "Entwickler: Alin Popa"
+                tvInfoPurpose.text = "Zweck der App: Entwicklung der Allgemeinbildung"
+                tvInfoTitle.text = "Titel: Dissertation"
+                tvInfoFaculty.text = "Fakultät: Transilvania Universität"
+                tvInfoSpecialization.text = "Spezialisierung: Mobile Anwendungen und Internettechnologien im E-Business"
+                tvInfoGroup.text = "Gruppe: MITB xxx"
+
             }
             "fr" -> {
                 activity.title = "Paramètres"
                 tvTitle.text = "Paramètres"
                 backButton.text = "Retour"
+
+                tvInfoAppName.text = "Nom de l'application: Quizzor"
+                tvInfoDevName.text = "Développeur: Alin Popa"
+                tvInfoPurpose.text = "But de l'application: Développement de la culture générale"
+                tvInfoTitle.text = "Titre: Dissertation"
+                tvInfoFaculty.text = "Faculté: Université de Transilvania"
+                tvInfoSpecialization.text = "Spécialisation: Applications Mobiles et Technologies Internet dans l'E-Business"
+                tvInfoGroup.text = "Groupe: MITB xxx"
+
             }
             "hu" -> {
                 activity.title = "Beállítások"
                 tvTitle.text = "Beállítások"
                 backButton.text = "Vissza"
+
+                tvInfoAppName.text = "Alkalmazás neve: Quizzor"
+                tvInfoDevName.text = "Fejlesztő: Alin Popa"
+                tvInfoPurpose.text = "Az alkalmazás célja: Az általános műveltség fejlesztése"
+                tvInfoTitle.text = "Cím: Disszertáció"
+                tvInfoFaculty.text = "Kar: Transilvania Egyetem"
+                tvInfoSpecialization.text = "Szakirány: Mobilalkalmazások és Internetes Technológiák az E-Businessben"
+                tvInfoGroup.text = "Csoport: MITB xxx"
+
             }
             "jp" -> {
                 activity.title = "設定"
                 tvTitle.text = "設定"
                 backButton.text = "バック"
+
+                tvInfoAppName.text = "アプリ名: Quizzor"
+                tvInfoDevName.text = "開発者: Alin Popa"
+                tvInfoPurpose.text = "アプリの目的: 一般教養の発展"
+                tvInfoTitle.text = "タイトル: 論文"
+                tvInfoFaculty.text = "学部: トランシルバニア大学"
+                tvInfoSpecialization.text = "専門分野: Eビジネスにおけるモバイルアプリケーションとインターネット技術"
+                tvInfoGroup.text = "グループ: MITB xxx"
+
             }
         }
     }

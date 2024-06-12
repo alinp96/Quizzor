@@ -19,7 +19,7 @@
         android:layout_marginTop="200dp"/>
 
     <LinearLayout
-        android:visibility="visible"
+        android:visibility="gone"
         android:id="@+id/llLanguageFirstRow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:visibility="visible"
+        android:visibility="gone"
         android:id="@+id/llLanguageSecondRow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -143,6 +143,90 @@
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:text="About App" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/llInformation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|fill_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="150dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginHorizontal="0dp">
+        <TextView
+            android:id="@+id/textInfoAppName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Application Name: Quizzor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="8dp"
+            android:textSize="17dp"/>
+        <TextView
+            android:id="@+id/textInfoDevName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Developer: Alin Popa"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="8dp"
+            android:textSize="17dp"/>
+        <TextView
+            android:id="@+id/textInfoPurpose"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Purpose of the app: Developing of general culture"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="8dp"
+            android:textSize="17dp"/>
+        <TextView
+            android:id="@+id/textInfoTitle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Title: Dissertation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="8dp"
+            android:textSize="17dp"/>
+        <TextView
+            android:id="@+id/textInfoFaculty"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Faculty: Transilvania University"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="8dp"
+            android:textSize="17dp"/>
+        <TextView
+            android:id="@+id/textInfoSpecialization"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Specialization: Mobile Applications and Internet Technologies in E-Business"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="8dp"
+            android:textSize="17dp"/>
+        <TextView
+            android:id="@+id/textInfoGroup"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Group: MITB xxx"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="8dp"
+            android:textSize="17dp"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
