@@ -94,6 +94,7 @@
             android:text="Error!"
             android:textSize="24sp"
             android:textStyle="bold"
+            android:textColor="@color/red"
             android:layout_gravity="center"
             android:visibility="gone"/>
         <Button
@@ -152,6 +153,7 @@
             android:text="Error!"
             android:textSize="24sp"
             android:textStyle="bold"
+            android:textColor="@color/red"
             android:layout_gravity="center"
             android:visibility="gone"/>
 

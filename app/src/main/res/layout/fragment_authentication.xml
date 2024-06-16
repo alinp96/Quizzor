@@ -115,6 +115,7 @@ tools:context=".AuthenticationFragment">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Error!"
+            android:textColor="@color/red"
             android:textSize="24sp"
             android:textStyle="bold"
             android:layout_gravity="center"
@@ -188,6 +189,7 @@ tools:context=".AuthenticationFragment">
             android:text="Error! Username or Password is incorrect!"
             android:textSize="24sp"
             android:textStyle="bold"
+            android:textColor="@color/red"
             android:layout_gravity="center"
             android:visibility="gone"/>
 
