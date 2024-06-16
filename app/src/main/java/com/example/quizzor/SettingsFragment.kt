@@ -33,6 +33,9 @@ class SettingsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_settings, container, false)
+        (activity as MainActivity).switchToGeneralMusic()
+
+        val btnAdjustSound = view.findViewById<ImageButton>(R.id.btnAdjustSound)
 
         val btnChangeLanguage = view.findViewById<ImageButton>(R.id.btnChangeLanguage)
         val firstLanguageRowLL = view.findViewById<LinearLayout>(R.id.llLanguageFirstRow)
@@ -86,17 +89,34 @@ class SettingsFragment : Fragment() {
         }
         firstLanguageRowLL.visibility = View.GONE
         secondLanguageRowLL.visibility = View.GONE
+        if (sharedPreferences.getBoolean("sound", true)){
+            btnAdjustSound.setImageResource(R.drawable.ic_settings_sound_on)
+        }else {
+            btnAdjustSound.setImageResource(R.drawable.ic_settings_sound_off)
+        }
 
 
 
         backButton.setOnClickListener {
+            (activity as MainActivity).playButtonClickSound()
             parentFragmentManager.beginTransaction()
                 .replace(R.id.container, MainFragment.newInstance())
                 .addToBackStack(null)
                 .commit()
         }
 
+        btnAdjustSound.setOnClickListener{
+            val toggleSound = !sharedPreferences.getBoolean("sound", true)
+            (activity as MainActivity).toggleBackgroundMusic(toggleSound)
+            if(toggleSound){
+                btnAdjustSound.setImageResource(R.drawable.ic_settings_sound_on)
+            }else{
+                btnAdjustSound.setImageResource(R.drawable.ic_settings_sound_off)
+            }
+        }
+
         btnChangeLanguage.setOnClickListener{
+            (activity as MainActivity).playButtonClickSound()
             informationLL.visibility = View.GONE
             counterAboutBtn = 0
             if (counterLanguageBtn % 2 == 0){
@@ -111,6 +131,7 @@ class SettingsFragment : Fragment() {
         }
 
         btnAboutApp.setOnClickListener {
+            (activity as MainActivity).playButtonClickSound()
             firstLanguageRowLL.visibility = View.GONE
             secondLanguageRowLL.visibility = View.GONE
             counterLanguageBtn = 0
@@ -157,15 +178,6 @@ class SettingsFragment : Fragment() {
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SettingsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance() =
             SettingsFragment().apply {
@@ -194,11 +206,11 @@ class SettingsFragment : Fragment() {
 
                 tvInfoAppName.text = "Application Name: Quizzor"
                 tvInfoDevName.text = "Developer: Alin Popa"
-                tvInfoPurpose.text = "Purpose of the app: Developing of general cultur"
+                tvInfoPurpose.text = "Purpose of the app: Developing of general culture"
                 tvInfoTitle.text = "Title: Dissertation"
                 tvInfoFaculty.text = "Faculty: Transilvania University"
                 tvInfoSpecialization.text = "Specialization: Mobile Applications and Internet Technologies in E-Business"
-                tvInfoGroup.text = "Group: MITB xxx"
+                tvInfoGroup.text = "Group: MITB 10MF421"
             }
             "ro" -> {
                 activity.title = "Setări"
@@ -211,7 +223,7 @@ class SettingsFragment : Fragment() {
                 tvInfoTitle.text = "Titlu: Disertație"
                 tvInfoFaculty.text = "Facultate: Universitatea Transilvania"
                 tvInfoSpecialization.text = "Specializare: Aplicații Mobile și Tehnologii Internet în E-Business"
-                tvInfoGroup.text = "Grupa: MITB xxx"
+                tvInfoGroup.text = "Grupa: MITB 10MF421"
 
             }
             "de" -> {
@@ -225,7 +237,7 @@ class SettingsFragment : Fragment() {
                 tvInfoTitle.text = "Titel: Dissertation"
                 tvInfoFaculty.text = "Fakultät: Transilvania Universität"
                 tvInfoSpecialization.text = "Spezialisierung: Mobile Anwendungen und Internettechnologien im E-Business"
-                tvInfoGroup.text = "Gruppe: MITB xxx"
+                tvInfoGroup.text = "Gruppe: MITB 10MF421"
 
             }
             "fr" -> {
@@ -239,7 +251,7 @@ class SettingsFragment : Fragment() {
                 tvInfoTitle.text = "Titre: Dissertation"
                 tvInfoFaculty.text = "Faculté: Université de Transilvania"
                 tvInfoSpecialization.text = "Spécialisation: Applications Mobiles et Technologies Internet dans l'E-Business"
-                tvInfoGroup.text = "Groupe: MITB xxx"
+                tvInfoGroup.text = "Groupe: MITB 10MF421"
 
             }
             "hu" -> {
@@ -253,7 +265,7 @@ class SettingsFragment : Fragment() {
                 tvInfoTitle.text = "Cím: Disszertáció"
                 tvInfoFaculty.text = "Kar: Transilvania Egyetem"
                 tvInfoSpecialization.text = "Szakirány: Mobilalkalmazások és Internetes Technológiák az E-Businessben"
-                tvInfoGroup.text = "Csoport: MITB xxx"
+                tvInfoGroup.text = "Csoport: MITB 10MF421"
 
             }
             "jp" -> {
@@ -267,7 +279,7 @@ class SettingsFragment : Fragment() {
                 tvInfoTitle.text = "タイトル: 論文"
                 tvInfoFaculty.text = "学部: トランシルバニア大学"
                 tvInfoSpecialization.text = "専門分野: Eビジネスにおけるモバイルアプリケーションとインターネット技術"
-                tvInfoGroup.text = "グループ: MITB xxx"
+                tvInfoGroup.text = "グループ: MITB 10MF421"
 
             }
         }

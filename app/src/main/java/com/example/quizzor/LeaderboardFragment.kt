@@ -203,6 +203,7 @@ class LeaderboardFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_leaderboard, container, false)
+        (activity as MainActivity).switchToGeneralMusic()
         val mActivity = activity as? MainActivity
         userManager = mActivity?.getUserManagement() ?: throw IllegalStateException("MainActivity expected")
         scoresTable = view.findViewById<TableLayout>(R.id.scores_table)
@@ -223,16 +224,19 @@ class LeaderboardFragment : Fragment() {
 
 
         btnAllScores.setOnClickListener{
+            (activity as MainActivity).playButtonClickSound()
             showScoresView(view)
             changeTitleLanguage(language, "scores")
         }
 
         btnLeaderboard.setOnClickListener{
+            (activity as MainActivity).playButtonClickSound()
             showTopUsers()
             changeTitleLanguage(language, "top")
         }
 
         backButton.setOnClickListener{
+            (activity as MainActivity).playButtonClickSound()
             showLeaderboardMainView()
             changeTitleLanguage(language, "leaderboard")
         }

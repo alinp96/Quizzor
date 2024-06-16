@@ -70,6 +70,7 @@ class StandardQuizFragment : Fragment() {
         sharedPreferences = requireActivity().getSharedPreferences("userPreferences", Context.MODE_PRIVATE)
         language = getDataFromSharedPreferences("language")
         val category = getDataFromSharedPreferences("category")
+        (activity as MainActivity).switchToSpecificMusic()
 
         val activity = requireActivity()
         activity.title = "$category questions"
@@ -232,7 +233,7 @@ class StandardQuizFragment : Fragment() {
     }
 
     private fun proceedToEndGame(){
-        // documentName = movies_en, booskandliterature_en
+        (activity as MainActivity).playQuizCompletedSound()
         val db = FirebaseFirestore.getInstance()
         val docId = userManager.getLoggedInUserId().toString()
         val docRef = db.collection("users").document(docId)
@@ -287,8 +288,10 @@ class StandardQuizFragment : Fragment() {
 
     private fun dotLogic(idNr: Int, isCorrectAnswer: Boolean) {
         if (isCorrectAnswer) {
+            (activity as MainActivity).playCorrectAnswerSound()
             dot[idNr].setImageResource(R.drawable.ic_greendot)
         } else {
+            (activity as MainActivity).playWrongAnswerSound()
             dot[idNr].setImageResource(R.drawable.ic_reddot)
         }
         dot[idNr].visibility = View.VISIBLE

@@ -128,6 +128,7 @@ class PlayFragment : Fragment() {
 
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_play, container, false)
+        (activity as MainActivity).switchToGeneralMusic()
         backButton = view.findViewById<Button>(R.id.backButton)
         tvTitle = view.findViewById<TextView>(R.id.titleTextView)
         btnBackToMainScreen = view.findViewById<ImageButton>(R.id.btnBackToMainScreen)
@@ -221,6 +222,7 @@ class PlayFragment : Fragment() {
         showCategories()
 
         btnBackToMainScreen.setOnClickListener{
+            (activity as MainActivity).playButtonClickSound()
             parentFragmentManager.beginTransaction()
                 .replace(R.id.container, MainFragment.newInstance())
                 .addToBackStack(null)
@@ -348,6 +350,7 @@ class PlayFragment : Fragment() {
         }
 
         btnBackCategory.setOnClickListener{
+            (activity as MainActivity).playButtonClickSound()
             hideEverything()
             //txtViewSubCategories.text = "Choose a Subcategory!"
             showCategories()
@@ -356,6 +359,7 @@ class PlayFragment : Fragment() {
         }
 
         backButton.setOnClickListener {
+            (activity as MainActivity).playButtonClickSound()
             parentFragmentManager.beginTransaction()
                 .replace(R.id.container, MainFragment.newInstance())
                 .addToBackStack(null)
@@ -363,6 +367,7 @@ class PlayFragment : Fragment() {
         }
 
         btnStartGame.setOnClickListener{
+            (activity as MainActivity).playButtonClickSound()
             hideEverything()
             when(txtViewSubCategories.text){
                 "Trivia" -> {
@@ -444,6 +449,7 @@ class PlayFragment : Fragment() {
 
 
         btnGoToChooseSubCategory.setOnClickListener{
+            (activity as MainActivity).playButtonClickSound()
             hideEverything()
             when(txtChosenCategory.text) {
                 "General Knowledge" -> {

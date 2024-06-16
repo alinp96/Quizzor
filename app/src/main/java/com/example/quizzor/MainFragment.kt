@@ -31,6 +31,7 @@ class MainFragment : Fragment() {
     ): View? {
 
         val view = inflater.inflate(R.layout.fragment_main, container, false)
+        (activity as MainActivity).switchToGeneralMusic()
         var backButton: Button = view.findViewById<Button>(R.id.backButton)
         val btnPlay = view.findViewById<ImageButton>(R.id.btnPlay)
         txtWelcome = view.findViewById<TextView>(R.id.textViewWelcomeText)

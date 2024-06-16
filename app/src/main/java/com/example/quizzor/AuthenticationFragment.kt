@@ -52,6 +52,7 @@ class AuthenticationFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_authentication, container, false)
+        (activity as MainActivity).switchToGeneralMusic()
         val activity = activity as? MainActivity
         val userManager: UserManagement = activity?.getUserManagement() ?: throw IllegalStateException("MainActivity expected")
         sharedPreferences = requireActivity().getSharedPreferences("userPreferences", Context.MODE_PRIVATE)
@@ -81,22 +82,27 @@ class AuthenticationFragment : Fragment() {
         loadUIText(language)
 
         imgBtnRegister.setOnClickListener{
+            (activity as MainActivity).playButtonClickSound()
             showRegisterForm()
         }
 
         imgBtnLogin.setOnClickListener{
+            (activity as MainActivity).playButtonClickSound()
             showLoginForm()
         }
 
         buttonRegisterBack.setOnClickListener{
+            (activity as MainActivity).playButtonClickSound()
             hideRegisterForm()
         }
 
         buttonLoginBack.setOnClickListener {
+            (activity as MainActivity).playButtonClickSound()
             hideLoginForm()
         }
 
         buttonLogin.setOnClickListener {
+            (activity as MainActivity).playButtonClickSound()
             if (editTextLoginUsername.text.toString() != "" && editTextLoginPassword.text.toString() != ""){
                 userManager.signIn(editTextLoginUsername.text.toString(), editTextLoginPassword.text.toString()) { callback, test ->
                     if (test != null) {
@@ -111,6 +117,7 @@ class AuthenticationFragment : Fragment() {
         }
 
         buttonRegister.setOnClickListener {
+            (activity as MainActivity).playButtonClickSound()
             if (registerFormFilled()){
                 if(registerPasswordCheck()){
                     registerUser(userManager, editTextRegisterNickname.text.toString(), editTextRegisterUsername.text.toString(),editTextRegisterPassword.text.toString())

@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Resources
+import android.media.MediaPlayer
+import android.media.SoundPool
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -17,12 +19,44 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var userManagement: UserManagement
+    private lateinit var generalMediaPlayer: MediaPlayer
+    private lateinit var specificMediaPlayer: MediaPlayer
+    private var isGeneralPlaying = true
+    private lateinit var soundPool: SoundPool
+    private var soundIdButtonClick: Int = 0
+    private var soundIdCorrectAnswer: Int = 0
+    private var soundIdWrongAnswer: Int = 0
+    private var soundIdQuizCompleted: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         userManagement = UserManagement()
 
         bottomNavigationView.visibility = View.GONE
+
+        sharedPreferences = getSharedPreferences("userPreferences", Context.MODE_PRIVATE)
+        val isSoundOn = sharedPreferences.getBoolean("sound", true)
+
+        generalMediaPlayer = MediaPlayer.create(this, R.raw.general_background_music)
+        generalMediaPlayer.isLooping = true
+        specificMediaPlayer = MediaPlayer.create(this, R.raw.specific_background_music)
+        specificMediaPlayer.isLooping = true
+
+        if (isSoundOn) {
+            generalMediaPlayer.start()
+        }
+
+        // Initialize SoundPool
+        soundPool = SoundPool.Builder()
+            .setMaxStreams(5)
+            .build()
+
+        // Load sound effects
+        soundIdButtonClick = soundPool.load(this, R.raw.button_click, 1)
+        soundIdCorrectAnswer = soundPool.load(this, R.raw.correct_answer, 1)
+        soundIdWrongAnswer = soundPool.load(this, R.raw.wrong_answer, 1)
+        soundIdQuizCompleted = soundPool.load(this, R.raw.quiz_completed, 1)
+
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.mainFragment -> {
@@ -58,7 +92,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Initialize shared preferences
-        sharedPreferences = getSharedPreferences("userPreferences", Context.MODE_PRIVATE)
+       // sharedPreferences = getSharedPreferences("userPreferences", Context.MODE_PRIVATE)
         val isInitDone = sharedPreferences.getBoolean("isInitDone", false)
 
         if (!isInitDone) {
@@ -73,9 +107,81 @@ class MainActivity : AppCompatActivity() {
                 .commitNow()
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        generalMediaPlayer.release()
+        specificMediaPlayer.release()
+    }
+
+    fun toggleBackgroundMusic(isSoundOn: Boolean) {
+        if (isSoundOn) {
+            saveBoolToSharedPreferences("sound", true)
+            if (isGeneralPlaying) {
+                generalMediaPlayer.start()
+            } else {
+                specificMediaPlayer.start()
+            }
+        } else {
+            saveBoolToSharedPreferences("sound", false)
+            generalMediaPlayer.pause()
+            specificMediaPlayer.pause()
+        }
+    }
+
+    fun switchToGeneralMusic() {
+        if (!isGeneralPlaying) {
+            specificMediaPlayer.pause()
+            if (sharedPreferences.getBoolean("sound", true)) {
+                generalMediaPlayer.start()
+            }
+            isGeneralPlaying = true
+        }
+    }
+
+    fun switchToSpecificMusic() {
+        if (isGeneralPlaying) {
+            generalMediaPlayer.pause()
+            if (sharedPreferences.getBoolean("sound", true)) {
+                specificMediaPlayer.start()
+            }
+            isGeneralPlaying = false
+        }
+    }
+
+    fun playButtonClickSound() {
+        if (sharedPreferences.getBoolean("sound", true)) {
+            soundPool.play(soundIdButtonClick, 1f, 1f, 1, 0, 1f)
+        }
+    }
+
+    fun playCorrectAnswerSound() {
+        if (sharedPreferences.getBoolean("sound", true)) {
+            soundPool.play(soundIdCorrectAnswer, 1f, 1f, 1, 0, 1f)
+        }
+    }
+
+    fun playWrongAnswerSound() {
+        if (sharedPreferences.getBoolean("sound", true)) {
+            soundPool.play(soundIdWrongAnswer, 1f, 1f, 1, 0, 1f)
+        }
+    }
+
+    fun playQuizCompletedSound() {
+        if (sharedPreferences.getBoolean("sound", true)) {
+            soundPool.play(soundIdQuizCompleted, 1f, 1f, 1, 0, 1f)
+        }
+    }
+
     private fun saveDataToSharedPreferences(key: String, value: String) {
         val editor = sharedPreferences.edit()
         editor.putString(key, value)
+        editor.apply()
+    }
+
+    private fun saveBoolToSharedPreferences(key: String, value: Boolean) {
+        val editor = sharedPreferences.edit()
+        editor.putBoolean(key, value)
         editor.apply()
     }
 

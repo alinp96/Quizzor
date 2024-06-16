@@ -55,6 +55,7 @@ class ProfileFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
+        (activity as MainActivity).switchToGeneralMusic()
         val activity = activity as? MainActivity
         userManager = activity?.getUserManagement() ?: throw IllegalStateException("MainActivity expected")
         sharedPreferences = requireActivity().getSharedPreferences("userPreferences", Context.MODE_PRIVATE)
@@ -96,26 +97,32 @@ class ProfileFragment : Fragment() {
         }*/
 
         backButton.setOnClickListener {
+            (activity as MainActivity).playButtonClickSound()
             showMainProfilePage()
         }
 
         btnChangeNickname.setOnClickListener {
+            (activity as MainActivity).playButtonClickSound()
             showChangeNicknameForm()
         }
 
         btnChangePassword.setOnClickListener {
+            (activity as MainActivity).playButtonClickSound()
             showChangePasswordForm()
         }
 
         btnResetScore.setOnClickListener {
+            (activity as MainActivity).playButtonClickSound()
             resetScore()
         }
 
         btnResetNickname.setOnClickListener {
+            (activity as MainActivity).playButtonClickSound()
             resetNickname()
         }
 
         btnResetPassword.setOnClickListener{
+            (activity as MainActivity).playButtonClickSound()
             resetPassword()
         }
 
